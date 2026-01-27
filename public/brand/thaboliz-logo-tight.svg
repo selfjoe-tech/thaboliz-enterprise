@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-label="Thaboliz Enterprise logo" preserveAspectRatio="xMidYMid meet">
+  <g>
+  <polygon points="80.00,50.00 173.00,50.00 173.00,143.00" fill="#ffffff"/>
+    <polygon points="187.00,50.00 280.00,50.00 280.00,143.00" fill="#ffffff"/>
+    <polygon points="80.00,157.00 173.00,157.00 173.00,250.00" fill="#ffffff"/>
+    <polygon points="187.00,157.00 280.00,157.00 280.00,250.00" fill="#ffffff"/>
+  <text x="350" y="140.00" fill="#ffffff" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-weight="800" font-size="120" letter-spacing="0.02em">
+    THABOLIZ
+  </text>
+  <text x="350" y="254.00" fill="#ffffff" font-family="Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif" font-weight="800" font-size="110" letter-spacing="0.02em">
+    ENTERPRISE
+  </text>
+</g>
+</svg>
