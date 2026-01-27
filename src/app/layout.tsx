@@ -1,13 +1,16 @@
 import SiteHeader from "@/components/sections/SiteHeader";
 import "./globals.css";
 import TopLoader from "@/components/TopLoader";
+import { Suspense } from "react";
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="min-h-screen bg-background text-foreground">
-        <TopLoader />
+        <Suspense >
+                  <TopLoader />
+        </Suspense>
               <SiteHeader />
 
         {/* Site-wide gradient backdrop */}
