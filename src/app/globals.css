@@ -294,6 +294,10 @@
     border-color: rgba(255,255,255,0.18);
   }
 
+  .text-brand-gradient {
+    @apply bg-gradient-to-r from-sky-300 via-indigo-300 to-amber-200 bg-clip-text text-transparent;
+  }
+
 
 
   @media (prefers-reduced-motion: reduce) {

@@ -2,6 +2,7 @@ import SiteHeader from "@/components/sections/SiteHeader";
 import "./globals.css";
 import TopLoader from "@/components/TopLoader";
 import { Suspense } from "react";
+import SiteFooter from "@/components/sections/SiteFooter";
 
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -18,6 +19,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Optional vignette for depth */}
         <div className="fixed inset-0 -z-10 pointer-events-none bg-gradient-to-b from-black/0 via-black/35 to-black/85" />
         {children}
+              <SiteFooter />
+
+
       </body>
     </html>
   );
