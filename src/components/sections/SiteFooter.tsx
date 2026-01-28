@@ -86,7 +86,6 @@ export default function SiteFooter() {
   const companyLinks = [
     { label: "About us", href: "/about" },
     { label: "Services", href: "/services" },
-    { label: "Divisions", href: "/divisions" },
     { label: "Contact", href: "/#contact" },
   ];
 
@@ -104,7 +103,7 @@ export default function SiteFooter() {
               <ThabolizLogo />
             </Link>
 
-            <p className="mt-4 text-sm leading-relaxed text-white/65">
+            <p className="mt-4 text-md leading-relaxed text-white/65">
               We deliver across essential industries, combining on-the-ground execution
               with modern systems to build solutions that last.
             </p>
