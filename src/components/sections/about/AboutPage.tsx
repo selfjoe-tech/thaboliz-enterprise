@@ -17,6 +17,8 @@ import {
   Flame,
   Wind,
   Microscope,
+  Link2,
+  LinkIcon,
 } from "lucide-react";
 
 type Stat = { value: string; label: string };
@@ -177,29 +179,35 @@ export default function AboutPage() {
       </section>
 
       {/* QUICK NAV */}
-      <section className="py-8">
-        <div className="mx-auto max-w-6xl px-4">
-          <Reveal className="flex flex-wrap items-center gap-3 text-md text-white/170">
-            {[
-              ["Overview", "#overview"],
-              ["Vision", "#vision"],
-              ["Mission", "#mission"],
-              ["How we work", "#how-we-work"],
-              ["What makes us different", "#different"],
-              ["Values", "#values"],
-              ["Partnerships", "#partnerships"],
-            ].map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className="rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 hover:bg-white/5 hover:text-white transition"
-              >
-                {label}
-              </Link>
-            ))}
-          </Reveal>
-        </div>
-      </section>
+      <section className="sticky top-0 z-40 backdrop-blur">
+  <div className="mx-auto max-w-6xl px-4 py-3">
+    <Reveal className="flex flex-wrap items-center gap-3 text-md text-white/170">
+      <span className="inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+        <LinkIcon />
+        Quick links
+      </span>
+
+      {[
+        ["Overview", "#overview"],
+        ["Vision", "#vision"],
+        ["Mission", "#mission"],
+        ["How we work", "#how-we-work"],
+        ["What makes us different", "#different"],
+        ["Values", "#values"],
+        ["Partnerships", "#partnerships"],
+      ].map(([label, href]) => (
+        <Link
+          key={href}
+          href={href}
+          className="rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white transition"
+        >
+          {label}
+        </Link>
+      ))}
+    </Reveal>
+  </div>
+</section>
+
 
       {/* OVERVIEW */}
       <Section
@@ -483,7 +491,6 @@ export default function AboutPage() {
                   variant="outline"
                   className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
                 >
-                  <Link href="/divisions">Explore divisions</Link>
                 </Button>
               </div>
             </div>
