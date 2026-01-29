@@ -1,9 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/motion/Reveal";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import React from "react";
+
 import {
   ShieldCheck,
   ClipboardList,
@@ -65,24 +70,59 @@ function Section({
 function SoftCard({
   children,
   className = "",
+  size = "md",
+  bgSrc,
+  bgAlt = "",
+  bgOpacity = 0.35, // image strength
+  overlay = true,   // add dark overlay for readability
 }: {
   children: React.ReactNode;
   className?: string;
+  size?: "sm" | "md" | "lg";
+  bgSrc?: string;
+  bgAlt?: string;
+  bgOpacity?: number;
+  overlay?: boolean;
 }) {
-  // border glow only (no “whole card glow” background changes)
+  const pad =
+    size === "sm" ? "p-4" : size === "lg" ? "p-8 sm:p-10" : "p-6";
+
   return (
     <div
       className={[
-        "rounded-none border border-white/10 bg-white/[0.02] p-6 bg-blue-500",
-        "transition-transform duration-200 hover:-translate-y-[1px]",
-        "hover:shadow-[0_0_0_1px_rgba(56,189,248,.38),0_0_28px_rgba(99,102,241,.14)]",
+        "group relative overflow-hidden rounded-none",
+        "border border-white/10",
+        "bg-black/30",
+        "transition-transform duration-200 hover:-translate-y-[2px]",
+        "hover:shadow-[0_0_0_1px_rgba(255,255,255,.14),0_18px_60px_rgba(0,0,0,.55)]",
+        pad,
         className,
       ].join(" ")}
     >
-      {children}
+      {/* Background image */}
+      {bgSrc ? (
+        <div className="pointer-events-none absolute inset-0">
+          <Image
+            src={bgSrc}
+            alt={bgAlt}
+            fill
+            className="object-cover"
+            style={{ opacity: bgOpacity }}
+            priority={false}
+          />
+          {/* optional contrast overlay */}
+          
+          {/* soft sheen */}
+          <div className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,.22),transparent_55%)]" />
+        </div>
+      ) : null}
+
+      {/* Content */}
+      <div className="relative">{children}</div>
     </div>
   );
 }
+
 
 function MediaSlot({
   label = "Illustration / image slot",
@@ -125,12 +165,27 @@ export default function AboutPage() {
   ];
 
   const values: ValueCard[] = [
-    { title: "Integrity", desc: "Do the right work, the right way.", icon: <ShieldCheck className="h-4 w-4" /> },
-    { title: "Safety", desc: "Protect people, sites, and communities.", icon: <HardHat className="h-4 w-4" /> },
-    { title: "Craftsmanship", desc: "Build and operate to last.", icon: <ClipboardList className="h-4 w-4" /> },
-    { title: "Continuous improvement", desc: "Measure, learn, refine.", icon: <BarChart3 className="h-4 w-4" /> },
-    { title: "Respect", desc: "For people and the environment.", icon: <Leaf className="h-4 w-4" /> },
-    { title: "Partnership", desc: "Specialists + shared outcomes.", icon: <Handshake className="h-4 w-4" /> },
+    { title: "Integrity", desc: "Do the right work, the right way.", 
+      icon: <ShieldCheck className="h-4 w-4" />, 
+      img: "/illustrations/gradient-6.avif"
+
+     },
+    { title: "Safety", desc: "Protect people, sites, and communities.", icon: <HardHat className="h-4 w-4" /> 
+       ,img: "/illustrations/gradient-7.avif"
+
+    },
+    { title: "Craftsmanship", desc: "Build and operate to last.", icon: <ClipboardList className="h-4 w-4" /> 
+      ,img: "/illustrations/gradient-8.avif"
+    },
+    { title: "Continuous improvement", desc: "Measure, learn, refine.", icon: <BarChart3 className="h-4 w-4" /> 
+      ,img: "/illustrations/gradient-9.avif"
+    },
+    { title: "Respect", desc: "For people and the environment.", icon: <Leaf className="h-4 w-4" /> 
+      ,img: "/illustrations/gradient-6.avif"
+    },
+    { title: "Partnership", desc: "Specialists + shared outcomes.", icon: <Handshake className="h-4 w-4" /> 
+      ,img: "/illustrations/gradient-6.avif"
+    },
   ];
 
   return (
@@ -233,11 +288,11 @@ export default function AboutPage() {
 >
   <div className="flex flex-col w-full gap-15">
 
-    <div className="flex w-full">
+    <div className="flex w-full gap-3">
 <Reveal>
-      <SoftCard className="h-full">
+      <SoftCard className="h-full" bgSrc={"/illustrations/gradient-1.avif"}>
         <div id="vision" className="scroll-mt-24" />
-        <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
+        <div className="text-xl font-semibold uppercase tracking-[0.22em] text-white/500">
           Vision
         </div>
         <p className="mt-3 text-md leading-relaxed text-white/75">
@@ -249,9 +304,9 @@ export default function AboutPage() {
     </Reveal>
 
     <Reveal delayMs={120}>
-      <SoftCard className="h-full">
+      <SoftCard className="h-full" bgSrc={"/illustrations/gradient-2.avif"}>
         <div id="mission" className="scroll-mt-24" />
-        <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
+        <div className="text-xl font-semibold uppercase tracking-[0.22em] text-white/500">
           Mission
         </div>
         <p className="mt-3 text-md leading-relaxed text-white/75">
@@ -264,11 +319,7 @@ export default function AboutPage() {
     </div>
     
 
-    <Reveal delayMs={180} className="h-full">
-      <div className="h-full">
-        <MediaSlot label="Direction image slot" src="/illustrations/vision.png" />
-      </div>
-    </Reveal>
+    
   </div>
 </Section>
 
@@ -354,18 +405,23 @@ export default function AboutPage() {
             {
               title: "Integrated capabilities",
               desc: "Deliver more under one umbrella, with fewer handovers and tighter coordination.",
+              img: "/illustrations/gradinet-6.avif"
             },
             {
               title: "Technology embedded",
               desc: "Tracking, reporting, monitoring, and analytics designed into delivery.",
+              img: "/illustrations/gradinet-7.avif"
+
             },
             {
               title: "Risk-managed execution",
               desc: "Controls and compliance appropriate to each sector, without slowing delivery.",
+              img: "/illustrations/gradinet-8.avif"
+
             },
           ].map((c, i) => (
             <Reveal key={c.title} delayMs={i * 80}>
-              <SoftCard className="h-full">
+              <SoftCard className="h-full" bgSrc={"/illustrations/gradient-3.avif"}> 
                 <div className="text-md font-semibold text-white">{c.title}</div>
                 <p className="mt-2 text-xs leading-relaxed text-white/165">{c.desc}</p>
               </SoftCard>
@@ -381,24 +437,9 @@ export default function AboutPage() {
         title="How we show up"
         subtitle="Integrity, safety, craftsmanship, continuous improvement, and respect for communities and the environment."
       >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {values.map((v, i) => (
-            <Reveal key={v.title} delayMs={i * 50}>
-              <SoftCard className="p-5">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/185">
-                    {v.icon}
-                  </span>
-                  <div>
-                    <div className="text-md font-semibold text-white">{v.title}</div>
-                    <div className="mt-1 text-xs leading-relaxed text-white/165">{v.desc}</div>
-                  </div>
-                </div>
-              </SoftCard>
-            </Reveal>
-          ))}
-        </div>
+        <ValuesCarousel values={values} />
       </Section>
+
 
       {/* PARTNERSHIPS */}
       <Section
@@ -441,23 +482,20 @@ export default function AboutPage() {
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <div className="rounded-none border border-white/10 bg-white/[0.02] p-8 sm:p-10">
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/150">
-                Call to action
-              </div>
-
+              
               <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
                 If you have a project, operational challenge, or tender opportunity,{" "}
                 <span className="text-brand-gradient">let’s scope it properly</span>.
               </h3>
 
-              <p className="mt-3 max-w-2xl text-md leading-relaxed text-white/170">
+              <p className="mt-3 max-w-2xl text-lg leading-relaxed text-white/170">
                 Contact us for a scoped proposal and delivery plan with clear milestones,
                 governance, and outcomes.
               </p>
 
               <div className="mt-7 flex flex-wrap gap-3">
                 <Button asChild className="rounded-none">
-                  <Link href="/#contact">Contact Thaboliz</Link>
+                  <Link href="/#contact">Contact us</Link>
                 </Button>
                 <Button
                   asChild
@@ -471,5 +509,73 @@ export default function AboutPage() {
         </div>
       </section>
     </main>
+  );
+}
+
+
+
+function ValuesCarousel({ values }: { values: ValueCard[] }) {
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "start",
+    containScroll: "trimSnaps",
+    slidesToScroll: 1, // move 1 at a time
+    dragFree: false,
+  });
+
+  const scrollPrev = React.useCallback(() => emblaApi?.scrollPrev(), [emblaApi]);
+  const scrollNext = React.useCallback(() => emblaApi?.scrollNext(), [emblaApi]);
+
+  return (
+    <div className="relative">
+      {/* arrows */}
+      <button
+        type="button"
+        onClick={scrollPrev}
+        className="absolute -left-2 top-1/2 z-10 -translate-y-1/2 rounded-none border border-white/10 bg-black/60 p-2 text-white/80 backdrop-blur hover:bg-black/80 hover:text-white"
+        aria-label="Previous"
+      >
+        <ChevronLeft className="h-5 w-5" />
+      </button>
+
+      <button
+        type="button"
+        onClick={scrollNext}
+        className="absolute -right-2 top-1/2 z-10 -translate-y-1/2 rounded-none border border-white/10 bg-black/60 p-2 text-white/80 backdrop-blur hover:bg-black/80 hover:text-white"
+        aria-label="Next"
+      >
+        <ChevronRight className="h-5 w-5" />
+      </button>
+
+      {/* viewport */}
+      <div ref={emblaRef} className="overflow-hidden">
+        <div className="flex -ml-4">
+          {values.map((v, i) => (
+            <div
+              key={v.title}
+              className="
+                pl-4
+                flex-[0_0_100%]
+                sm:flex-[0_0_50%]
+                lg:flex-[0_0_25%]
+              "
+            >
+              <Reveal delayMs={i * 50}>
+                <SoftCard className="h-70 p-5" bgSrc={v.img}>
+                  <div className="flex items-start gap-3">
+                    <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/85">
+                      {v.icon}
+                    </span>
+                    <div>
+                      <div className="text-md font-semibold text-white">{v.title}</div>
+                      <div className="mt-1 text-xs leading-relaxed text-white/65">{v.desc}</div>
+                    </div>
+                  </div>
+                </SoftCard>
+              </Reveal>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
