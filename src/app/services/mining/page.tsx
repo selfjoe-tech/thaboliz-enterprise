@@ -6,17 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import {
   Pickaxe,
-  ShieldCheck,
   HardHat,
-  BarChart3,
   ClipboardList,
   Wrench,
   Truck,
   Recycle,
-  FileText,
   Scale,
-  MapPinned,
   ChevronRight,
+  AlertTriangle,
+  BadgeCheck,
+  Activity,
+  ArrowRight,
+  FileText,
+  MapPinned,
 } from "lucide-react";
 
 function Section({
@@ -57,7 +59,8 @@ function Section({
   );
 }
 
-function SoftCard({
+/** Mining-specific card: “ore texture + control-room panel” (still blue) */
+function MineCard({
   children,
   className = "",
   size = "md",
@@ -72,17 +75,25 @@ function SoftCard({
   return (
     <div
       className={[
-        "group relative overflow-hidden rounded-none",
-        "border border-white/10",
+        "group relative overflow-hidden rounded-2xl",
+        "border border-white/10 bg-white/[0.03]",
         "transition-transform duration-200 hover:-translate-y-[2px]",
-        "hover:shadow-[0_0_0_1px_rgba(255,255,255,.14),0_18px_60px_rgba(0,0,0,.55)]",
+        "hover:shadow-[0_0_0_1px_rgba(120,190,255,.20),0_18px_60px_rgba(0,0,0,.55)]",
         pad,
         className,
       ].join(" ")}
     >
-      {/* Blue theme */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#9cecfb_0%,#65c7f7_45%,#0052d4_100%)] opacity-[0.55]" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/70" />
+      {/* Blue base */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.55] bg-[linear-gradient(90deg,rgba(0,82,212,.38)_0%,rgba(101,199,247,.18)_55%,rgba(0,195,255,.16)_100%)]" />
+
+      {/* “Ore” grain texture */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.18] bg-[radial-gradient(circle_at_20%_10%,rgba(255,255,255,.25),transparent_45%),radial-gradient(circle_at_80%_70%,rgba(255,255,255,.18),transparent_55%)]" />
+      <div className="pointer-events-none absolute inset-0 opacity-[0.10] bg-[repeating-linear-gradient(135deg,rgba(255,255,255,.25)_0px,rgba(255,255,255,.25)_1px,transparent_1px,transparent_10px)]" />
+
+      {/* Readability */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/35 via-black/58 to-black/78" />
+
+      {/* Hover sheen */}
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,.22),transparent_55%)]" />
 
       <div className="relative">{children}</div>
@@ -98,27 +109,75 @@ function MediaSlot({
   src?: string;
 }) {
   return (
-    <div className="relative min-h-[420px] overflow-hidden rounded-[10px] ">
-      {src ? (
-        <Image src={src} alt={label} fill className="object-cover" />
-      ) : (
-        <div className="absolute inset-0 grid place-items-center p-6">
-          <div className="text-center">
-            <div className="text-sm font-semibold text-white/80">{label}</div>
-            <div className="mt-1 text-xs text-white/50">
-              Replace with a real image later (keeps layout stable now).
+    <div className="relative overflow-hidden rounded-2xl border border-white/10">
+      <div className="relative aspect-[16/11] w-full">
+        {src ? (
+          <Image src={src} alt={label} fill className="object-cover" />
+        ) : (
+          <div className="absolute inset-0 grid place-items-center p-6">
+            <div className="text-center">
+              <div className="text-sm font-semibold text-white/80">{label}</div>
+              <div className="mt-1 text-xs text-white/50">
+                Replace with a real image later (keeps layout stable now).
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+
+        {/* hazard stripe accent */}
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-10 opacity-[0.22] bg-[repeating-linear-gradient(135deg,rgba(255,255,255,.8)_0px,rgba(255,255,255,.8)_8px,transparent_8px,transparent_18px)]" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/65" />
+      </div>
+    </div>
+  );
+}
+
+function StickyQuickLinks({ items }: { items: Array<[string, string]> }) {
+  return (
+    <section className="sticky top-0 z-40 border-b border-white/10 bg-black/70 backdrop-blur supports-[backdrop-filter]:bg-black/50">
+      <div className="mx-auto max-w-6xl px-4 py-3">
+        <Reveal className="flex flex-wrap items-center gap-2">
+          <span className="mr-1 inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+            Quick links
+          </span>
+          {items.map(([label, href]) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white transition"
+            >
+              {label}
+            </Link>
+          ))}
+        </Reveal>
+      </div>
+    </section>
+  );
+}
+
+function StatusChip({
+  icon,
+  label,
+  value,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  value: string;
+}) {
+  return (
+    <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
+      <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-white/55">
+        <span className="text-white/65">{icon}</span>
+        {label}
+      </div>
+      <div className="mt-1 text-sm font-semibold text-white">{value}</div>
     </div>
   );
 }
 
 export default function MiningServicePage() {
   const quickLinks: Array<[string, string]> = [
-    ["Positioning", "#positioning"],
-    ["Vision", "#vision"],
+    ["Overview", "#overview"],
     ["What we do", "#what-we-do"],
     ["Safety", "#safety"],
     ["Permitting", "#permitting"],
@@ -129,28 +188,34 @@ export default function MiningServicePage() {
       icon: <ClipboardList className="h-4 w-4" />,
       title: "Site establishment and operational support",
       desc: "Set up and support site operations with disciplined controls and visibility.",
+      tag: "Site support",
     },
     {
       icon: <Wrench className="h-4 w-4" />,
       title: "Maintenance planning and shutdown support",
       desc: "Plan maintenance work and support shutdown windows to reduce downtime surprises.",
+      tag: "Shutdown windows",
     },
     {
       icon: <Truck className="h-4 w-4" />,
       title: "Materials handling support (where contracted)",
       desc: "Support handling and movement processes within defined scope and contract terms.",
+      tag: "Handling",
     },
     {
       icon: <Recycle className="h-4 w-4" />,
       title: "Rehabilitation and closure-aligned support (where required)",
       desc: "Support rehabilitation activities aligned to closure readiness and site requirements.",
+      tag: "Rehab-ready",
     },
   ];
 
   return (
     <main className="site-bg">
-      {/* HERO */}
+      {/* HERO (control-room vibe) */}
       <section className="relative overflow-hidden pt-14 sm:pt-18">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.14] bg-[radial-gradient(circle_at_15%_20%,rgba(0,195,255,.30),transparent_55%),radial-gradient(circle_at_85%_15%,rgba(0,82,212,.32),transparent_55%)]" />
+
         <div className="mx-auto max-w-6xl px-4">
           <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
             <Link href="/services" className="hover:text-white transition">
@@ -160,55 +225,90 @@ export default function MiningServicePage() {
             <span className="text-white/80">Mining</span>
           </Reveal>
 
-          <div className="mt-6 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
             <div className="relative z-10">
               <Reveal>
-                <div className="inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-white/70">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-white/70">
                   <Pickaxe className="h-4 w-4 text-white/80" />
                   Mining services
                 </div>
 
                 <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                  Responsible mining support with{" "}
-                  <span className="text-brand-gradient">safety-led execution</span>
+                  Site support built around{" "}
+                  <span className="text-brand-gradient">safety, uptime, and control</span>
                 </h1>
 
                 <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 sm:text-[15px]">
-                  We support mining operations through disciplined project delivery, safety-led site
-                  practices, and operational support that improves uptime and output predictability.
+                  We support responsible mining operations through disciplined delivery, safety-led
+                  site practices, and operational support designed to improve predictability.
                 </p>
 
                 <div className="mt-7 flex flex-wrap gap-3">
                   <Button asChild className="rounded-none">
-                    <Link href="/#contact">Discuss a mining scope</Link>
+                    <Link href="/#contact">Contact Us</Link>
                   </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
-                  >
-                    <Link href="/services">View all services</Link>
-                  </Button>
+                  
                 </div>
               </Reveal>
 
-              <Reveal delayMs={120} className="mt-10 grid gap-3 sm:grid-cols-2">
-                {[
-                  { value: "Safety-led", label: "Controls first, always" },
-                  { value: "Uptime focus", label: "Maintenance and shutdown discipline" },
-                  { value: "Operational support", label: "Site services where contracted" },
-                  { value: "Regulatory-aware", label: "Plan within the permitting landscape" },
-                ].map((s) => (
-                  <SoftCard key={s.label} size="sm">
-                    <div className="text-sm font-semibold text-white">{s.value}</div>
-                    <div className="mt-1 text-xs text-white/70">{s.label}</div>
-                  </SoftCard>
-                ))}
+              {/* Shift panel (unique element vs other pages) */}
+              <Reveal delayMs={140} className="mt-10">
+                <MineCard className="p-5">
+                  <div className="flex flex-wrap items-start justify-between gap-4">
+                    <div>
+                      <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
+                        Shift panel
+                      </div>
+                      <div className="mt-2 text-sm font-semibold text-white">
+                        Controls-first site support
+                      </div>
+                      <div className="mt-1 text-xs text-white/70">
+                        Disciplined work packaging, checks, and documentation that hold up on site.
+                      </div>
+                    </div>
+
+                    
+                  </div>
+
+                  <div className="mt-4 grid gap-2 sm:grid-cols-4">
+                    <StatusChip icon={<HardHat className="h-4 w-4" />} label="Safety" value="Strict" />
+                    <StatusChip icon={<Activity className="h-4 w-4" />} label="Uptime" value="Priority" />
+                    <StatusChip icon={<FileText className="h-4 w-4" />} label="Docs" value="Ready" />
+                    <StatusChip icon={<MapPinned className="h-4 w-4" />} label="Site" value="Aligned" />
+                  </div>
+                </MineCard>
               </Reveal>
             </div>
 
             <Reveal delayMs={160}>
-              <MediaSlot label="Mining hero image" src="/illustrations/mining-1.png" />
+              <div className="grid gap-4">
+                <MediaSlot label="Mining hero image" src="/illustrations/mining-1.png" />
+
+                <MineCard className="p-5">
+                  <div className="flex items-start gap-3">
+                    <span className="grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
+                      <AlertTriangle className="h-5 w-5" />
+                    </span>
+                    <div className="min-w-0">
+                      <div className="text-sm font-semibold text-white">Controls before speed</div>
+                      <div className="mt-1 text-xs leading-relaxed text-white/70">
+                        We prioritize safe execution and predictable outcomes over rushed activity.
+                      </div>
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {["Risk controls", "Permit-to-work", "Checks", "Clear scope"].map((x) => (
+                          <Badge
+                            key={x}
+                            variant="outline"
+                            className="rounded-none border-white/15 text-white/80"
+                          >
+                            {x}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+                </MineCard>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -219,37 +319,18 @@ export default function MiningServicePage() {
       </section>
 
       {/* STICKY QUICK LINKS */}
-      <section className="sticky top-0 z-40 border-b border-white/10 bg-black/70 backdrop-blur supports-[backdrop-filter]:bg-black/50">
-        <div className="mx-auto max-w-6xl px-4 py-3">
-          <Reveal className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
-              <span className="inline-block h-1.5 w-1.5 rounded-full bg-white/60" />
-              Quick links
-            </span>
 
-            {quickLinks.map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className="rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white transition"
-              >
-                {label}
-              </Link>
-            ))}
-          </Reveal>
-        </div>
-      </section>
-
-      {/* POSITIONING + VISION */}
+      {/* OVERVIEW */}
       <Section
+        id="overview"
         eyebrow="Overview"
         title="Positioning and vision"
         subtitle="Operational partnership that improves safety, uptime, and predictable output."
       >
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
           <div className="grid gap-6">
             <Reveal>
-              <SoftCard className="h-full">
+              <MineCard className="h-full">
                 <div id="positioning" className="scroll-mt-32" />
                 <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                   Positioning
@@ -258,6 +339,7 @@ export default function MiningServicePage() {
                   We support responsible mining operations through disciplined project delivery,
                   safety-led site practices, and operational support.
                 </p>
+
                 <div className="mt-5 flex flex-wrap gap-2">
                   {["Safety-led", "Disciplined delivery", "Operational support", "Uptime"].map((x) => (
                     <Badge
@@ -269,11 +351,11 @@ export default function MiningServicePage() {
                     </Badge>
                   ))}
                 </div>
-              </SoftCard>
+              </MineCard>
             </Reveal>
 
             <Reveal delayMs={120}>
-              <SoftCard className="h-full">
+              <MineCard className="h-full">
                 <div id="vision" className="scroll-mt-32" />
                 <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                   Vision
@@ -282,64 +364,77 @@ export default function MiningServicePage() {
                   To be a trusted operational partner that improves safety, uptime, and output
                   predictability.
                 </p>
-              </SoftCard>
+              </MineCard>
             </Reveal>
           </div>
 
           <Reveal delayMs={160}>
-            <MediaSlot label="Mining overview image" src="/illustrations/industry.png" />
+            <MediaSlot label="Mining overview image" src="/illustrations/mining-2.png" />
           </Reveal>
         </div>
       </Section>
 
-      {/* WHAT WE DO */}
+      {/* WHAT WE DO (unique: “work packages” layout) */}
       <Section
         id="what-we-do"
         eyebrow="What we do"
         title="Operational support services"
         subtitle="Site support, maintenance discipline, and rehabilitation-aligned assistance where required."
       >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           {whatWeDo.map((x, i) => (
             <Reveal key={x.title} delayMs={i * 70}>
-              <SoftCard className="h-full p-5">
+              <MineCard className="h-full">
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
+                  <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
                     {x.icon}
                   </span>
-                  <div>
-                    <div className="text-sm font-semibold text-white">{x.title}</div>
+
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <div className="text-sm font-semibold text-white">{x.title}</div>
+                      <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-2 py-1 text-[11px] text-white/75">
+                        {x.tag}
+                      </span>
+                    </div>
+
                     <div className="mt-1 text-xs leading-relaxed text-white/70">{x.desc}</div>
+
+                    <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4">
+                      <div className="flex items-center gap-2 text-xs text-white/70">
+                        <ClipboardList className="h-4 w-4 text-white/50" />
+                        Work package + checks
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </SoftCard>
+              </MineCard>
             </Reveal>
           ))}
         </div>
       </Section>
 
-      {/* SAFETY + REGULATORY AWARENESS */}
+      {/* SAFETY */}
       <Section
         id="safety"
         eyebrow="Safety and regulatory awareness"
         title="Controls-first mindset on mining sites"
         subtitle="Mining environments require strict controls and a safe working environment duty mindset."
       >
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
           <Reveal>
-            <SoftCard className="h-full">
+            <MineCard className="h-full">
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
-                  <HardHat className="h-4 w-4" />
+                <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
+                  <HardHat className="h-5 w-5" />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <div className="text-sm font-semibold text-white">
                     Mine Health and Safety Act duty mindset
                   </div>
                   <p className="mt-2 text-xs leading-relaxed text-white/70">
                     Mining environments require strict controls and a safety-first approach. We plan
-                    work with clear responsibilities, documented checks, and practical site discipline
-                    aligned to the Mine Health and Safety Act.
+                    work with clear responsibilities, documented checks, and practical site discipline.
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
@@ -357,37 +452,36 @@ export default function MiningServicePage() {
                   </div>
                 </div>
               </div>
-            </SoftCard>
+            </MineCard>
           </Reveal>
 
           <Reveal delayMs={120}>
-            <MediaSlot label="Safety image" src="/illustrations/working.png" />
+            <MediaSlot label="Safety image" src="/illustrations/mining-3.png" />
           </Reveal>
         </div>
       </Section>
 
-      {/* PERMITTING AWARENESS */}
+      {/* PERMITTING */}
       <Section
         id="permitting"
         eyebrow="Permitting awareness"
         title="Plan within the DMRE rights and permitting landscape"
         subtitle="Project planning respects regulated rights, approvals, and constraints."
       >
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
           <Reveal>
-            <SoftCard className="h-full">
+            <MineCard className="h-full">
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
-                  <Scale className="h-4 w-4" />
+                <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
+                  <Scale className="h-5 w-5" />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <div className="text-sm font-semibold text-white">
-                    DMRE-administered permitting landscape
+                    DMRE-administered rights and permitting awareness
                   </div>
                   <p className="mt-2 text-xs leading-relaxed text-white/70">
-                    Mining activities operate within a regulated rights and permitting environment
-                    administered by the DMRE. We plan delivery with permitting awareness to reduce
-                    risk, delays, and scope conflicts.
+                    Mining activities operate within a regulated rights and permitting environment.
+                    We plan delivery with permitting awareness to reduce delays and scope conflicts.
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
@@ -405,11 +499,11 @@ export default function MiningServicePage() {
                   </div>
                 </div>
               </div>
-            </SoftCard>
+            </MineCard>
           </Reveal>
 
           <Reveal delayMs={120}>
-            <MediaSlot label="Permitting image" src="/illustrations/office.png" />
+            <MediaSlot label="Permitting image" src="/illustrations/mining-4.png" />
           </Reveal>
         </div>
       </Section>
@@ -418,7 +512,7 @@ export default function MiningServicePage() {
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
-            <SoftCard size="lg">
+            <MineCard size="lg">
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                 Next step
               </div>
@@ -436,15 +530,9 @@ export default function MiningServicePage() {
                 <Button asChild className="rounded-none">
                   <Link href="/#contact">Contact Thaboliz</Link>
                 </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
-                >
-                  <Link href="/services">Browse services</Link>
-                </Button>
+                
               </div>
-            </SoftCard>
+            </MineCard>
           </Reveal>
         </div>
       </section>

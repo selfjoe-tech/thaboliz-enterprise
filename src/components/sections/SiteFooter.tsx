@@ -72,15 +72,15 @@ export default function SiteFooter() {
   const year = new Date().getFullYear();
 
   const divisions = [
-    { label: "Construction", href: "/divisions/construction" },
-    { label: "Technologies", href: "/divisions/technologies" },
-    { label: "Mining", href: "/divisions/mining" },
-    { label: "Logistics", href: "/divisions/logistics" },
-    { label: "Organic farms", href: "/divisions/organic-farms" },
-    { label: "Oil & gas", href: "/divisions/oil-and-gas" },
-    { label: "Green energy", href: "/divisions/green-energy" },
-    { label: "Research & innovation", href: "/divisions/research" },
-    { label: "Tenders", href: "/divisions/tenders" },
+    { label: "Construction", href: "/services/construction" },
+    { label: "Technologies", href: "/services/technologies" },
+    { label: "Mining", href: "/services/mining" },
+    { label: "Logistics", href: "/services/logistics" },
+    { label: "Organic farms", href: "/services/organic-farms" },
+    { label: "Oil & gas", href: "/services/oil-and-gas" },
+    { label: "Green energy", href: "/services/green-energy" },
+    { label: "Research & innovation", href: "/services/research" },
+    { label: "Tenders", href: "/services/tenders" },
   ];
 
   const companyLinks = [
@@ -113,7 +113,7 @@ export default function SiteFooter() {
 
           {/* Divisions */}
           <div className="md:col-span-5">
-            <FooterHeading>Divisions</FooterHeading>
+            <FooterHeading>Services</FooterHeading>
 
             <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2">
               {divisions.map((d) => (
@@ -163,6 +163,19 @@ export default function SiteFooter() {
           <div className="text-xs text-white/55">
             © {year} Thaboliz Enterprise. All rights reserved.
           </div>
+          
+          <p className="flex gap-1 text-nowrap text-white/55">
+          Images and illustrations by
+            <Link
+            href={"https://www.freepik.com/"}
+            className="text-blue-500 underline"
+          
+          >
+            Freepik
+
+          </Link>
+          </p>
+          
 
           <div className="flex flex-wrap items-center gap-4 text-xs text-white/60">
             <Link href="/privacy" className="hover:text-white transition">
@@ -173,9 +186,7 @@ export default function SiteFooter() {
               Terms of service
             </Link>
             <span className="text-white/20">•</span>
-            <Link href="/cookies" className="hover:text-white transition">
-              Cookies settings
-            </Link>
+            
           </div>
 
           <div className="flex items-center gap-2">

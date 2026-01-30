@@ -16,6 +16,7 @@ import {
   FileText,
   BadgeCheck,
   ChevronRight,
+  ArrowRight,
 } from "lucide-react";
 
 function Section({
@@ -56,7 +57,8 @@ function Section({
   );
 }
 
-function SoftCard({
+/** Logistics gets a “route + tracking” card (dotted map + lane marks) */
+function LogisticsCard({
   children,
   className = "",
   size = "md",
@@ -71,17 +73,27 @@ function SoftCard({
   return (
     <div
       className={[
-        "group relative overflow-hidden rounded-none",
-        "border border-white/10",
+        "group relative overflow-hidden rounded-2xl",
+        "border border-white/10 bg-white/[0.03]",
         "transition-transform duration-200 hover:-translate-y-[2px]",
-        "hover:shadow-[0_0_0_1px_rgba(255,255,255,.14),0_18px_60px_rgba(0,0,0,.55)]",
+        "hover:shadow-[0_0_0_1px_rgba(120,190,255,.22),0_18px_60px_rgba(0,0,0,.55)]",
         pad,
         className,
       ].join(" ")}
     >
-      {/* Blue theme */}
-      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(90deg,#9cecfb_0%,#65c7f7_45%,#0052d4_100%)] opacity-[0.55]" />
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/45 via-black/55 to-black/70" />
+      {/* blue wash (still “blue cards”), but different pattern from construction */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.55] bg-[linear-gradient(90deg,rgba(0,82,212,.40)_0%,rgba(101,199,247,.22)_55%,rgba(0,195,255,.18)_100%)]" />
+
+      {/* dotted “map” texture */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.18] bg-[radial-gradient(circle,rgba(255,255,255,.22)_1px,transparent_1px)] bg-[size:18px_18px]" />
+
+      {/* lane marks */}
+      <div className="pointer-events-none absolute -left-10 top-1/2 h-[220%] w-[120px] -translate-y-1/2 rotate-12 opacity-[0.20] bg-[repeating-linear-gradient(to_bottom,rgba(255,255,255,.7)_0px,rgba(255,255,255,.7)_10px,transparent_10px,transparent_22px)]" />
+
+      {/* readability */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/35 via-black/55 to-black/75" />
+
+      {/* hover sheen */}
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,.22),transparent_55%)]" />
 
       <div className="relative">{children}</div>
@@ -97,27 +109,38 @@ function MediaSlot({
   src?: string;
 }) {
   return (
-    <div className="relative min-h-[420px] overflow-hidden rounded-[10px]">
-      {src ? (
-        <Image src={src} alt={label} fill className="object-cover" />
-      ) : (
-        <div className="absolute inset-0 grid place-items-center p-6">
-          <div className="text-center">
-            <div className="text-sm font-semibold text-white/80">{label}</div>
-            <div className="mt-1 text-xs text-white/50">
-              Replace with a real image later (keeps layout stable now).
+    <div className="relative overflow-hidden rounded-2xl border border-white/10">
+      <div className="relative aspect-[16/11] w-full">
+        {src ? (
+          <Image src={src} alt={label} fill className="object-cover" />
+        ) : (
+          <div className="absolute inset-0 grid place-items-center p-6">
+            <div className="text-center">
+              <div className="text-sm font-semibold text-white/80">{label}</div>
+              <div className="mt-1 text-xs text-white/50">
+                Replace with a real image later (keeps layout stable now).
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60" />
+      </div>
     </div>
+  );
+}
+
+function StopPill({ label }: { label: string }) {
+  return (
+    <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1.5 text-xs text-white/80">
+      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+      {label}
+    </span>
   );
 }
 
 export default function LogisticsServicePage() {
   const quickLinks: Array<[string, string]> = [
-    ["Positioning", "#positioning"],
-    ["Vision", "#vision"],
+    ["Overview", "#overview"],
     ["What we do", "#what-we-do"],
     ["Compliance", "#compliance"],
     ["Ventures", "#ventures"],
@@ -128,21 +151,25 @@ export default function LogisticsServicePage() {
       icon: <Route className="h-4 w-4" />,
       title: "Distribution planning and delivery operations",
       desc: "Predictable routes, delivery discipline, and visible service levels.",
+      lane: "Linehaul + last-mile",
     },
     {
       icon: <Warehouse className="h-4 w-4" />,
       title: "Warehousing support and inventory movement",
-      desc: "Practical support for receiving, storage movement, and dispatch readiness.",
+      desc: "Receiving, storage movement, and dispatch readiness support.",
+      lane: "Warehouse ops",
     },
     {
       icon: <Snowflake className="h-4 w-4" />,
       title: "Cold-chain support (where applicable)",
       desc: "Temperature-aware movement for agriculture and perishables.",
+      lane: "Cold-chain",
     },
     {
       icon: <Globe2 className="h-4 w-4" />,
       title: "Cross-border import/export support",
-      desc: "Documentation readiness and compliant process support for cross-border movement.",
+      desc: "Documentation readiness for compliant cross-border movement.",
+      lane: "Cross-border readiness",
     },
   ];
 
@@ -163,8 +190,10 @@ export default function LogisticsServicePage() {
 
   return (
     <main className="site-bg">
-      {/* HERO */}
+      {/* HERO (route + tracking layout) */}
       <section className="relative overflow-hidden pt-14 sm:pt-18">
+        <div className="pointer-events-none absolute inset-0 opacity-[0.12] bg-[radial-gradient(circle_at_25%_20%,rgba(0,195,255,.35),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(0,82,212,.35),transparent_55%)]" />
+
         <div className="mx-auto max-w-6xl px-4">
           <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
             <Link href="/services" className="hover:text-white transition">
@@ -174,10 +203,10 @@ export default function LogisticsServicePage() {
             <span className="text-white/80">Logistics</span>
           </Reveal>
 
-          <div className="mt-6 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
             <div className="relative z-10">
               <Reveal>
-                <div className="inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-white/70">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-white/70">
                   <Truck className="h-4 w-4 text-white/80" />
                   Logistics services
                 </div>
@@ -192,25 +221,32 @@ export default function LogisticsServicePage() {
                   control, and compliance-aware operations.
                 </p>
 
+                <div className="mt-6 flex flex-wrap gap-2">
+                  <StopPill label="Predictable SLAs" />
+                  <StopPill label="Proof of delivery" />
+                  <StopPill label="Compliance-ready" />
+                  <StopPill label="Cost control" />
+                </div>
+
                 <div className="mt-7 flex flex-wrap gap-3">
                   <Button asChild className="rounded-none">
                     <Link href="/#contact">Plan a delivery scope</Link>
                   </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
-                  >
-                    <Link href="/services">View all services</Link>
-                  </Button>
+                  
                 </div>
               </Reveal>
 
+              {/* snapshot cards (mobile-friendly, no overflow) */}
               
             </div>
 
             <Reveal delayMs={160}>
-              <MediaSlot label="Logistics hero image" src="/illustrations/logistics-1.png" />
+              <div className="grid gap-4">
+                <MediaSlot label="Logistics hero image" src="/illustrations/logistics-1.png" />
+
+                {/* “tracker panel” card */}
+                
+              </div>
             </Reveal>
           </div>
         </div>
@@ -220,18 +256,20 @@ export default function LogisticsServicePage() {
         </div>
       </section>
 
-      {/* STICKY QUICK LINKS */}
+      {/* STICKY QUICK LINKS (wraps on mobile) */}
+      
 
-      {/* POSITIONING + VISION */}
+      {/* OVERVIEW */}
       <Section
+        id="overview"
         eyebrow="Overview"
         title="Positioning and vision"
         subtitle="High-trust logistics for time-sensitive and high-accountability deliveries."
       >
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
           <div className="grid gap-6">
             <Reveal>
-              <SoftCard className="h-full">
+              <LogisticsCard className="h-full">
                 <div id="positioning" className="scroll-mt-32" />
                 <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                   Positioning
@@ -251,11 +289,11 @@ export default function LogisticsServicePage() {
                     </Badge>
                   ))}
                 </div>
-              </SoftCard>
+              </LogisticsCard>
             </Reveal>
 
             <Reveal delayMs={120}>
-              <SoftCard className="h-full">
+              <LogisticsCard className="h-full">
                 <div id="vision" className="scroll-mt-32" />
                 <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                   Vision
@@ -264,7 +302,7 @@ export default function LogisticsServicePage() {
                   To become a high-trust logistics partner in Southern Africa for time-sensitive and
                   high-accountability deliveries.
                 </p>
-              </SoftCard>
+              </LogisticsCard>
             </Reveal>
           </div>
 
@@ -274,52 +312,92 @@ export default function LogisticsServicePage() {
         </div>
       </Section>
 
-      {/* WHAT WE DO */}
+      {/* WHAT WE DO (unique layout: lane labels + action row) */}
       <Section
         id="what-we-do"
         eyebrow="What we do"
         title="Logistics services"
         subtitle="Distribution, warehousing support, cold-chain readiness, and compliant cross-border support."
       >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-2">
+        <div className="grid gap-4 sm:grid-cols-2">
           {whatWeDo.map((x, i) => (
             <Reveal key={x.title} delayMs={i * 70}>
-              <SoftCard className="h-full p-5">
+              <LogisticsCard className="h-full">
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
+                  <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
                     {x.icon}
                   </span>
-                  <div>
-                    <div className="text-sm font-semibold text-white">{x.title}</div>
+
+                  <div className="min-w-0">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <div className="text-sm font-semibold text-white">{x.title}</div>
+                      <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-2 py-1 text-[11px] text-white/75">
+                        {x.lane}
+                      </span>
+                    </div>
+
                     <div className="mt-1 text-xs leading-relaxed text-white/70">{x.desc}</div>
+
+                    <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4">
+                      <div className="flex items-center gap-2 text-xs text-white/70">
+                        <FileText className="h-4 w-4 text-white/50" />
+                        Documentation-ready delivery flow
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </SoftCard>
+              </LogisticsCard>
             </Reveal>
           ))}
         </div>
       </Section>
 
-      {/* COMPLIANCE */}
+      {/* COMPLIANCE (unique: checklist board) */}
       <Section
         id="compliance"
         eyebrow="Compliance and readiness"
         title="Roadworthy operations and documentation discipline"
         subtitle="We treat compliance as operational readiness: vehicles, processes, and paperwork that stand up to scrutiny."
       >
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
           <Reveal>
-            <SoftCard className="h-full">
+            <LogisticsCard className="h-full">
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
+                <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
                   <ClipboardCheck className="h-4 w-4" />
                 </span>
-                <div>
+                <div className="min-w-0">
                   <div className="text-sm font-semibold text-white">Operational readiness</div>
-                  <ul className="mt-3 space-y-2 text-xs leading-relaxed text-white/70">
-                    <li>• Roadworthiness expectations for relevant vehicle categories and annual testing where applicable</li>
-                    <li>• Customs processes and documentation preparedness aligned to SARS import/export frameworks</li>
-                  </ul>
+
+                  <div className="mt-4 grid gap-3">
+                    {[
+                      {
+                        icon: <ShieldCheck className="h-4 w-4" />,
+                        title: "Roadworthiness expectations",
+                        desc: "Vehicle readiness aligned to relevant categories and testing requirements where applicable.",
+                      },
+                      {
+                        icon: <FileText className="h-4 w-4" />,
+                        title: "Customs documentation preparedness",
+                        desc: "Processes aligned to SARS import/export frameworks for compliant cross-border movement.",
+                      },
+                    ].map((c) => (
+                      <div
+                        key={c.title}
+                        className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
+                      >
+                        <div className="flex items-start gap-3">
+                          <span className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
+                            {c.icon}
+                          </span>
+                          <div>
+                            <div className="text-sm font-semibold text-white">{c.title}</div>
+                            <div className="mt-1 text-xs leading-relaxed text-white/70">{c.desc}</div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {["Vehicle checks", "Documentation", "Traceability", "Delivery proofs"].map((x) => (
@@ -334,7 +412,7 @@ export default function LogisticsServicePage() {
                   </div>
                 </div>
               </div>
-            </SoftCard>
+            </LogisticsCard>
           </Reveal>
 
           <Reveal delayMs={120}>
@@ -350,15 +428,15 @@ export default function LogisticsServicePage() {
         title="Growth models"
         subtitle="Infrastructure and optimisation models aimed at higher predictability and better unit economics."
       >
-        <div className="grid gap-6 md:grid-cols-2">
+        <div className="grid gap-4 md:grid-cols-2">
           {ventures.map((v, i) => (
             <Reveal key={v.title} delayMs={i * 90}>
-              <SoftCard className="h-full">
+              <LogisticsCard className="h-full">
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
+                  <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
                     {v.icon}
                   </span>
-                  <div>
+                  <div className="min-w-0">
                     <div className="text-sm font-semibold text-white">{v.title}</div>
                     <p className="mt-2 text-xs leading-relaxed text-white/70">{v.desc}</p>
                     <div className="mt-4">
@@ -368,7 +446,7 @@ export default function LogisticsServicePage() {
                     </div>
                   </div>
                 </div>
-              </SoftCard>
+              </LogisticsCard>
             </Reveal>
           ))}
         </div>
@@ -378,7 +456,7 @@ export default function LogisticsServicePage() {
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
-            <SoftCard size="lg">
+            <LogisticsCard size="lg">
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                 Next step
               </div>
@@ -396,9 +474,15 @@ export default function LogisticsServicePage() {
                 <Button asChild className="rounded-none">
                   <Link href="/#contact">Contact Thaboliz</Link>
                 </Button>
-                
+                <Button
+                  asChild
+                  variant="outline"
+                  className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
+                >
+                  <Link href="/services">Browse services</Link>
+                </Button>
               </div>
-            </SoftCard>
+            </LogisticsCard>
           </Reveal>
         </div>
       </section>

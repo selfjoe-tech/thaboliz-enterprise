@@ -58,39 +58,34 @@ function Section({
   );
 }
 
-function SoftCard({
+function ConstructionCard({
   children,
   className = "",
-  size = "md",
   bgSrc,
   bgAlt = "",
-  bgOpacity = 0.35, // image strength
-    // add dark overlay for readability
+  bgOpacity = 0.22,
 }: {
   children: React.ReactNode;
   className?: string;
-  size?: "sm" | "md" | "lg";
   bgSrc?: string;
   bgAlt?: string;
   bgOpacity?: number;
-  overlay?: boolean;
 }) {
-  const pad =
-    size === "sm" ? "p-4" : size === "lg" ? "p-8 sm:p-10" : "p-6";
-
   return (
     <div
       className={[
-        "group relative overflow-hidden rounded-none",
-        "border border-white/10",
-        "bg-black/30",
+        "group relative overflow-hidden rounded-2xl",
+        "border border-white/10 bg-white/[0.03]",
         "transition-transform duration-200 hover:-translate-y-[2px]",
-        "hover:shadow-[0_0_0_1px_rgba(255,255,255,.14),0_18px_60px_rgba(0,0,0,.55)]",
-        pad,
+        "hover:shadow-[0_0_0_1px_rgba(120,190,255,.22),0_18px_60px_rgba(0,0,0,.55)]",
         className,
       ].join(" ")}
     >
-      {/* Background image */}
+      {/* subtle blue wash */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.55] bg-[linear-gradient(90deg,rgba(16,86,160,.35)_0%,rgba(20,120,200,.22)_55%,rgba(0,82,212,.28)_100%)]" />
+      {/* grid texture (very subtle) */}
+      <div className="pointer-events-none absolute inset-0 opacity-[0.18] bg-[linear-gradient(rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:28px_28px]" />
+
       {bgSrc ? (
         <div className="pointer-events-none absolute inset-0">
           <Image
@@ -99,21 +94,20 @@ function SoftCard({
             fill
             className="object-cover"
             style={{ opacity: bgOpacity }}
-            priority={false}
           />
-          {/* optional contrast overlay */}
-          
-          {/* soft sheen */}
-          <div className="absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,.22),transparent_55%)]" />
         </div>
       ) : null}
 
-      {/* Content */}
+      {/* readability overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-black/55 to-black/75" />
+
+      {/* hover sheen */}
+      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,.20),transparent_55%)]" />
+
       <div className="relative">{children}</div>
     </div>
   );
 }
-
 
 function MediaSlot({
   label = "Illustration / image slot",
@@ -123,29 +117,29 @@ function MediaSlot({
   src?: string;
 }) {
   return (
-    <div className="relative min-h-[420px] overflow-hidden rounded-[25px] ">
-      {src ? (
-        <Image src={src} alt={label} fill className="object-cover" />
-      ) : (
-        <div className="absolute inset-0 grid place-items-center p-6">
-          <div className="text-center">
-            <div className="text-sm font-semibold text-white/80">{label}</div>
-            <div className="mt-1 text-xs text-white/50">
-              Replace with a real image later (keeps layout stable now).
+    <div className="relative overflow-hidden rounded-2xl border border-white/10">
+      <div className="relative aspect-[16/11] w-full">
+        {src ? (
+          <Image src={src} alt={label} fill className="object-cover" />
+        ) : (
+          <div className="absolute inset-0 grid place-items-center p-6">
+            <div className="text-center">
+              <div className="text-sm font-semibold text-white/80">{label}</div>
+              <div className="mt-1 text-xs text-white/50">
+                Replace with a real image later (keeps layout stable now).
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* overlay for depth */}
+        )}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60" />
+      </div>
     </div>
   );
 }
 
 export default function ConstructionServicePage() {
   const quickLinks: Array<[string, string]> = [
-    ["Positioning", "#positioning"],
-    ["Vision", "#vision"],
+    ["Overview", "#overview"],
     ["What we do", "#what-we-do"],
     ["Sectors", "#sectors"],
     ["Delivery", "#delivery"],
@@ -154,17 +148,29 @@ export default function ConstructionServicePage() {
   ];
 
   const whatWeDo = [
-    { icon: <Building2 className="h-4 w-4" />, title: "Civil & building works", desc: "New builds, upgrades, and enabling works." 
-        ,img: "/illustrations/gradient-1.avif"
+    {
+      icon: <Building2 className="h-4 w-4" />,
+      title: "Civil & building works",
+      desc: "New builds, upgrades, and enabling works.",
+      img: "/illustrations/gradient-1.avif",
     },
-    { icon: <Hammer className="h-4 w-4" />, title: "Earthworks & concrete", desc: "Site establishment, drainage, and structural works." 
-        ,img: "/illustrations/gradient-2.avif"
+    {
+      icon: <Hammer className="h-4 w-4" />,
+      title: "Earthworks & concrete",
+      desc: "Site establishment, drainage, and structural works.",
+      img: "/illustrations/gradient-2.avif",
     },
-    { icon: <Wrench className="h-4 w-4" />, title: "Fit-out & refurbishment", desc: "Interior fit-outs, remedial works, and upgrades." 
-        ,img: "/illustrations/gradient-3.avif"
+    {
+      icon: <Wrench className="h-4 w-4" />,
+      title: "Fit-out & refurbishment",
+      desc: "Interior fit-outs, remedial works, and upgrades.",
+      img: "/illustrations/gradient-3.avif",
     },
-    { icon: <ClipboardList className="h-4 w-4" />, title: "Maintenance programs", desc: "Planned maintenance for facilities and infrastructure." 
-        ,img: "/illustrations/gradient-4.avif"
+    {
+      icon: <ClipboardList className="h-4 w-4" />,
+      title: "Maintenance programs",
+      desc: "Planned maintenance for facilities and infrastructure.",
+      img: "/illustrations/gradient-4.avif",
     },
   ];
 
@@ -237,16 +243,16 @@ export default function ConstructionServicePage() {
             <span className="text-white/80">Construction</span>
           </Reveal>
 
-          <div className="mt-6 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
+          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
             <div className="relative z-10">
               <Reveal>
-                <div className="inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.03] px-3 py-2 text-xs text-white/70">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-white/70">
                   <HardHat className="h-4 w-4 text-white/80" />
                   Construction services
                 </div>
 
                 <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                  End-to-end construction delivery with{" "}
+                  End-to-end delivery with{" "}
                   <span className="text-brand-gradient">disciplined controls</span>
                 </h1>
 
@@ -259,18 +265,57 @@ export default function ConstructionServicePage() {
                   <Button asChild className="rounded-none">
                     <Link href="/#contact">Request a scope call</Link>
                   </Button>
-                  
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
+                  >
+                    <Link href="#what-we-do">See services</Link>
+                  </Button>
                 </div>
               </Reveal>
 
-              
+              <Reveal delayMs={120} className="mt-10 grid gap-3 sm:grid-cols-2">
+                {[
+                  { value: "Scope clarity", label: "Clear deliverables" },
+                  { value: "Schedule integrity", label: "Milestone discipline" },
+                  { value: "Quality assurance", label: "Built to last" },
+                  { value: "Safety-led", label: "Controls first" },
+                ].map((s) => (
+                  <ConstructionCard key={s.label} className="p-4">
+                    <div className="text-sm font-semibold text-white">{s.value}</div>
+                    <div className="mt-1 text-xs text-white/70">{s.label}</div>
+                  </ConstructionCard>
+                ))}
+              </Reveal>
             </div>
 
             <Reveal delayMs={160}>
-              <MediaSlot
-                label="Construction hero image"
-                src="/illustrations/construction-1.png"
-              />
+              <div className="grid gap-4">
+                <MediaSlot
+                  label="Construction hero image"
+                  src="/illustrations/construction-1.png"
+                />
+                <ConstructionCard className="p-5">
+                  <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
+                    Typical outcomes
+                  </div>
+                  <div className="mt-3 grid gap-2 text-sm text-white/80">
+                    <div className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                      Disciplined scope and cost control
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                      Safer sites and cleaner handovers
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
+                      Durable builds, reduced rework
+                    </div>
+                  </div>
+                </ConstructionCard>
+              </div>
             </Reveal>
           </div>
         </div>
@@ -280,17 +325,38 @@ export default function ConstructionServicePage() {
         </div>
       </section>
 
-      
-      {/* POSITIONING + VISION */}
+      {/* STICKY QUICK LINKS (mobile + desktop safe) */}
+      <section className="sticky top-0 z-40 border-b border-white/10 bg-black/70 backdrop-blur supports-[backdrop-filter]:bg-black/50">
+        <div className="mx-auto max-w-6xl px-4 py-3">
+          <Reveal className="flex flex-wrap items-center gap-2">
+            <span className="mr-1 inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+              Quick links
+            </span>
+
+            {quickLinks.map(([label, href]) => (
+              <Link
+                key={href}
+                href={href}
+                className="rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white transition"
+              >
+                {label}
+              </Link>
+            ))}
+          </Reveal>
+        </div>
+      </section>
+
+      {/* OVERVIEW */}
       <Section
+        id="overview"
         eyebrow="Overview"
         title="Positioning and vision"
         subtitle="Disciplined delivery, safe execution, and build quality that stands up over time."
       >
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
           <div className="grid gap-6">
             <Reveal>
-              <SoftCard className="h-full">
+              <ConstructionCard className="p-6">
                 <div id="positioning" className="scroll-mt-32" />
                 <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                   Positioning
@@ -310,11 +376,11 @@ export default function ConstructionServicePage() {
                     </Badge>
                   ))}
                 </div>
-              </SoftCard>
+              </ConstructionCard>
             </Reveal>
 
             <Reveal delayMs={120}>
-              <SoftCard className="h-full">
+              <ConstructionCard className="p-6">
                 <div id="vision" className="scroll-mt-32" />
                 <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                   Vision
@@ -322,7 +388,7 @@ export default function ConstructionServicePage() {
                 <p className="mt-3 text-sm leading-relaxed text-white/80">
                   To build infrastructure that lasts, is safe to operate, and is cost-effective to maintain.
                 </p>
-              </SoftCard>
+              </ConstructionCard>
             </Reveal>
           </div>
 
@@ -332,7 +398,7 @@ export default function ConstructionServicePage() {
         </div>
       </Section>
 
-      {/* WHAT WE DO */}
+      {/* WHAT WE DO (no overflow; mobile-first grid) */}
       <Section
         id="what-we-do"
         eyebrow="What we do"
@@ -342,9 +408,9 @@ export default function ConstructionServicePage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {whatWeDo.map((x, i) => (
             <Reveal key={x.title} delayMs={i * 60}>
-              <SoftCard className="h-full p-5" bgSrc={x.img}>
+              <ConstructionCard className="h-full p-5" bgSrc={x.img} bgAlt={x.title} bgOpacity={0.18}>
                 <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
+                  <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
                     {x.icon}
                   </span>
                   <div>
@@ -352,7 +418,7 @@ export default function ConstructionServicePage() {
                     <div className="mt-1 text-xs leading-relaxed text-white/70">{x.desc}</div>
                   </div>
                 </div>
-              </SoftCard>
+              </ConstructionCard>
             </Reveal>
           ))}
         </div>
@@ -366,23 +432,25 @@ export default function ConstructionServicePage() {
         subtitle="Public infrastructure, industrial facilities, commercial builds, community developments, and enabling works."
       >
         <Reveal>
-          <SoftCard>
-            <div className="flex flex-wrap gap-2">
+          <ConstructionCard className="p-6">
+            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
               {sectors.map((s) => (
-                <span
+                <div
                   key={s.label}
-                  className="inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 text-xs text-white/75"
+                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3"
                 >
-                  <span className="text-white/85">{s.icon}</span>
-                  {s.label}
-                </span>
+                  <span className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
+                    {s.icon}
+                  </span>
+                  <div className="text-sm text-white/80">{s.label}</div>
+                </div>
               ))}
             </div>
-          </SoftCard>
+          </ConstructionCard>
         </Reveal>
       </Section>
 
-      {/* HOW WE DELIVER */}
+      {/* DELIVERY (step cards - stable everywhere) */}
       <Section
         id="delivery"
         eyebrow="How we deliver"
@@ -392,47 +460,51 @@ export default function ConstructionServicePage() {
         <div className="grid gap-4 lg:grid-cols-3">
           {delivery.map((d, i) => (
             <Reveal key={d.title} delayMs={i * 80}>
-              <SoftCard className="h-full p-5">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
-                    {d.icon}
-                  </span>
-                  <div>
-                    <div className="text-sm font-semibold text-white">{d.title}</div>
-                    <ul className="mt-2 space-y-1 text-xs leading-relaxed text-white/70">
-                      {d.bullets.map((b) => (
-                        <li key={b}>• {b}</li>
-                      ))}
-                    </ul>
+              <ConstructionCard className="h-full p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
+                      {d.icon}
+                    </span>
+                    <div>
+                      <div className="text-sm font-semibold text-white">{d.title}</div>
+                      <div className="mt-1 text-xs text-white/60">Step {i + 1}</div>
+                    </div>
                   </div>
                 </div>
-              </SoftCard>
+                <ul className="mt-4 space-y-2 text-xs leading-relaxed text-white/75">
+                  {d.bullets.map((b) => (
+                    <li key={b} className="flex gap-2">
+                      <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-white/60" />
+                      <span>{b}</span>
+                    </li>
+                  ))}
+                </ul>
+              </ConstructionCard>
             </Reveal>
           ))}
         </div>
       </Section>
 
-      {/* ASSURANCE & COMPLIANCE */}
+      {/* COMPLIANCE */}
       <Section
         id="compliance"
         eyebrow="Assurance and compliance"
         title="Capability, track record, and aligned standards"
         subtitle="We align delivery practices to best-practice requirements appropriate to client and project context."
       >
-        <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
           <Reveal>
-            <SoftCard className="h-full">
+            <ConstructionCard className="h-full p-6">
               <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
+                <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
                   <ShieldCheck className="h-4 w-4" />
                 </span>
                 <div>
-                  <div className="text-sm font-semibold text-white">
-                    Public-sector alignment
-                  </div>
+                  <div className="text-sm font-semibold text-white">Public-sector alignment</div>
                   <p className="mt-2 text-xs leading-relaxed text-white/70">
-                    Where public-sector work applies, we align to the CIDB contractor grading
-                    environment and best-practice requirements for contractor capability and track record.
+                    Where public-sector work applies, we align to the CIDB contractor grading environment and
+                    best-practice requirements for contractor capability and track record.
                   </p>
 
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -448,7 +520,7 @@ export default function ConstructionServicePage() {
                   </div>
                 </div>
               </div>
-            </SoftCard>
+            </ConstructionCard>
           </Reveal>
 
           <Reveal delayMs={120}>
@@ -464,28 +536,25 @@ export default function ConstructionServicePage() {
         title="Focus areas for growth"
         subtitle="Practical projects that match market demand and improve infrastructure outcomes."
       >
-        <div className="grid gap-6 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-3">
           {ventures.map((v, i) => (
             <Reveal key={v.title} delayMs={i * 80}>
-              <SoftCard className="h-full">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-start gap-3">
-                    <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/90">
-                      {v.icon}
-                    </span>
-                    <div>
-                      <div className="text-sm font-semibold text-white">{v.title}</div>
-                      <p className="mt-2 text-xs leading-relaxed text-white/70">{v.desc}</p>
+              <ConstructionCard className="h-full p-6">
+                <div className="flex items-start gap-3">
+                  <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
+                    {v.icon}
+                  </span>
+                  <div>
+                    <div className="text-sm font-semibold text-white">{v.title}</div>
+                    <p className="mt-2 text-xs leading-relaxed text-white/70">{v.desc}</p>
+                    <div className="mt-4">
+                      <Badge variant="outline" className="rounded-none border-white/15 text-white/80">
+                        {v.badge}
+                      </Badge>
                     </div>
                   </div>
                 </div>
-
-                <div className="mt-5">
-                  <Badge variant="outline" className="rounded-none border-white/15 text-white/80">
-                    {v.badge}
-                  </Badge>
-                </div>
-              </SoftCard>
+              </ConstructionCard>
             </Reveal>
           ))}
         </div>
@@ -495,7 +564,7 @@ export default function ConstructionServicePage() {
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
-            <SoftCard size="lg">
+            <ConstructionCard className="p-8 sm:p-10">
               <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
                 Next step
               </div>
@@ -521,7 +590,7 @@ export default function ConstructionServicePage() {
                   <Link href="/services">Browse services</Link>
                 </Button>
               </div>
-            </SoftCard>
+            </ConstructionCard>
           </Reveal>
         </div>
       </section>
