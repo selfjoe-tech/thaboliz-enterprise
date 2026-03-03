@@ -1,3 +1,7 @@
+// DROP-IN: replace your entire Construction page file with this.
+// (Keeps your existing layout + Embla carousels, and adds the alternating Vision/Mission-style blocks
+// for aluminum categories that only have ONE item.)
+
 import Link from "next/link";
 import Image from "next/image";
 import Reveal from "@/components/motion/Reveal";
@@ -18,7 +22,16 @@ import {
   GraduationCap,
   Hospital,
   ChevronRight,
+  BrickWall,
+  PaintRoller,
 } from "lucide-react";
+
+import AluminumCategoryCarousel, {
+  type AluminumSlide,
+} from "@/components/aluminum/AluminumCategoryCarousel";
+
+import SectorsCarousel, { type SectorSlide } from "@/components/construction/SectorsCarousel";
+
 
 function Section({
   id,
@@ -42,7 +55,7 @@ function Section({
               {eyebrow}
             </div>
           ) : null}
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+          <h2 className="mt-2 text-4xl font-semibold tracking-tight text-white sm:text-5xl">
             {title}
           </h2>
           {subtitle ? (
@@ -74,17 +87,12 @@ function ConstructionCard({
   return (
     <div
       className={[
-        "group relative overflow-hidden rounded-2xl",
-        "border border-white/10 bg-white/[0.03]",
-        "transition-transform duration-200 hover:-translate-y-[2px]",
-        "hover:shadow-[0_0_0_1px_rgba(120,190,255,.22),0_18px_60px_rgba(0,0,0,.55)]",
+        "group relative overflow-hidden ",
+        
+        
         className,
       ].join(" ")}
     >
-      {/* subtle blue wash */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.55] bg-[linear-gradient(90deg,rgba(16,86,160,.35)_0%,rgba(20,120,200,.22)_55%,rgba(0,82,212,.28)_100%)]" />
-      {/* grid texture (very subtle) */}
-      <div className="pointer-events-none absolute inset-0 opacity-[0.18] bg-[linear-gradient(rgba(255,255,255,.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:28px_28px]" />
 
       {bgSrc ? (
         <div className="pointer-events-none absolute inset-0">
@@ -98,11 +106,7 @@ function ConstructionCard({
         </div>
       ) : null}
 
-      {/* readability overlay */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/30 via-black/55 to-black/75" />
-
-      {/* hover sheen */}
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-[radial-gradient(circle_at_18%_18%,rgba(255,255,255,.20),transparent_55%)]" />
+      
 
       <div className="relative">{children}</div>
     </div>
@@ -137,10 +141,72 @@ function MediaSlot({
   );
 }
 
+/** ✅ Vision/Mission-style block for single-item categories (alternates left/right) */
+function AluminumSplitFeature({
+  title,
+  lead,
+  body,
+  image,
+  flip = false,
+  anchorId,
+}: {
+  title: string;
+  lead?: string;
+  body?: string;
+  image: { src: string; alt: string };
+  flip?: boolean;
+  anchorId?: string;
+}) {
+  return (
+    <div className="overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] shadow-[0_30px_90px_rgba(0,0,0,0.55)]">
+      {anchorId ? <div id={anchorId} className="scroll-mt-32" /> : null}
+
+      <div className="grid lg:min-h-[420px] lg:grid-cols-12">
+        {/* image */}
+        <div className={["lg:col-span-6", flip ? "lg:order-2" : "lg:order-1"].join(" ")}>
+          <div className="relative h-56 w-full sm:h-80 lg:h-full lg:min-h-[420px]">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              fill
+              className="object-cover object-center"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-black/0" />
+          </div>
+        </div>
+
+        {/* text */}
+        <div className={["lg:col-span-6", flip ? "lg:order-1" : "lg:order-2"].join(" ")}>
+          <div className="flex h-full min-h-[240px] flex-col justify-center p-6 sm:p-8 lg:min-h-[420px] lg:p-10">
+            <h3 className="mt-4 text-4xl font-bold leading-tight text-white sm:text-5xl">
+              {title}
+            </h3>
+
+            {lead ? (
+              <p className="mt-4 text-base font-semibold text-white/85">{lead}</p>
+            ) : null}
+
+            {body ? (
+              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+                {body}
+              </p>
+            ) : null}
+
+            <div className="mt-10 h-px w-24 bg-white/10" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function ConstructionServicePage() {
   const quickLinks: Array<[string, string]> = [
     ["Overview", "#overview"],
     ["What we do", "#what-we-do"],
+    ["Aluminum", "#aluminum"],
+    ["Other services", "#other-services"],
     ["Sectors", "#sectors"],
     ["Delivery", "#delivery"],
     ["Compliance", "#compliance"],
@@ -152,25 +218,277 @@ export default function ConstructionServicePage() {
       icon: <Building2 className="h-4 w-4" />,
       title: "Civil & building works",
       desc: "New builds, upgrades, and enabling works.",
-      img: "/illustrations/gradient-1.avif",
+      img: "/stock/pic-11.jpg",
     },
     {
       icon: <Hammer className="h-4 w-4" />,
       title: "Earthworks & concrete",
       desc: "Site establishment, drainage, and structural works.",
-      img: "/illustrations/gradient-2.avif",
+      img: "/stock/pic-3.avif",
     },
     {
       icon: <Wrench className="h-4 w-4" />,
       title: "Fit-out & refurbishment",
       desc: "Interior fit-outs, remedial works, and upgrades.",
-      img: "/illustrations/gradient-3.avif",
+      img: "/stock/pic-2.jpg",
     },
     {
       icon: <ClipboardList className="h-4 w-4" />,
       title: "Maintenance programs",
       desc: "Planned maintenance for facilities and infrastructure.",
-      img: "/illustrations/gradient-4.avif",
+      img: "/stock/pic-1.jpg",
+    },
+  ];
+
+  const sectorSlides: SectorSlide[] = [
+  {
+    id: "public",
+    label: "Public infrastructure",
+    icon: "Building2",
+    bgSrc: "/illustrations/gradient-1.avif",
+  },
+  {
+    id: "industrial",
+    label: "Industrial facilities",
+    icon: "Warehouse",
+    bgSrc: "/illustrations/gradient-2.avif",
+  },
+  {
+    id: "commercial",
+    label: "Commercial builds",
+    icon: "CheckCircle2",
+    bgSrc: "/illustrations/gradient-3.avif",
+  },
+  {
+    id: "community",
+    label: "Community developments",
+    icon: "GraduationCap",
+    bgSrc: "/illustrations/gradient-4.avif",
+  },
+  {
+    id: "enabling",
+    label: "Energy & logistics enabling works",
+    icon: "HardHat",
+    bgSrc: "/illustrations/gradient-1.avif",
+  },
+];
+
+  // ✅ Aluminum categories (carousels for multi, split UI for single)
+  const aluminumCategories: Array<{
+    id: string;
+    title: string;
+    subtitle?: string;
+    slides: AluminumSlide[];
+  }> = [
+    {
+      id: "aluminum-windows",
+      title: "Aluminum Windows",
+      subtitle: "Awning, casement, sliding, pane, turn & tilt, triple, fixed.",
+      slides: [
+        {
+          id: "awning-windows",
+          eyebrow: "Windows",
+          title: "Awning Windows",
+          description: "Ventilation-friendly, rain-resistant top-hinged windows.",
+          image: { src: "/alu/pic-13.webp", alt: "Awning Windows" },
+        },
+        {
+          id: "casement-windows",
+          eyebrow: "Windows",
+          title: "Aluminum Casement Windows",
+          description: "Side-hinged windows with strong seals and clean frames.",
+          image: { src: "/alu/pic-18.jpg", alt: "Aluminum Casement Windows" },
+        },
+        {
+          id: "sliding-windows",
+          eyebrow: "Windows",
+          title: "Sliding Windows",
+          description: "Space-saving openings with smooth track systems.",
+          image: { src: "/alu/pic-17.jpg", alt: "Sliding Windows" },
+        },
+        {
+          id: "pane-windows",
+          eyebrow: "Windows",
+          title: "Pane Windows",
+          description: "Classic pane style with modern aluminum durability.",
+          image: { src: "/alu/pic-16.jpg", alt: "Pane Windows" },
+        },
+        {
+          id: "turn-tilt-windows",
+          eyebrow: "Windows",
+          title: "Turn and Tilt Windows",
+          description: "Flexible opening modes for airflow, safety, and cleaning.",
+          image: { src: "/alu/pic-15.jpg", alt: "Turn and Tilt Windows" },
+        },
+        {
+          id: "triple-windows",
+          eyebrow: "Windows",
+          title: "Aluminium Triple Windows",
+          description: "Multi-panel solutions for wider spans and larger openings.",
+          image: { src: "/alu/pic-14.jpg", alt: "Aluminium Triple Windows" },
+        },
+        {
+          id: "fixed-windows",
+          eyebrow: "Windows",
+          title: "Fixed Windows",
+          description: "Maximum light, clean lines, strong structural stability.",
+          image: { src: "/alu/pic-13.jpg", alt: "Fixed Windows" },
+        },
+      ],
+    },
+    {
+      id: "aluminum-doors",
+      title: "Aluminum Doors",
+      subtitle: "Sliding, hinged, folding/stacking, pivot, stable.",
+      slides: [
+        {
+          id: "sliding-doors",
+          eyebrow: "Doors",
+          title: "Sliding Doors",
+          description: "Wide openings with smooth gliding and neat track finishing.",
+          image: { src: "/alu/pic-13.jpg", alt: "Sliding Doors" },
+        },
+        {
+          id: "hinged-doors",
+          eyebrow: "Doors",
+          title: "Hinged Doors",
+          description: "Strong everyday entries with consistent fitment and finish.",
+          image: { src: "/alu/pic-12.webp", alt: "Hinged Doors" },
+        },
+        {
+          id: "folding-stacking-doors",
+          eyebrow: "Doors",
+          title: "Folding / Stacking Doors",
+          description: "Multi-leaf stacking configurations to open up full areas.",
+          image: { src: "/alu/pic-11.webp", alt: "Folding / Stacking Doors" },
+        },
+        {
+          id: "pivot-doors",
+          eyebrow: "Doors",
+          title: "Pivot Doors",
+          description: "Statement entrances with premium proportions and smooth swing.",
+          image: { src: "/alu/pic-10.jpg", alt: "Pivot Doors" },
+        },
+        {
+          id: "stable-doors",
+          eyebrow: "Doors",
+          title: "Stable Doors",
+          description: "Split opening for airflow and access control.",
+          image: { src: "/alu/pic-9.jpg", alt: "Stable Doors" },
+        },
+      ],
+    },
+    {
+      id: "louvres-shutters",
+      title: "Louvre’s Windows & Shutters",
+      subtitle: "Ventilation and shading control with a clean modern look.",
+      slides: [
+        {
+          id: "louvre-windows",
+          eyebrow: "Louvres",
+          title: "Louvre Windows",
+          description: "Adjustable blades for airflow control and privacy.",
+          image: { src: "/alu/pic-8.jpg", alt: "Louvre Windows" },
+        },
+        {
+          id: "window-shutters",
+          eyebrow: "Shutters",
+          title: "Window Shutters",
+          description: "Durable shutters for shading and protection.",
+          image: { src: "/alu/pic-19.jpg", alt: "Window Shutters" },
+        },
+      ],
+    },
+
+    // ✅ SINGLE ITEM examples (these will render as alternating split blocks)
+    {
+      id: "aluminum-shades",
+      title: "Aluminum Shades",
+      subtitle: "Shade systems designed for function and outdoor exposure.",
+      slides: [
+        {
+          id: "aluminum-shades-1",
+          eyebrow: "Shades",
+          title: "Aluminum Shades",
+          description: "Shading solutions for patios, verandas, and outdoor comfort.",
+          image: { src: "/alu/pic-7.jpg", alt: "Aluminum Shades" },
+        },
+      ],
+    },
+    {
+      id: "gates-fences",
+      title: "Aluminum Gates & Fences",
+      subtitle: "Perimeter solutions aligned to security and clean installation.",
+      slides: [
+        {
+          id: "gates-fences-1",
+          eyebrow: "Perimeter",
+          title: "Gates & Fences",
+          description: "Secure boundaries with consistent detailing and neat finishing.",
+          image: { src: "/alu/pic-6.jpg", alt: "Aluminum Gates & Fences" },
+        },
+      ],
+    },
+    {
+      id: "aluminum-kitchens",
+      title: "Aluminum Kitchens",
+      subtitle: "Durable kitchen structures with modern lines and easy maintenance.",
+      slides: [
+        {
+          id: "aluminum-kitchens-1",
+          eyebrow: "Kitchens",
+          title: "Aluminum Kitchens",
+          description: "Clean cabinetry structures designed for durability and easy upkeep.",
+          image: { src: "/alu/pic-3.jpg", alt: "Aluminum Kitchens" },
+        },
+      ],
+    },
+    {
+      id: "aluminum-ceilings",
+      title: "Aluminum Ceilings",
+      subtitle: "Ceiling solutions for commercial finish and consistent presentation.",
+      slides: [
+        {
+          id: "aluminum-ceilings-1",
+          eyebrow: "Ceilings",
+          title: "Aluminum Ceilings",
+          description: "Neat ceiling systems with durable, easy-maintenance materials.",
+          image: { src: "/alu/pic-1.webp", alt: "Aluminum Ceilings" },
+        },
+      ],
+    },
+    {
+      id: "roofing",
+      title: "Roofing",
+      subtitle: "Installation and repair support aligned to safe execution and tidy finishing.",
+      slides: [
+        {
+          id: "roofing-1",
+          eyebrow: "Roofing",
+          title: "Roofing",
+          description: "Roofing work focused on weather protection and long-term performance.",
+          image: { src: "/alu/pic-5.jpg", alt: "Roofing" },
+        },
+      ],
+    },
+  ];
+
+  const otherServices = [
+    {
+      title: "Tiling",
+      desc: "Floor and wall tiling with clean alignment and consistent finish.",
+      icon: <BrickWall className="h-4 w-4" />,
+    },
+    { title: "Paving", desc: "Driveways, walkways, and external paving works.", icon: <Hammer className="h-4 w-4" /> },
+    {
+      title: "Electrical wiring",
+      desc: "Electrical wiring and fitment support (project dependent).",
+      icon: <Wrench className="h-4 w-4" />,
+    },
+    {
+      title: "Painting",
+      desc: "Interior and exterior painting with proper surface prep practices.",
+      icon: <PaintRoller className="h-4 w-4" />,
     },
   ];
 
@@ -182,32 +500,29 @@ export default function ConstructionServicePage() {
     { icon: <HardHat className="h-4 w-4" />, label: "Energy & logistics enabling works" },
   ];
 
-  const delivery = [
-    {
-      icon: <ClipboardList className="h-4 w-4" />,
-      title: "Feasibility and constructability",
-      bullets: [
-        "Feasibility, design coordination, constructability input",
-        "Scope clarity and measurable outcomes",
-      ],
-    },
-    {
-      icon: <BarChart3 className="h-4 w-4" />,
-      title: "Project controls",
-      bullets: [
-        "Project management, cost control, procurement",
-        "Contractor coordination and milestone tracking",
-      ],
-    },
-    {
-      icon: <ShieldCheck className="h-4 w-4" />,
-      title: "Safety-led execution",
-      bullets: [
-        "Structured health & safety file approach aligned to SA requirements",
-        "Quality checks throughout delivery",
-      ],
-    },
-  ];
+ const delivery = [
+  {
+    icon: <ClipboardList className="h-4 w-4" />,
+    title: "Feasibility and constructability",
+    summary:
+      "We clarify requirements early, coordinate design inputs, and confirm constructability so scope is measurable and execution is predictable.",
+    img: "/stock/pic-12.jpg",
+  },
+  {
+    icon: <BarChart3 className="h-4 w-4" />,
+    title: "Project controls",
+    summary:
+      "We manage procurement, coordination, and milestones with disciplined tracking so cost, schedule, and dependencies stay visible.",
+    img: "/stock/pic-13.avif",
+  },
+  {
+    icon: <ShieldCheck className="h-4 w-4" />,
+    title: "Safety-led execution",
+    summary:
+      "We run a structured HSE approach with quality checks throughout delivery, enabling clean handovers and reduced rework.",
+    img: "/stock/pic-14.jpg",
+  },
+];
 
   const ventures = [
     {
@@ -233,189 +548,305 @@ export default function ConstructionServicePage() {
   return (
     <main className="site-bg">
       {/* HERO */}
-      <section className="relative overflow-hidden pt-14 sm:pt-18">
-        <div className="mx-auto max-w-6xl px-4">
-          <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
-            <Link href="/services" className="hover:text-white transition">
-              Services
-            </Link>
-            <ChevronRight className="h-4 w-4 text-white/35" />
-            <span className="text-white/80">Construction</span>
-          </Reveal>
+      {/* HERO (Webflow-style: big type, no illustration slot) */}
+<section className="relative overflow-hidden pt-16 sm:pt-20">
+  {/* background atmosphere */}
+  <div className="pointer-events-none absolute inset-0">
+    <div className="absolute inset-0 bg-black" />
+    <div className="absolute -top-32 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-white/[0.06] blur-3xl" />
+    <div className="absolute -bottom-40 right-[-220px] h-[520px] w-[520px] rounded-full bg-[#2563eb]/20 blur-3xl" />
+    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/65 to-black" />
+  </div>
 
-          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
-            <div className="relative z-10">
-              <Reveal>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-white/70">
-                  <HardHat className="h-4 w-4 text-white/80" />
-                  Construction services
-                </div>
+  <div className="relative mx-auto max-w-6xl px-4">
+    {/* breadcrumb (optional but kept) */}
+    <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
+      <Link href="/services" className="hover:text-white transition">
+        Services
+      </Link>
+      <ChevronRight className="h-4 w-4 text-white/35" />
+      <span className="text-white/80">Construction</span>
+    </Reveal>
 
-                <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                  End-to-end delivery with{" "}
-                  <span className="text-brand-gradient">disciplined controls</span>
-                </h1>
+    <div className="pb-16 pt-10 sm:pb-20 sm:pt-12">
+      <Reveal>
+        {/* small label like Webflow section */}
+        
 
-                <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 sm:text-[15px]">
-                  We deliver construction with scope clarity, schedule integrity, quality assurance,
-                  and safety-led execution, built for long-term durability and cost-effective operation.
-                </p>
+        {/* BIG headline */}
+        <h1 className="mt-6 max-w-5xl text-5xl font-bold leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl">
+          Build it properly
+          <br />
+          <span className="text-white/90">— and keep it durable.</span>
+        </h1>
 
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <Button asChild className="rounded-none">
-                    <Link href="/#contact">Request a scope call</Link>
-                  </Button>
-                  <Button
-                    asChild
-                    variant="outline"
-                    className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
-                  >
-                    <Link href="#what-we-do">See services</Link>
-                  </Button>
-                </div>
-              </Reveal>
+        {/* supporting copy */}
+        <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
+          We deliver construction with scope clarity, schedule integrity, quality assurance, and
+          safety-led execution, built for long-term performance and cost-effective operation.
+        </p>
 
-              <Reveal delayMs={120} className="mt-10 grid gap-3 sm:grid-cols-2">
-                {[
-                  { value: "Scope clarity", label: "Clear deliverables" },
-                  { value: "Schedule integrity", label: "Milestone discipline" },
-                  { value: "Quality assurance", label: "Built to last" },
-                  { value: "Safety-led", label: "Controls first" },
-                ].map((s) => (
-                  <ConstructionCard key={s.label} className="p-4">
-                    <div className="text-sm font-semibold text-white">{s.value}</div>
-                    <div className="mt-1 text-xs text-white/70">{s.label}</div>
-                  </ConstructionCard>
-                ))}
-              </Reveal>
-            </div>
-
-            <Reveal delayMs={160}>
-              <div className="grid gap-4">
-                <MediaSlot
-                  label="Construction hero image"
-                  src="/illustrations/construction-1.png"
-                />
-                <ConstructionCard className="p-5">
-                  <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                    Typical outcomes
-                  </div>
-                  <div className="mt-3 grid gap-2 text-sm text-white/80">
-                    <div className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                      Disciplined scope and cost control
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                      Safer sites and cleaner handovers
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-white/60" />
-                      Durable builds, reduced rework
-                    </div>
-                  </div>
-                </ConstructionCard>
-              </div>
-            </Reveal>
-          </div>
+        {/* CTA row */}
+        <div className="mt-8 flex flex-wrap items-center gap-3">
+          <Button asChild className="h-11 rounded-none px-6">
+            <Link href="/#contact">Request a scope call</Link>
+          </Button>
+          <Button
+            asChild
+            variant="outline"
+            className="h-11 rounded-none border-white/15 bg-transparent px-6 text-white hover:bg-white/5"
+          >
+            <Link href="#what-we-do">See services</Link>
+          </Button>
         </div>
+      </Reveal>
+    </div>
+  </div>
 
-        <div className="mt-14">
-          <Separator className="bg-white/10" />
-        </div>
-      </section>
+  <Separator className="bg-white/10" />
+</section>
 
-      {/* STICKY QUICK LINKS (mobile + desktop safe) */}
-      <section className="sticky top-0 z-40 border-b border-white/10 bg-black/70 backdrop-blur supports-[backdrop-filter]:bg-black/50">
-        <div className="mx-auto max-w-6xl px-4 py-3">
-          <Reveal className="flex flex-wrap items-center gap-2">
-            <span className="mr-1 inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.03] px-3 py-2 text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
-              Quick links
-            </span>
-
-            {quickLinks.map(([label, href]) => (
-              <Link
-                key={href}
-                href={href}
-                className="rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 text-sm text-white/80 hover:bg-white/5 hover:text-white transition"
-              >
-                {label}
-              </Link>
-            ))}
-          </Reveal>
-        </div>
-      </section>
+      {/* STICKY QUICK LINKS */}
+      
 
       {/* OVERVIEW */}
-      <Section
-        id="overview"
-        eyebrow="Overview"
-        title="Positioning and vision"
-        subtitle="Disciplined delivery, safe execution, and build quality that stands up over time."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <div className="grid gap-6">
-            <Reveal>
-              <ConstructionCard className="p-6">
-                <div id="positioning" className="scroll-mt-32" />
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Positioning
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  We deliver end-to-end construction services with disciplined controls: scope clarity,
-                  schedule integrity, quality assurance, and safety-led execution.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {["Scope clarity", "Schedule integrity", "Quality assurance", "Safety-led"].map((x) => (
-                    <Badge
-                      key={x}
-                      variant="outline"
-                      className="rounded-none border-white/15 text-white/80"
-                    >
-                      {x}
-                    </Badge>
-                  ))}
-                </div>
-              </ConstructionCard>
-            </Reveal>
+      {/* ✅ OVERVIEW (split into 2 sections: Positioning + Vision, each with its own hero-style vibe) */}
 
-            <Reveal delayMs={120}>
-              <ConstructionCard className="p-6">
-                <div id="vision" className="scroll-mt-32" />
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Vision
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  To build infrastructure that lasts, is safe to operate, and is cost-effective to maintain.
-                </p>
-              </ConstructionCard>
-            </Reveal>
+{/* POSITIONING (uses 1st image vibe: big left title + right copy + CTA box) */}
+<section id="overview" className="scroll-mt-32 py-14 sm:py-18">
+  <div className="mx-auto max-w-6xl px-4">
+      
+
+    <div className="mt-10">
+      <Reveal>
+        <ConstructionCard className="p-7 sm:p-9">
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+            {/* Left: big statement */}
+            <div className="lg:col-span-7">
+              <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">
+                Scope clarity
+                <br />
+                with disciplined
+                <br />
+                controls.
+              </h3>
+            </div>
+
+            {/* Right: copy + button */}
+            <div className="lg:col-span-5">
+              <p className="text-sm leading-relaxed text-white/70 sm:text-base">
+                We deliver end-to-end construction services with disciplined controls: scope clarity,
+                schedule integrity, quality assurance, and safety-led execution.
+              </p>
+
+              <div className="mt-6">
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-11 w-full rounded-none border-white/15 bg-transparent text-white hover:bg-white/5 sm:w-auto sm:px-8"
+                >
+                  <Link href="/#contact">Get started</Link>
+                </Button>
+              </div>
+
+              
+            </div>
+          </div>
+        </ConstructionCard>
+      </Reveal>
+    </div>
+  </div>
+</section>
+
+{/* VISION (uses 2nd image vibe: bold headline + image card next to text) */}
+<section id="vision" className="scroll-mt-32 py-14 sm:py-18">
+  <div className="mx-auto max-w-6xl px-4">
+    
+
+    <div className="mt-10 grid gap-6 lg:grid-cols-12 lg:items-stretch">
+      {/* Left: text block like the screenshot */}
+      <Reveal className="lg:col-span-6">
+        <ConstructionCard className="h-full p-7 sm:p-9">
+          <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">
+            Vision
+            
+          </h3>
+
+          <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+            To build infrastructure that lasts, is safe to operate, and is cost-effective to maintain.
+            We keep delivery visible through planning, governance, and quality checks from start to handover.
+          </p>
+
+          <div className="mt-8 h-px w-24 bg-white/10" />
+        </ConstructionCard>
+      </Reveal>
+
+      {/* Right: image card (illustration) */}
+      <Reveal delayMs={140} className="lg:col-span-6">
+        <ConstructionCard className="h-full p-2 sm:p-2.5">
+          <div className="relative overflow-hidden rounded-2xl border border-white/10">
+            <div className="relative aspect-[16/11] w-full">
+              <Image
+                src="/illustrations/construction-2.png"
+                alt="Vision illustration"
+                fill
+                className="object-cover"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+              />
+              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
+            </div>
+          </div>
+        </ConstructionCard>
+      </Reveal>
+    </div>
+  </div>
+</section>
+
+{/* divider after overview */}
+<div className="mx-auto max-w-6xl px-4">
+  <Separator className="bg-white/10" />
+</div>
+
+      {/* WHAT WE DO */}
+      
+
+<Section
+  id="what-we-do"
+  title="Core construction services"
+>
+  <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    {whatWeDo.map((x, i) => (
+      <Reveal key={x.title} delayMs={i * 60}>
+        <div
+          className={[
+            "group relative overflow-hidden",
+            "border border-white/10 bg-black",
+            "min-h-[360px] sm:min-h-[420px]",
+            "transition-transform duration-200 hover:-translate-y-[2px]",
+            "hover:shadow-[0_0_0_1px_rgba(255,255,255,.12),0_22px_70px_rgba(0,0,0,.55)]",
+          ].join(" ")}
+        >
+          {/* Background image (crisp, NOT blurred) */}
+          <div className="absolute inset-0">
+            <Image
+              src={x.img}
+              alt={x.title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+              priority={i < 2}
+            />
+            {/* Subtle readability gradient like the reference */}
+            <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/10 to-black/85" />
+            {/* Optional slight side wash for contrast */}
+            <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-transparent" />
           </div>
 
-          <Reveal delayMs={160}>
-            <MediaSlot label="Positioning image" src="/illustrations/construction-2.png" />
-          </Reveal>
+          {/* Content */}
+          <div className="relative flex h-full flex-col p-6">
+            <div className="flex items-start gap-3">
+              {/* Small icon chip */}
+              <span className="grid h-10 w-10 place-items-center border border-white/15 bg-black/30 text-white/90">
+                {x.icon}
+              </span>
+
+              <div className="min-w-0">
+                <div className="text-2xl font-semibold leading-snug text-white">
+                  {x.title}
+                </div>
+                <div className="mt-2 text-xl leading-relaxed text-">
+                  {x.desc}
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom spacer + subtle line (like card separation in reference) */}
+            <div className="mt-auto pt-6">
+              <div className="h-px w-16 bg-white/15" />
+            </div>
+          </div>
+
+          {/* Hover tint (very subtle) */}
+          <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-white/[0.03]" />
         </div>
+      </Reveal>
+    ))}
+  </div>
+</Section>
+
+      {/* ✅ ALUMINUM: carousels for multi, alternating split blocks for single */}
+      <Section
+        id="aluminum"
+        title="Aluminum Products & Services"
+      >
+        {(() => {
+          // Only alternate among single-item categories, so carousels in-between don't break the pattern.
+          const singleIds = aluminumCategories
+            .filter((c) => c.slides.length === 1)
+            .map((c) => c.id);
+
+          return (
+            <div className="grid gap-6">
+              {aluminumCategories.map((cat, i) => {
+                const isSingle = cat.slides.length === 1;
+                const flip = isSingle ? singleIds.indexOf(cat.id) % 2 === 1 : false;
+
+                return (
+                  <Reveal key={cat.id} delayMs={i * 70}>
+                    {isSingle ? (
+                      <AluminumSplitFeature
+                        anchorId={cat.id}
+                        title={cat.title}
+                        lead={cat.subtitle ?? cat.slides[0]?.title}
+                        body={cat.slides[0]?.description}
+                        image={cat.slides[0].image}
+                        flip={flip}
+                      />
+                    ) : (
+                      <ConstructionCard className="p-6">
+                        <div className="flex flex-wrap items-start justify-between gap-4">
+                          <div>
+                            <div className="text-sm font-semibold text-white">{cat.title}</div>
+                            {cat.subtitle ? (
+                              <div className="mt-1 text-xs text-white/60">{cat.subtitle}</div>
+                            ) : null}
+                          </div>
+
+                        </div>
+
+                        <div id={cat.id} className="scroll-mt-32" />
+
+                        <div className="mt-5">
+                          <AluminumCategoryCarousel slides={cat.slides} autoPlayMs={6000} />
+                        </div>
+                      </ConstructionCard>
+                    )}
+                  </Reveal>
+                );
+              })}
+            </div>
+          );
+        })()}
       </Section>
 
-      {/* WHAT WE DO (no overflow; mobile-first grid) */}
+      {/* OTHER SERVICES */}
       <Section
-        id="what-we-do"
-        eyebrow="What we do"
-        title="Core construction services"
-        subtitle="Civil and building works, upgrades, refurbishments, and maintenance programs."
+        id="other-services"
+        eyebrow="Other services"
+        title="Additional services"
+        subtitle="Support services commonly requested alongside aluminum and construction work."
       >
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {whatWeDo.map((x, i) => (
-            <Reveal key={x.title} delayMs={i * 60}>
-              <ConstructionCard className="h-full p-5" bgSrc={x.img} bgAlt={x.title} bgOpacity={0.18}>
+          {otherServices.map((s, i) => (
+            <Reveal key={s.title} delayMs={i * 60}>
+              <ConstructionCard className="h-full p-5">
                 <div className="flex items-start gap-3">
                   <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
-                    {x.icon}
+                    {s.icon}
                   </span>
                   <div>
-                    <div className="text-sm font-semibold text-white">{x.title}</div>
-                    <div className="mt-1 text-xs leading-relaxed text-white/70">{x.desc}</div>
+                    <div className="text-sm font-semibold text-white">{s.title}</div>
+                    <div className="mt-1 text-xs leading-relaxed text-white/70">{s.desc}</div>
                   </div>
                 </div>
               </ConstructionCard>
@@ -425,72 +856,88 @@ export default function ConstructionServicePage() {
       </Section>
 
       {/* SECTORS */}
-      <Section
-        id="sectors"
-        eyebrow="Sectors we serve"
-        title="Where we deliver"
-        subtitle="Public infrastructure, industrial facilities, commercial builds, community developments, and enabling works."
-      >
-        <Reveal>
-          <ConstructionCard className="p-6">
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-              {sectors.map((s) => (
-                <div
-                  key={s.label}
-                  className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] px-4 py-3"
-                >
-                  <span className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
-                    {s.icon}
-                  </span>
-                  <div className="text-sm text-white/80">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </ConstructionCard>
-        </Reveal>
-      </Section>
 
-      {/* DELIVERY (step cards - stable everywhere) */}
-      <Section
-        id="delivery"
-        eyebrow="How we deliver"
-        title="Controls-led execution"
-        subtitle="From feasibility to handover, we keep delivery visible through planning, governance, and safety practices."
-      >
-        <div className="grid gap-4 lg:grid-cols-3">
-          {delivery.map((d, i) => (
-            <Reveal key={d.title} delayMs={i * 80}>
-              <ConstructionCard className="h-full p-6">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-start gap-3">
-                    <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
-                      {d.icon}
-                    </span>
-                    <div>
-                      <div className="text-sm font-semibold text-white">{d.title}</div>
-                      <div className="mt-1 text-xs text-white/60">Step {i + 1}</div>
-                    </div>
-                  </div>
-                </div>
-                <ul className="mt-4 space-y-2 text-xs leading-relaxed text-white/75">
-                  {d.bullets.map((b) => (
-                    <li key={b} className="flex gap-2">
-                      <span className="mt-[5px] h-1.5 w-1.5 rounded-full bg-white/60" />
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
-              </ConstructionCard>
-            </Reveal>
-          ))}
+
+<section id="sectors" className="scroll-mt-32 py-14 sm:py-18">
+  <div className="mx-auto max-w-6xl px-4">
+    <Reveal>
+      <SectorsCarousel
+        title="Sectors we serve"
+        subtitle="Public infrastructure, industrial facilities, commercial builds, and community developments, delivered with disciplined controls."
+        slides={sectorSlides}
+      />
+    </Reveal>
+  </div>
+</section>
+
+
+
+      {/* DELIVERY */}
+      
+
+<Section
+  id="delivery"
+  eyebrow="Delivery"
+  title="How we deliver"
+  subtitle="From feasibility to handover, we keep delivery visible through planning, governance, and safety practices."
+>
+  <div className="grid gap-8 lg:grid-cols-3">
+    {delivery.map((d: any, i: number) => (
+      <Reveal key={d.title} delayMs={i * 80}>
+        <div
+          className={[
+            "group relative overflow-hidden",
+            "bg-black",
+            "transition-transform duration-200 lg:hover:-translate-y-[2px]",
+            "lg:shadow-[0_30px_90px_rgba(0,0,0,0.55)]",
+          ].join(" ")}
+        >
+          {/* Image top (crisp) */}
+          <div className="relative h-[220px] w-full sm:h-[360px]">
+            <Image
+              src={d.img ?? `/illustrations/gradient-${(i % 4) + 1}.avif`}
+              alt={d.title}
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              priority={i === 0}
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/65" />
+
+            {/* tiny step chip like the reference */}
+            <div className="absolute left-5 top-5 inline-flex items-center gap-2 border border-white/10 bg-black/40 px-3 py-1 text-xs text-white/80 backdrop-blur">
+              <span className="grid h-7 w-7 place-items-center border border-white/10 bg-white/5 text-white/90">
+                {d.icon}
+              </span>
+              <span className="text-white/70">Step {i + 1}</span>
+            </div>
+          </div>
+
+          {/* Text body */}
+          <div className="p-6">
+            <h3 className="text-xl font-semibold leading-snug text-white sm:text-2xl">
+              {d.title}
+            </h3>
+
+            {/* ✅ No bullet points, single paragraph summary */}
+            <p className="mt-3 text-sm leading-relaxed text-white/70">
+              {d.summary ??
+                (Array.isArray(d.bullets)
+                  ? d.bullets.join(" ")
+                  : "Structured delivery practices that keep scope, schedule, and quality visible from start to handover.")}
+            </p>
+          </div>
         </div>
-      </Section>
+      </Reveal>
+    ))}
+  </div>
+</Section>
 
       {/* COMPLIANCE */}
       <Section
         id="compliance"
-        eyebrow="Assurance and compliance"
-        title="Capability, track record, and aligned standards"
+        title="Assurance and compliance
+"
         subtitle="We align delivery practices to best-practice requirements appropriate to client and project context."
       >
         <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
@@ -509,11 +956,7 @@ export default function ConstructionServicePage() {
 
                   <div className="mt-4 flex flex-wrap gap-2">
                     {["Quality checks", "Documentation", "Milestones", "HSE file approach"].map((x) => (
-                      <Badge
-                        key={x}
-                        variant="outline"
-                        className="rounded-none border-white/15 text-white/80"
-                      >
+                      <Badge key={x} variant="outline" className="rounded-none border-white/15 text-white/80">
                         {x}
                       </Badge>
                     ))}
@@ -532,9 +975,7 @@ export default function ConstructionServicePage() {
       {/* VENTURES */}
       <Section
         id="ventures"
-        eyebrow="Ventures we’re pursuing"
-        title="Focus areas for growth"
-        subtitle="Practical projects that match market demand and improve infrastructure outcomes."
+        title="Ventures we’re pursuing"
       >
         <div className="grid gap-4 md:grid-cols-3">
           {ventures.map((v, i) => (
@@ -561,39 +1002,45 @@ export default function ConstructionServicePage() {
       </Section>
 
       {/* CTA */}
-      <section className="py-16">
-        <div className="mx-auto max-w-6xl px-4">
-          <Reveal>
-            <ConstructionCard className="p-8 sm:p-10">
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                Next step
-              </div>
+      
 
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                Tell us what you’re building and we’ll scope it properly.
-              </h3>
+<section className="relative overflow-hidden py-20 sm:py-24">
+  {/* subtle background wash */}
+  <div className="pointer-events-none absolute inset-0">
+    <div className="absolute inset-0 bg-black" />
+    <div className="absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-white/[0.06] blur-3xl" />
+    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/70 to-black" />
+  </div>
 
-              <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
-                Share the site location, required outcomes, constraints, and target timeline. We’ll respond
-                with a structured approach to scope, schedule, and delivery controls.
-              </p>
-
-              <div className="mt-7 flex flex-wrap gap-3">
-                <Button asChild className="rounded-none">
-                  <Link href="/#contact">Contact Thaboliz</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
-                >
-                  <Link href="/services">Browse services</Link>
-                </Button>
-              </div>
-            </ConstructionCard>
-          </Reveal>
+  <div className="relative mx-auto max-w-6xl px-4">
+    <Reveal>
+      <div className="grid gap-10 lg:grid-cols-12 lg:items-end">
+        {/* Big headline */}
+        <div className="lg:col-span-8">
+          <h3 className="text-4xl  ttext-white sm:text-5xl lg:text-6xl">
+            Ready to get started?
+          
+          </h3>
         </div>
-      </section>
+
+        {/* Actions + small note */}
+        <div className="lg:col-span-4">
+          <div className="flex flex-wrap items-center gap-4">
+            {/* square white button */}
+            <Button
+              asChild
+              className="h-12 rounded-none bg-blue-500 px-8 text-white hover:text-black hover:bg-white/90"
+            >
+              <Link href="/#contact">Contact Us</Link>
+            </Button>
+
+           
+          </div>
+        </div>
+      </div>
+    </Reveal>
+  </div>
+</section>
     </main>
   );
 }

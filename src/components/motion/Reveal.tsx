@@ -80,7 +80,7 @@ export default function Reveal({
           setInView(true);
           io.disconnect();
         }
-      },
+      }, 
       { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
     );
 

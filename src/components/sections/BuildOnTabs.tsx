@@ -73,42 +73,42 @@ const items: Item[] = [
     size: "mid",
     image: "/companies/oil.avif"
   },
-  {
-    label: "Green Energy",
-    title: "Clean energy for a stronger future",
-    description: "Practical green energy solutions designed to work in the real world.",
-    href: "/divisions/green-energy",
-    icon: <Wind className="h-5 w-5" />,
-    size: "short",
-    image: "/companies/energy.avif"
-  },
-  {
-    label: "Research & Innovation",
-    title: "Research that turns into results",
-    description: "We test, improve, and build smarter ways to deliver projects.",
-    href: "/divisions/research",
-    icon: <Microscope className="h-5 w-5" />,
-    size: "mid",
-    image: "/companies/research.avif"
-  },
-  {
-    label: "Tenders",
-    title: "Tender support and fulfilment",
-    description: "We help source, quote, and deliver what the contract requires.",
-    href: "/divisions/tenders",
-    icon: <FileText className="h-5 w-5" />,
-    size: "short",
-    image: "/companies/tender.avif"
-  },
-  {
-    label: "CSR",
-    title: "Corporate Social Responsibility",
-    description: "Upliftment initiatives through the Thaboliz Empowerment Foundation.",
-    href: "/divisions/foundation",
-    icon: <HeartHandshake className="h-5 w-5" />,
-    size: "tall",
-    image: "/companies/community.avif"
-  },
+  // {
+  //   label: "Green Energy",
+  //   title: "Clean energy for a stronger future",
+  //   description: "Practical green energy solutions designed to work in the real world.",
+  //   href: "/divisions/green-energy",
+  //   icon: <Wind className="h-5 w-5" />,
+  //   size: "short",
+  //   image: "/companies/energy.avif"
+  // },
+  // {
+  //   label: "Research & Innovation",
+  //   title: "Research that turns into results",
+  //   description: "We test, improve, and build smarter ways to deliver projects.",
+  //   href: "/divisions/research",
+  //   icon: <Microscope className="h-5 w-5" />,
+  //   size: "mid",
+  //   image: "/companies/research.avif"
+  // },
+  // {
+  //   label: "Tenders",
+  //   title: "Tender support and fulfilment",
+  //   description: "We help source, quote, and deliver what the contract requires.",
+  //   href: "/divisions/tenders",
+  //   icon: <FileText className="h-5 w-5" />,
+  //   size: "short",
+  //   image: "/companies/tender.avif"
+  // },
+  // {
+  //   label: "CSR",
+  //   title: "Corporate Social Responsibility",
+  //   description: "Upliftment initiatives through the Thaboliz Empowerment Foundation.",
+  //   href: "/divisions/foundation",
+  //   icon: <HeartHandshake className="h-5 w-5" />,
+  //   size: "tall",
+  //   image: "/companies/community.avif"
+  // },
 ];
 
 function spanFor(size?: Item["size"]) {

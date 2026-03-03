@@ -15,10 +15,10 @@ export default function HomePage() {
         
 
         <BuildOnTabs />
-        <Testimonials />
-        <Numbers />
-        <Faq />
-        <ReadyCta />
+        {/* <Testimonials /> */}
+        {/* <Numbers /> */}
+        {/* <Faq /> */}
+        {/* <ReadyCta /> */}
                 <ContactDetails />
 
       </div>

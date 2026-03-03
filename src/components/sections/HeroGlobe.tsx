@@ -6,7 +6,7 @@ import { GitHubGlobe } from "@/components/globe/GitHubGlobe";
 
 export function HeroGlobe() {
   return (
-<section className="relative overflow-hidden border-b border-white/10 min-h-[100svh] md:min-h-0">
+<section className="relative overflow-hidden border-b border-white/10 h-[100vh] md:min-h-0">
       {/* Background gradient like GitHub, with red hue */}
       <div className="absolute inset-0 hero-bg" />
 
@@ -47,7 +47,7 @@ export function HeroGlobe() {
             </div>
 
             {/* Stats row like GitHub */}
-            <div className="grid grid-cols-3 gap-6 pt-8 text-sm">
+            {/* <div className="grid grid-cols-3 gap-6 pt-8 text-sm">
               <div className="border-t border-white/10 pt-4">
                 <div className="text-white text-2xl font-semibold">250+</div>
                 <div className="text-white/60">Projects completed</div>
@@ -60,7 +60,7 @@ export function HeroGlobe() {
                 <div className="text-white text-2xl font-semibold">8</div>
                 <div className="text-white/60">Industries served</div>
               </div>
-            </div>
+            </div> */}
 
             
           </Reveal>
