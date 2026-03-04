@@ -13,6 +13,8 @@ import {
 
 import ThabolizLogo from "../brand/ThabolizLogo";
 
+import RouteLogo from "@/components/brand/RouteLogo";
+
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
     <div className="text-xs font-semibold uppercase tracking-widest text-white/55">
@@ -100,7 +102,7 @@ export default function SiteFooter() {
           {/* Brand / summary */}
           <div className="md:col-span-4">
             <Link href="/" className="inline-flex items-center gap-2">
-              <ThabolizLogo />
+                <RouteLogo width={160} height={32} />
             </Link>
 
             <p className="mt-4 text-md leading-relaxed text-white/65">

@@ -68,7 +68,6 @@ export default function AluminumCategoryCarousel({
     <div
       className={[
         "overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03]",
-        "shadow-[0_30px_90px_rgba(0,0,0,0.55)]",
         className,
       ].join(" ")}
       onMouseEnter={() => setHoverPause(true)}
@@ -101,15 +100,8 @@ export default function AluminumCategoryCarousel({
                           ].join(" ")}
                           sizes="(min-width: 1024px) 50vw, 45vw"
                         />
-                        <div className="pointer-events-none absolute inset-0 bg-gradient-to-r from-black/45 via-black/10 to-black/0 lg:from-black/70 lg:via-black/25" />
 
-                        {s.eyebrow ? (
-                          <div className="absolute left-3 top-3 sm:left-4 sm:top-4">
-                            <span className="rounded-full border border-white/15 bg-black/40 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-white/80 backdrop-blur">
-                              {s.eyebrow}
-                            </span>
-                          </div>
-                        ) : null}
+                        
                       </div>
                     </div>
                   </div>

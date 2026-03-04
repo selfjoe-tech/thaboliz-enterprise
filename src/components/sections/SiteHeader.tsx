@@ -36,6 +36,7 @@ import {
 } from "lucide-react";
 import HeaderBrand from "./HeaderBrand";
 import ScrollLink from "../ScrollLink";
+import RouteLogo from "@/components/brand/RouteLogo";
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -65,8 +66,8 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
       "Civil works, refurbishments, disciplined delivery controls, and aluminum fabrication services.",
     href: "/services/construction",
     icon: <Building2 className="h-4 w-4" />,
-    image: { src: "/illustrations/construction-1.png", alt: "Construction" },
-    chips: ["Aluminum windows", "Aluminum doors", "Gates & fences", "Refurb & upgrades", "Maintenance"],
+    image: { src: "/stock/pic-21.jpg", alt: "Construction" },
+    chips: ["Aluminum windows", "Aluminum doors", "Gates & fences", "Refurb & upgrades", "Maintenance", "Foundation to roof"],
   },
   {
     id: "technologies",
@@ -75,8 +76,8 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
       "Web, systems, and automation solutions that support operations and modern service delivery.",
     href: "/services/technologies",
     icon: <Cpu className="h-4 w-4" />,
-    image: { src: "/illustrations/gradient-2.avif", alt: "Technologies" },
-    chips: ["Web platforms", "Automation", "Systems", "Digital ops"],
+    image: { src: "/stock/pic-22.jpg", alt: "Technologies" },
+    chips: ["Web platforms", "Automation", "Systems", "Digital ops", "Cyber Security"],
   },
   {
     id: "mining",
@@ -85,7 +86,7 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
       "Responsible extraction operations with a focus on process discipline and compliance readiness.",
     href: "/services/mining",
     icon: <Pickaxe className="h-4 w-4" />,
-    image: { src: "/illustrations/gradient-3.avif", alt: "Mining" },
+    image: { src: "/stock/pic-23.jpg", alt: "Mining" },
     chips: ["Operations support", "Compliance readiness", "Project logistics"],
   },
   {
@@ -95,7 +96,7 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
       "Supply chain and distribution support for contracted scopes and infrastructure operations.",
     href: "/services/logistics",
     icon: <Truck className="h-4 w-4" />,
-    image: { src: "/illustrations/gradient-4.avif", alt: "Logistics" },
+    image: { src: "/stock/pic-24.jpg", alt: "Logistics" },
     chips: ["Distribution", "Facilities support", "Contracted delivery"],
   },
   {
@@ -105,7 +106,7 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
       "Sustainable food production initiatives with practical, scalable execution and operations support.",
     href: "/services/organic-farms",
     icon: <Sprout className="h-4 w-4" />,
-    image: { src: "/illustrations/gradient-1.avif", alt: "Organic farms" },
+    image: { src: "/stock/pic-25.jpg", alt: "Organic farms" },
     chips: ["Sustainable production", "Operations", "Scaling"],
   },
   {
@@ -115,7 +116,7 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
       "Support services and operational capability for fuel and gas related infrastructure.",
     href: "/services/oil-and-gas",
     icon: <Flame className="h-4 w-4" />,
-    image: { src: "/illustrations/construction-2.png", alt: "Oil & Gas" },
+    image: { src: "/stock/pic-26.jpg", alt: "Oil & Gas" },
     chips: ["Infrastructure support", "Safety docs", "Partner-led execution"],
   },
   
@@ -162,7 +163,7 @@ export default function SiteHeader() {
         <div className="flex h-16 items-center justify-between">
           {/* Brand */}
           <Link href="/" className="font-semibold tracking-tight text-white">
-            <HeaderBrand w={140} h={28} />
+            <RouteLogo width={110} height={28} priority />
           </Link>
 
           {/* Desktop nav */}
@@ -244,8 +245,8 @@ export default function SiteHeader() {
                           </div>
 
                           {/* Right image */}
-                          <div className="lg:col-span-4 p-6">
-                            <div className="relative overflow-hidden border border-white/10 bg-white/[0.02]">
+                          <div className="lg:col-span-4">
+                            <div className="relative overflow-hidden bg-white/[0.02]">
                               <div className="relative aspect-[4/5] w-full">
                                 <Image
                                   src={active.image.src}
@@ -278,12 +279,7 @@ export default function SiteHeader() {
 
                           <div className="flex items-center gap-3">
                             
-                            <Button
-                              asChild
-                              className="h-10 rounded-none bg-white px-6 text-black hover:bg-white/90"
-                            >
-                              <ScrollLink href="/#contact">Get started</ScrollLink>
-                            </Button>
+                            
                           </div>
                         </div>
                       </div>

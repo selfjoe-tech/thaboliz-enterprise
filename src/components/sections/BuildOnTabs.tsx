@@ -23,7 +23,7 @@ const items: Item[] = [
     label: "Construction",
     title: "Infrastructure that stands the test",
     description: "Planning, delivery, and project execution built around quality and safety.",
-    href: "/divisions/construction",
+    href: "/services/construction",
     icon: <Building2 className="h-5 w-5" />,
     size: "tall",
     image: "/companies/construction.jpg"
@@ -32,7 +32,7 @@ const items: Item[] = [
     label: "Technology",
     title: "Technology that moves the work forward",
     description: "IT services and supplying tech products that fit your needs.",
-    href: "/divisions/technologies",
+    href: "/services/technologies",
     icon: <Cpu className="h-5 w-5" />,
     size: "mid",
     image: "/companies/tech.jpg"
@@ -41,7 +41,7 @@ const items: Item[] = [
     label: "Organic Farms",
     title: "Organic farming with real standards",
     description: "No GMOs, no chemical fertilisers. Clean farming practices that respect the land.",
-    href: "/divisions/organic-farms",
+    href: "/services/organic-farms",
     icon: <Sprout className="h-5 w-5" />,
     size: "mid",
     image: "/companies/organic farming.avif"
@@ -50,7 +50,7 @@ const items: Item[] = [
     label: "Mining",
     title: "Responsible resource development",
     description: "Operations guided by safety, compliance, and long-term value.",
-    href: "/divisions/mining",
+    href: "/services/mining",
     icon: <Mountain className="h-5 w-5" />,
     size: "tall",
     image: "/companies/mining.avif"
@@ -59,7 +59,7 @@ const items: Item[] = [
     label: "Logistics",
     title: "Movement that keeps supply chains alive",
     description: "Reliable transport and logistics built for efficiency and trust.",
-    href: "/divisions/logistics",
+    href: "/services/logistics",
     icon: <Truck className="h-5 w-5" />,
     size: "short",
     image: "/companies/logistics.jpg"
@@ -68,7 +68,7 @@ const items: Item[] = [
     label: "Oil & Gas",
     title: "Energy projects delivered with discipline",
     description: "Structured execution, clear reporting, and operational accountability.",
-    href: "/divisions/oil-and-gas",
+    href: "/services/oil-and-gas",
     icon: <Flame className="h-5 w-5" />,
     size: "mid",
     image: "/companies/oil.avif"
@@ -77,7 +77,7 @@ const items: Item[] = [
   //   label: "Green Energy",
   //   title: "Clean energy for a stronger future",
   //   description: "Practical green energy solutions designed to work in the real world.",
-  //   href: "/divisions/green-energy",
+  //   href: "/services/green-energy",
   //   icon: <Wind className="h-5 w-5" />,
   //   size: "short",
   //   image: "/companies/energy.avif"
@@ -86,7 +86,7 @@ const items: Item[] = [
   //   label: "Research & Innovation",
   //   title: "Research that turns into results",
   //   description: "We test, improve, and build smarter ways to deliver projects.",
-  //   href: "/divisions/research",
+  //   href: "/services/research",
   //   icon: <Microscope className="h-5 w-5" />,
   //   size: "mid",
   //   image: "/companies/research.avif"
@@ -95,7 +95,7 @@ const items: Item[] = [
   //   label: "Tenders",
   //   title: "Tender support and fulfilment",
   //   description: "We help source, quote, and deliver what the contract requires.",
-  //   href: "/divisions/tenders",
+  //   href: "/services/tenders",
   //   icon: <FileText className="h-5 w-5" />,
   //   size: "short",
   //   image: "/companies/tender.avif"
@@ -104,7 +104,7 @@ const items: Item[] = [
   //   label: "CSR",
   //   title: "Corporate Social Responsibility",
   //   description: "Upliftment initiatives through the Thaboliz Empowerment Foundation.",
-  //   href: "/divisions/foundation",
+  //   href: "/services/foundation",
   //   icon: <HeartHandshake className="h-5 w-5" />,
   //   size: "tall",
   //   image: "/companies/community.avif"

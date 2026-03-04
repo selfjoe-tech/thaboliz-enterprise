@@ -147,12 +147,11 @@ export default function SectorsCarousel({
                 {...(s.href ? { href: s.href } : {})}
                 className={[
                   // keep it lighter on mobile, fancy on desktop
-                  "relative overflow-hidden border border-white/10 bg-black",
+                  "relative overflow-hidden bg-black",
                   "transform-gpu will-change-transform",
                   "min-w-[86%] sm:min-w-[52%] lg:min-w-[36%]",
                   "h-[260px] sm:h-[320px]",
                   // expensive effects only on desktop where hover exists
-                  "lg:shadow-[0_30px_90px_rgba(0,0,0,0.55)]",
                   "lg:transition-transform lg:duration-200 lg:hover:-translate-y-[2px]",
                 ].join(" ")}
               >

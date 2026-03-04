@@ -172,7 +172,6 @@ function AluminumSplitFeature({
               className="object-cover object-center"
               sizes="(min-width: 1024px) 50vw, 100vw"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-black/65 via-black/25 to-black/0" />
           </div>
         </div>
 
@@ -245,25 +244,25 @@ export default function ConstructionServicePage() {
     id: "public",
     label: "Public infrastructure",
     icon: "Building2",
-    bgSrc: "/illustrations/gradient-1.avif",
+    bgSrc: "/g/pic-15.avif",
   },
   {
     id: "industrial",
     label: "Industrial facilities",
     icon: "Warehouse",
-    bgSrc: "/illustrations/gradient-2.avif",
+    bgSrc: "/g/pic-16.avif",
   },
   {
     id: "commercial",
     label: "Commercial builds",
     icon: "CheckCircle2",
-    bgSrc: "/illustrations/gradient-3.avif",
+    bgSrc: "/g/pic-17.jpg",
   },
   {
     id: "community",
     label: "Community developments",
     icon: "GraduationCap",
-    bgSrc: "/illustrations/gradient-4.avif",
+    bgSrc: "/g/pic-18.avif",
   },
   {
     id: "enabling",
@@ -290,7 +289,7 @@ export default function ConstructionServicePage() {
           eyebrow: "Windows",
           title: "Awning Windows",
           description: "Ventilation-friendly, rain-resistant top-hinged windows.",
-          image: { src: "/alu/pic-13.webp", alt: "Awning Windows" },
+          image: { src: "/alu/pic-2.jpg", alt: "Awning Windows" },
         },
         {
           id: "casement-windows",
@@ -304,7 +303,7 @@ export default function ConstructionServicePage() {
           eyebrow: "Windows",
           title: "Sliding Windows",
           description: "Space-saving openings with smooth track systems.",
-          image: { src: "/alu/pic-17.jpg", alt: "Sliding Windows" },
+          image: { src: "/alu/pic-13.jpg", alt: "Sliding Windows" },
         },
         {
           id: "pane-windows",
@@ -346,7 +345,7 @@ export default function ConstructionServicePage() {
           eyebrow: "Doors",
           title: "Sliding Doors",
           description: "Wide openings with smooth gliding and neat track finishing.",
-          image: { src: "/alu/pic-13.jpg", alt: "Sliding Doors" },
+          image: { src: "/alu/pic-13.webp", alt: "Sliding Doors" },
         },
         {
           id: "hinged-doors",
@@ -388,14 +387,14 @@ export default function ConstructionServicePage() {
           eyebrow: "Louvres",
           title: "Louvre Windows",
           description: "Adjustable blades for airflow control and privacy.",
-          image: { src: "/alu/pic-8.jpg", alt: "Louvre Windows" },
+          image: { src: "/alu/pic-19.jpg", alt: "Louvre Windows" },
         },
         {
           id: "window-shutters",
           eyebrow: "Shutters",
-          title: "Window Shutters",
+          title: "Louvre Doors",
           description: "Durable shutters for shading and protection.",
-          image: { src: "/alu/pic-19.jpg", alt: "Window Shutters" },
+          image: { src: "/alu/pic-8.jpg", alt: "Window Shutters" },
         },
       ],
     },
@@ -439,7 +438,7 @@ export default function ConstructionServicePage() {
           eyebrow: "Kitchens",
           title: "Aluminum Kitchens",
           description: "Clean cabinetry structures designed for durability and easy upkeep.",
-          image: { src: "/alu/pic-3.jpg", alt: "Aluminum Kitchens" },
+          image: { src: "/alu/pic-3.jpeg", alt: "Aluminum Kitchens" },
         },
       ],
     },
@@ -459,13 +458,13 @@ export default function ConstructionServicePage() {
     },
     {
       id: "roofing",
-      title: "Roofing",
+      title: "Aluminum Roofing",
       subtitle: "Installation and repair support aligned to safe execution and tidy finishing.",
       slides: [
         {
           id: "roofing-1",
           eyebrow: "Roofing",
-          title: "Roofing",
+          title: "Aluminium Roofing",
           description: "Roofing work focused on weather protection and long-term performance.",
           image: { src: "/alu/pic-5.jpg", alt: "Roofing" },
         },
@@ -549,7 +548,7 @@ export default function ConstructionServicePage() {
     <main className="site-bg">
       {/* HERO */}
       {/* HERO (Webflow-style: big type, no illustration slot) */}
-<section className="relative overflow-hidden pt-16 sm:pt-20">
+<section className="relative overflow-hidden pt-16 sm:pt-20 h-[100vh]">
   {/* background atmosphere */}
   <div className="pointer-events-none absolute inset-0">
     <div className="absolute inset-0 bg-black" />
@@ -710,67 +709,71 @@ export default function ConstructionServicePage() {
       {/* WHAT WE DO */}
       
 
-<Section
-  id="what-we-do"
-  title="Core construction services"
->
+<Section id="what-we-do" title="Core Construction Services">
   <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-    {whatWeDo.map((x, i) => (
-      <Reveal key={x.title} delayMs={i * 60}>
-        <div
-          className={[
-            "group relative overflow-hidden",
-            "border border-white/10 bg-black",
-            "min-h-[360px] sm:min-h-[420px]",
-            "transition-transform duration-200 hover:-translate-y-[2px]",
-            "hover:shadow-[0_0_0_1px_rgba(255,255,255,.12),0_22px_70px_rgba(0,0,0,.55)]",
-          ].join(" ")}
-        >
-          {/* Background image (crisp, NOT blurred) */}
-          <div className="absolute inset-0">
-            <Image
-              src={x.img}
-              alt={x.title}
-              fill
-              className="object-cover"
-              sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
-              priority={i < 2}
-            />
-            {/* Subtle readability gradient like the reference */}
-            <div className="absolute inset-0 bg-gradient-to-b from-black/15 via-black/10 to-black/85" />
-            {/* Optional slight side wash for contrast */}
-            <div className="absolute inset-0 bg-gradient-to-r from-black/25 via-transparent to-transparent" />
-          </div>
+    {whatWeDo.map((x, i) => {
+      const gradients = [
+        "bg-[linear-gradient(135deg,rgba(37,99,235,.28),rgba(0,0,0,.92))]", // blue
+        "bg-[linear-gradient(135deg,rgba(245,158,11,.22),rgba(0,0,0,.92))]", // amber
+        "bg-[linear-gradient(135deg,rgba(34,197,94,.18),rgba(0,0,0,.92))]", // green
+        "bg-[linear-gradient(135deg,rgba(168,85,247,.20),rgba(0,0,0,.92))]", // purple
+      ];
+      const textBg = gradients[i % gradients.length];
 
-          {/* Content */}
-          <div className="relative flex h-full flex-col p-6">
-            <div className="flex items-start gap-3">
-              {/* Small icon chip */}
-              <span className="grid h-10 w-10 place-items-center border border-white/15 bg-black/30 text-white/90">
-                {x.icon}
-              </span>
+      return (
+        <Reveal key={x.title} delayMs={i * 60}>
+          <div
+            className={[
+              "group overflow-hidden border border-white/10 bg-black",
+              "transition-transform duration-200 hover:-translate-y-[2px]",
+              "hover:shadow-[0_0_0_1px_rgba(255,255,255,.12),0_22px_70px_rgba(0,0,0,.55)]",
+              "min-h-[360px] sm:min-h-[420px]",
+              // stack on mobile, split on larger screens
+              "flex flex-col",
+            ].join(" ")}
+          >
+            {/* TEXT PANEL (gradient backgrounds) */}
+            <div className={["relative p-6", textBg].join(" ")}>
+              {/* extra depth */}
+              <div className="pointer-events-none absolute inset-0 opacity-[0.22] bg-[radial-gradient(circle_at_20%_20%,rgba(255,255,255,.18),transparent_55%)]" />
+              <div className="pointer-events-none absolute inset-0 opacity-[0.14] bg-[linear-gradient(rgba(255,255,255,.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.05)_1px,transparent_1px)] bg-[size:28px_28px]" />
 
-              <div className="min-w-0">
-                <div className="text-2xl font-semibold leading-snug text-white">
-                  {x.title}
+              <div className="relative flex items-start gap-3">
+                <span className="grid h-10 w-10 place-items-center border border-white/15 bg-black/30 text-white/90">
+                  {x.icon}
+                </span>
+
+                <div className="min-w-0">
+                  <div className="text-lg font-semibold leading-snug text-white">
+                    {x.title}
+                  </div>
+                  <div className="mt-2 text-sm leading-relaxed text-white/70">
+                    {x.desc}
+                  </div>
                 </div>
-                <div className="mt-2 text-xl leading-relaxed text-">
-                  {x.desc}
-                </div>
+              </div>
+
+            </div>
+
+            {/* IMAGE PANEL (NOT a background) */}
+            <div className="relative bg-black h-100">
+              <div className="relative h-full min-h-[170px] sm:min-h-[210px]">
+                <Image
+                  src={x.img}
+                  alt={x.title}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw"
+                  priority={i < 2}
+                />
               </div>
             </div>
 
-            {/* Bottom spacer + subtle line (like card separation in reference) */}
-            <div className="mt-auto pt-6">
-              <div className="h-px w-16 bg-white/15" />
-            </div>
+            {/* hover tint */}
           </div>
-
-          {/* Hover tint (very subtle) */}
-          <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-200 group-hover:opacity-100 bg-white/[0.03]" />
-        </div>
-      </Reveal>
-    ))}
+        </Reveal>
+      );
+    })}
   </div>
 </Section>
 
@@ -829,10 +832,61 @@ export default function ConstructionServicePage() {
         })()}
       </Section>
 
+
+
+
+
+<Section
+  id="catalog"
+  eyebrow="Catalogue"
+  title="Download the catalog"
+  subtitle="Get the full Aluminum Products & Services catalogue as a PDF."
+>
+  <Reveal>
+    <ConstructionCard className="p-8 sm:p-10">
+      <div className="grid gap-8 lg:grid-cols-12 lg:items-center">
+        {/* Left: text */}
+        <div className="lg:col-span-7">
+          
+          
+          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
+            Download a shareable PDF version of our catalogue. Ideal for WhatsApp, email, printing,
+            and client presentations.
+          </p>
+
+          <div className="mt-7 flex flex-wrap items-center gap-3">
+            <a
+              href="/catalogs/thaboliz-construction-catalog.pdf"
+              download
+              className="inline-flex h-11 items-center justify-center rounded-none bg-white px-6 text-sm font-semibold text-black hover:bg-white/90 transition"
+            >
+              Download PDF
+            </a>
+
+            <a
+              href="/catalogs/thaboliz-construction-catalog.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex h-11 items-center justify-center rounded-none border border-white/15 bg-transparent px-6 text-sm font-semibold text-white hover:bg-white/5 transition"
+            >
+              View in browser
+            </a>
+          </div>
+
+          <div className="mt-4 text-xs text-white/50">
+            If the download doesn’t start, use “View in browser” and save from your PDF viewer.
+          </div>
+        </div>
+
+        
+      </div>
+    </ConstructionCard>
+  </Reveal>
+</Section>
+
       {/* OTHER SERVICES */}
       <Section
         id="other-services"
-        eyebrow="Other services"
         title="Additional services"
         subtitle="Support services commonly requested alongside aluminum and construction work."
       >
@@ -877,7 +931,6 @@ export default function ConstructionServicePage() {
 
 <Section
   id="delivery"
-  eyebrow="Delivery"
   title="How we deliver"
   subtitle="From feasibility to handover, we keep delivery visible through planning, governance, and safety practices."
 >
@@ -905,12 +958,7 @@ export default function ConstructionServicePage() {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/65" />
 
             {/* tiny step chip like the reference */}
-            <div className="absolute left-5 top-5 inline-flex items-center gap-2 border border-white/10 bg-black/40 px-3 py-1 text-xs text-white/80 backdrop-blur">
-              <span className="grid h-7 w-7 place-items-center border border-white/10 bg-white/5 text-white/90">
-                {d.icon}
-              </span>
-              <span className="text-white/70">Step {i + 1}</span>
-            </div>
+            
           </div>
 
           {/* Text body */}
