@@ -23,6 +23,11 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+import { WavyBackground } from "@/components/ui/wavy-background";
+
+import WhatWeDoCarousel from "@/components/technologies/WhatWeDoCarousel";
+
+
 function Section({
   id,
   eyebrow,
@@ -38,7 +43,7 @@ function Section({
 }) {
   return (
     <section id={id} className="scroll-mt-32 py-14 sm:py-18">
-      <div className="mx-auto max-w-6xl px-4">
+      <div className="mx-auto max-w-7xl">
         <Reveal className="max-w-3xl">
           {eyebrow ? (
             <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
@@ -195,35 +200,58 @@ export default function TechnologiesServicePage() {
   const whatWeDo = [
     {
       icon: <Cpu className="h-4 w-4" />,
-      title: "Custom web apps and internal portals",
+      title: "Web Apps",
       desc: "Operational tools that match how teams actually work.",
       span: "lg:col-span-2",
+      image: "/stock/pic-33.jpg",
     },
     {
       icon: <BarChart3 className="h-4 w-4" />,
-      title: "Dashboards, reporting, and analytics",
+      title: "Dashboards, reporting, & analytics",
       desc: "Make performance visible with clean metrics and KPIs.",
       span: "lg:col-span-1",
+      image: "/stock/pic-34.jpg",
+
     },
     {
       icon: <Workflow className="h-4 w-4" />,
-      title: "Integrations and workflow digitisation",
+      title: "Custom Workflows",
       desc: "Connect systems, remove manual steps, speed operations.",
       span: "lg:col-span-1",
+      image: "/stock/pic-37.jpg",
+
     },
     {
       icon: <ShieldCheck className="h-4 w-4" />,
-      title: "Cybersecurity hardening and monitoring",
+      title: "Cybersecurity",
       desc: "Secure baselines, detection, and response-minded upgrades.",
       span: "lg:col-span-2",
+      image: "/stock/pic-35.jpg",
+
     },
     {
       icon: <MonitorCheck className="h-4 w-4" />,
-      title: "24/7 surveillance system installation",
+      title: "24/7 surveillance system",
       desc: "CCTV setup, monitoring readiness, and operational reliability.",
       span: "lg:col-span-3",
+      image: "/stock/pic-36.jpg",
+
     },
   ];
+
+
+  const GLASS_TILES = Array.from({ length: 20 }, (_, i) => {
+  const slice = 100 / 20;
+
+  return {
+    left: `calc(${i * slice}% - clamp(10px, 1vw, 18px))`,
+    width: `calc(${slice}% + clamp(20px, 2vw, 38px))`,
+    opacity: [0.14, 0.22, 0.18, 0.26][i % 4],
+    blur: [12, 16, 20, 14][i % 4],
+    skew: [-6, -3, -5, -2][i % 4],
+    glow: [0.08, 0.14, 0.1, 0.16][i % 4],
+  };
+});
 
   const expectations = [
     {
@@ -251,243 +279,314 @@ export default function TechnologiesServicePage() {
   return (
     <main className="site-bg">
       {/* HERO (dashboard / product-studio vibe) */}
-      <section className="relative overflow-hidden pt-14 sm:pt-18">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.16] bg-[radial-gradient(circle_at_15%_20%,rgba(0,195,255,.35),transparent_55%),radial-gradient(circle_at_85%_10%,rgba(0,82,212,.38),transparent_55%)]" />
+   
+<section className="relative isolate overflow-hidden py-20 sm:py-24 lg:py-28">
+      {/* Wavy canvas background */}
+      <div className="absolute inset-0 -z-20">
+        <WavyBackground
+          containerClassName="absolute inset-0 h-full w-full !min-h-0 !rounded-none bg-[#020617]"
+          className="h-full w-full"
+          backgroundFill="rgb(2 6 23)"
+          colors={["#0f172a", "#172554", "#1d4ed8", "#2563eb", "#38bdf8"]}
+          waveWidth={52}
+          blur={12}
+          speed="slow"
+          waveOpacity={0.18}
+        >
+          <div className="h-full w-full" />
+        </WavyBackground>
+      </div>
 
-        <div className="mx-auto max-w-6xl px-4">
-          <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
-            <Link href="/services" className="hover:text-white transition">
-              Services
-            </Link>
-            <ChevronRight className="h-4 w-4 text-white/35" />
-            <span className="text-white/80">Technologies</span>
-          </Reveal>
+      {/* Glass / fractal overlay */}
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        {/* Soft atmosphere */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgba(255,255,255,0.08),transparent_28%),radial-gradient(circle_at_80%_10%,rgba(59,130,246,0.12),transparent_30%),linear-gradient(180deg,rgba(2,6,23,0.06),rgba(2,6,23,0.28))]" />
 
-          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
-            <div className="relative z-10">
-              <Reveal>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-white/70">
-                  <Cpu className="h-4 w-4 text-white/80" />
-                  Technologies
-                </div>
+        {/* Subtle ribs */}
+        
 
-                <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                  Build operations you can{" "}
-                  <span className="text-brand-gradient">measure, secure, and scale</span>
-                </h1>
+        {/* 20 wider blurred glass tiles */}
+        
 
-                <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 sm:text-[15px]">
-                  We build software, data layers, automation, and secure digital infrastructure that
-                  turns day-to-day operations into something you can improve and scale.
-                </p>
+        {/* Fine grain */}
+        
+      </div>
 
-                
+      {/* Content */}
+      <div className="mx-auto max-w-6xl px-4">
+        <Reveal>
+          <div className="max-w-3xl">
+            <h1 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
+              We're Here
+              <br />
+              To Make Your
+              <br />
+              Tech Experience Easier
+            </h1>
 
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <Button asChild className="rounded-none">
-                    <Link href="/#contact">Contact Us</Link>
-                  </Button>
-                  
-                </div>
-              </Reveal>
+            <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white/90 sm:text-base">
+              We build the operational systems behind modern businesses. Your team gets measurable workflows,
+              clearer ownership, and safer delivery without constant developer bottlenecks.
+            </p>
 
-              {/* Unique “ops tiles” */}
-              <Reveal delayMs={140} className="mt-10 grid gap-3 sm:grid-cols-3">
-                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
-                  <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-white/55">
-                    <Layers className="h-4 w-4 text-white/60" />
-                    Systems
-                  </div>
-                  <div className="mt-1 text-sm font-semibold text-white">Operational</div>
-                </div>
-                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
-                  <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-white/55">
-                    <Radar className="h-4 w-4 text-white/60" />
-                    Visibility
-                  </div>
-                  <div className="mt-1 text-sm font-semibold text-white">Measurable</div>
-                </div>
-                <div className="rounded-xl border border-white/10 bg-white/[0.02] p-3">
-                  <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-white/55">
-                    <Sparkles className="h-4 w-4 text-white/60" />
-                    Delivery
-                  </div>
-                  <div className="mt-1 text-sm font-semibold text-white">Staged</div>
-                </div>
-              </Reveal>
+            <div className="mt-8 flex flex-wrap items-center gap-4">
+              <Button asChild className="h-12 rounded-none bg-[#2563eb] px-8 text-white hover:opacity-90">
+                <Link href="/#contact">Contact us</Link>
+              </Button>
             </div>
-
-            <Reveal delayMs={160}>
-              <div className="grid gap-4">
-                <MediaSlot label="Technology hero image" src="/illustrations/tech-2.png" />
-              </div>
-            </Reveal>
           </div>
-        </div>
+        </Reveal>
 
-        <div className="mt-14">
-          <Separator className="bg-white/10" />
-        </div>
-      </section>
-
+        <div className="mt-16 h-px w-full bg-white/10" />
+      </div>
+    </section>
       {/* STICKY QUICK LINKS */}
 
       {/* POSITIONING + VISION */}
-      <Section
-        eyebrow="Overview"
-        title="Positioning and vision"
-        subtitle="Build systems that are measurable, secure, and scalable."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <div className="grid gap-6">
-            <Reveal>
-              <TechCard className="h-full">
-                <div id="positioning" className="scroll-mt-32" />
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Positioning
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  We build the operational systems behind modern businesses: software, data,
-                  automation, and secure digital infrastructure.
-                </p>
-              </TechCard>
-            </Reveal>
 
-            <Reveal delayMs={120}>
-              <TechCard className="h-full">
-                <div id="vision" className="scroll-mt-32" />
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Vision
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  To make operations measurable, secure, and scalable.
-                </p>
-              </TechCard>
-            </Reveal>
+
+{/* POSITIONING (big headline left, paragraph right) */}
+<section id="positioning" className="scroll-mt-32 py-14 sm:py-18">
+  <div className="mx-auto max-w-6xl px-4">
+    
+
+    <div className="mt-10">
+      <Reveal>
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
+          {/* Left: big statement */}
+          <div className="lg:col-span-7">
+            <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">
+              Positioning
+            </h3>
+
+            <div className="mt-10 h-px w-28 bg-white/10" />
           </div>
 
-          <Reveal delayMs={160}>
-            <MediaSlot label="Technology overview image" src="/illustrations/tech-3.png" />
-          </Reveal>
+          {/* Right: paragraph (no card, like the reference) */}
+          <div className="lg:col-span-5">
+            <p className="text-sm leading-relaxed text-white/70 sm:text-base">
+              We build the operational systems behind modern businesses: software, data,
+              automation, and secure digital infrastructure. The goal is clarity, control,
+              and performance across your workflows.
+            </p>
+          </div>
         </div>
-      </Section>
+      </Reveal>
+    </div>
+  </div>
+</section>
+
+{/* VISION (left text block + right image card) */}
+<section id="vision" className="scroll-mt-32 py-14 sm:py-18">
+  <div className="mx-auto max-w-6xl px-4">
+    
+
+    <div className="mt-10 grid gap-6 lg:grid-cols-12 lg:items-stretch">
+      {/* Left: vision text (matches the "Turn design vision..." style) */}
+      <Reveal className="lg:col-span-6">
+        <div className="h-full overflow-hidden">
+          <div className="p-8 sm:p-10">
+            <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">
+              Vision
+            </h3>
+            
+
+            <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+              To make operations measurable, secure, and scalable. We help teams build reliable
+              foundations with automation, data discipline, and security-first engineering so growth
+              doesn’t break execution.
+            </p>
+
+            <div className="mt-10 h-px w-28 bg-white/10" />
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Right: image card */}
+      <Reveal delayMs={140} className="lg:col-span-6">
+        <div className="h-full overflow-hidden border border-white/10 bg-white/[0.02]">
+          <div className="relative h-full min-h-[320px] sm:min-h-[380px] lg:min-h-[420px]">
+            <Image
+              src="/stock/pic-4.jpg"
+              alt="Technology overview image"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              priority
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/45" />
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </div>
+
+  <div className="mx-auto max-w-6xl px-4 mt-14">
+    <Separator className="bg-white/10" />
+  </div>
+</section>
 
       {/* WHAT WE DO (bento grid, unique) */}
       <Section
         id="what-we-do"
-        eyebrow="What we do"
-        title="Practical technology services"
-        subtitle="From internal systems to security and monitoring, built for real operations."
+        
       >
-        <div className="grid gap-4 lg:grid-cols-3">
-          {whatWeDo.map((x, i) => (
-            <Reveal key={x.title} delayMs={i * 60}>
-              <TechCard className={["h-full", "p-5", x.span].join(" ")}>
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                    {x.icon}
-                  </span>
-                  <div className="min-w-0">
-                    <div className="text-sm font-semibold text-white">{x.title}</div>
-                    <div className="mt-1 text-xs leading-relaxed text-white/70">{x.desc}</div>
 
-                    <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4">
-                      <div className="text-xs text-white/70">Specs + scope</div>
-                    </div>
-                  </div>
-                </div>
-              </TechCard>
-            </Reveal>
-          ))}
-        </div>
+        <div className="text-center">
+        <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Practical technology services
+        </h2>
+
+        <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white/70 sm:text-base mb-5">
+          From internal systems to security and monitoring, built for real operations.
+        </p>
+      </div>
+        <WhatWeDoCarousel
+          items={whatWeDo}
+          className="rounded-3xl p-4 sm:p-6"
+        />
       </Section>
 
       {/* COMPLIANCE */}
-      <Section
-        id="compliance"
-        eyebrow="Compliance mindset"
-        title="Designed for South Africa’s privacy and cybercrime environment"
-        subtitle="POPIA-aligned data handling and incident readiness are treated as part of delivery, not an afterthought."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <Reveal>
-            <TechCard className="h-full">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                  <Lock className="h-5 w-5" />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-sm font-semibold text-white">POPIA-aligned and incident-ready</div>
-                  <ul className="mt-3 space-y-2 text-xs leading-relaxed text-white/70">
-                    <li>• Data minimisation and access control by default</li>
-                    <li>• Audit-friendly logging and accountability</li>
-                    <li>• Secure handling of credentials and secrets</li>
-                    <li>• Monitoring, alerts, and response basics</li>
-                  </ul>
 
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {["Least privilege", "Logging", "Backups", "Change control", "Monitoring"].map((x) => (
-                      <Badge
-                        key={x}
-                        variant="outline"
-                        className="rounded-none border-white/15 text-white/80"
-                      >
-                        {x}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </TechCard>
-          </Reveal>
 
-          <Reveal delayMs={120}>
-            <MediaSlot label="Security image" src="/illustrations/tech-4.png" />
-          </Reveal>
+<section id="compliance" className="scroll-mt-32 py-16 sm:py-20">
+  <div className="mx-auto max-w-6xl px-4">
+    <Reveal>
+      {/* Centered heading */}
+      <div className="text-center">
+        <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Designed for South Africa’s privacy{" "}
+          <span className="text-[#3b82f6]">and cybercrime</span> environment
+        </h2>
+
+        <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white/90 sm:text-base">
+          POPIA-aligned data handling and incident readiness are treated as part of delivery, not an
+          afterthought.
+        </p>
+      </div>
+
+      {/* Large image */}
+      <div className="mt-10 overflow-hidden rounded-2xl  ">
+        <div className="relative h-[260px] w-full sm:h-[360px] lg:h-[560px]">
+          <Image
+            src="/illustrations/tech-4.png"
+            alt="Security and compliance"
+            fill
+            className="object-cover"
+            sizes="(min-width: 1024px) 1100px, 100vw"
+            priority
+          />
         </div>
-      </Section>
+      </div>
+
+      {/* Bottom explanation row */}
+      <div className="mt-10 border-t border-white/10 pt-10">
+        <div className="grid gap-10 lg:grid-cols-3">
+          {/* Column 1 */}
+          <div>
+            <div className="text-lg font-semibold text-white">Automate the busywork</div>
+            <p className="mt-3 text-md leading-relaxed text-white/90">
+              Data handling stays consistent through reusable patterns, sensible defaults, and clear
+              operational workflows. Less manual overhead, more reliability.
+            </p>
+          </div>
+
+          {/* Column 2 */}
+          <div>
+            <div className="inline-flex items-center gap-2">
+              
+              <div className="text-lg font-semibold text-white">
+                Generate content, sections, and components
+              </div>
+            </div>
+
+            <p className="mt-3 text-md leading-relaxed text-white/90">
+              Build repeatable structures for dashboards, admin screens, and internal tools while keeping
+              your security posture intact through access controls and audit-friendly design.
+            </p>
+          </div>
+
+          {/* Column 3 */}
+          <div>
+            <div className="text-lg font-semibold text-white">Extend your security workflow</div>
+            <p className="mt-3 text-md leading-relaxed text-white/90">
+              Logging, monitoring, and incident readiness are part of the system, not add-ons. You get
+              better traceability, faster response, and fewer blind spots when things go wrong.
+            </p>
+          </div>
+        </div>
+
+        {/* optional: subtle tags row (not bullets) */}
+        
+      </div>
+    </Reveal>
+  </div>
+</section>
 
       {/* EXPECTATIONS (pipeline feel) */}
-      <Section
-        id="expect"
-        eyebrow="What clients can expect"
-        title="Clear delivery, measurable outcomes"
-        subtitle="Requirements, staged rollout, performance visibility, and documentation that survives staff turnover."
-      >
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {expectations.map((e, i) => (
-            <Reveal key={e.title} delayMs={i * 70}>
-              <TechCard className="h-full p-5">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                    {e.icon}
-                  </span>
-                  <div className="min-w-0">
-                    <div className="text-sm font-semibold text-white">{e.title}</div>
-                    <ul className="mt-2 space-y-1 text-xs leading-relaxed text-white/70">
-                      {e.bullets.map((b) => (
-                        <li key={b}>• {b}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              </TechCard>
-            </Reveal>
-          ))}
+      
+
+<section id="expect" className="scroll-mt-32 py-16 sm:py-20">
+  <div className="mx-auto max-w-6xl px-4">
+    <Reveal>
+      {/* Top row */}
+      <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
+        {/* Left: big heading */}
+        <div className="lg:col-span-8">
+          
+
+          <h2 className="mt-4 text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-7xl">
+            Clear delivery.
+            <br />
+            Measurable outcomes.
+          </h2>
+
+          
         </div>
-      </Section>
+
+        {/* Right: CTA */}
+        <div className="lg:col-span-4 lg:flex lg:justify-end">
+          <Button
+            asChild
+            className="h-12 rounded-none bg-[#2563eb] px-8 text-white hover:opacity-90 transition"
+          >
+            <Link href="/#contact">Contact Us</Link>
+          </Button>
+        </div>
+      </div>
+
+      {/* Bottom row: 3 columns like the screenshot */}
+      <div className="mt-14 grid gap-10 lg:grid-cols-3">
+        {expectations.slice(0, 3).map((e) => (
+          <div key={e.title}>
+            {/* Icon in outlined circle */}
+            <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
+              {e.icon}
+            </div>
+
+            <div className="text-xl font-semibold text-white">{e.title}</div>
+
+            {/* NO bullets: turn bullets into a single paragraph */}
+            <p className="mt-3 text-md leading-relaxed text-white/90">
+              {Array.isArray(e.bullets) ? e.bullets.join(" ") : e.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </Reveal>
+  </div>
+</section>
 
       {/* CTA */}
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <TechCard size="lg">
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                Next step
-              </div>
+              
 
               <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                Tell us what you need to measure, automate, or secure.
+                What&apos;s Next?
               </h3>
 
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
@@ -497,15 +596,9 @@ export default function TechnologiesServicePage() {
 
               <div className="mt-7 flex flex-wrap gap-3">
                 <Button asChild className="rounded-none">
-                  <Link href="/#contact">Contact Thaboliz</Link>
+                  <Link href="/#contact">Contact Us</Link>
                 </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
-                >
-                  <Link href="/services">Browse services</Link>
-                </Button>
+                
               </div>
             </TechCard>
           </Reveal>

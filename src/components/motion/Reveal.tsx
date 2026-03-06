@@ -1,45 +1,3 @@
-// "use client";
-
-// import * as React from "react";
-// import { cn } from "@/lib/utils";
-
-// export default function Reveal({
-//   children,
-//   className,
-//   once = true,
-// }: {
-//   children: React.ReactNode;
-//   className?: string;
-//   once?: boolean;
-// }) {
-//   const ref = React.useRef<HTMLDivElement | null>(null);
-
-//   React.useEffect(() => {
-//     const el = ref.current;
-//     if (!el) return;
-
-//     const io = new IntersectionObserver(
-//       ([entry]) => {
-//         if (entry.isIntersecting) {
-//           el.classList.add("reveal-in");
-//           if (once) io.disconnect();
-//         }
-//       },
-//       { threshold: 0.15, rootMargin: "120px 0px" }
-//     );
-
-//     io.observe(el);
-//     return () => io.disconnect();
-//   }, [once]);
-
-//   return (
-//     <div ref={ref} className={cn("reveal", className)}>
-//       {children}
-//     </div>
-//   );
-// }
-
-
 "use client";
 
 import * as React from "react";
@@ -52,50 +10,71 @@ type RevealProps = {
   delayMs?: number;
 };
 
+type ObsEntry = {
+  el: Element;
+  setInView: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+let sharedIO: IntersectionObserver | null = null;
+let sharedReduce = false;
+let entries = new Map<Element, React.Dispatch<React.SetStateAction<boolean>>>();
+
+function getSharedIO() {
+  if (typeof window === "undefined") return null;
+
+  // respect reduced motion once
+  sharedReduce =
+    window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
+
+  if (sharedReduce) return null;
+
+  if (sharedIO) return sharedIO;
+
+  sharedIO = new IntersectionObserver(
+    (ioEntries) => {
+      // batch updates in the same frame
+      for (const entry of ioEntries) {
+        if (!entry.isIntersecting) continue;
+        const setter = entries.get(entry.target);
+        if (setter) setter(true);
+        entries.delete(entry.target);
+        sharedIO?.unobserve(entry.target);
+      }
+    },
+    { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
+  );
+
+  return sharedIO;
+}
+
 export default function Reveal({
   children,
   className,
   as: Comp = "div",
   delayMs = 0,
 }: RevealProps) {
-  const ref = React.useRef<HTMLElement | null>(null);
   const [inView, setInView] = React.useState(false);
 
-  React.useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
+  const ref = React.useCallback((node: HTMLElement | null) => {
+    if (!node) return;
 
-    const reduce =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
-
-    if (reduce) {
+    // reduced motion: reveal immediately, no observers
+    const io = getSharedIO();
+    if (!io) {
       setInView(true);
       return;
     }
 
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-          io.disconnect();
-        }
-      }, 
-      { rootMargin: "0px 0px -12% 0px", threshold: 0.12 }
-    );
-
-    io.observe(el);
-    return () => io.disconnect();
+    // register this element
+    entries.set(node, setInView);
+    io.observe(node);
   }, []);
 
-  // Uses your .reveal + .reveal-in classes from globals.css
   return (
     <Comp
-      ref={(node) => {
-        ref.current = node as any;
-      }}
+      ref={ref as any}
       className={cn("reveal", inView && "reveal-in", className)}
-      style={{ transitionDelay: `${delayMs}ms` }}
+      style={delayMs ? { transitionDelay: `${delayMs}ms` } : undefined}
     >
       {children}
     </Comp>

@@ -19,6 +19,8 @@ import {
   ArrowRight,
 } from "lucide-react";
 
+import LogisticsHoverCards from "@/components/logistics/LogisticsHoverCards";
+
 function Section({
   id,
   eyebrow,
@@ -34,7 +36,7 @@ function Section({
 }) {
   return (
     <section id={id} className="scroll-mt-32 py-14 sm:py-18">
-      <div className="mx-auto max-w-6xl px-4">
+      <div className="px-10 w-full">
         <Reveal className="max-w-3xl">
           {eyebrow ? (
             <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/50">
@@ -76,7 +78,6 @@ function LogisticsCard({
         "group relative overflow-hidden rounded-2xl",
         "border border-white/10 bg-white/[0.03]",
         "transition-transform duration-200 hover:-translate-y-[2px]",
-        "hover:shadow-[0_0_0_1px_rgba(120,190,255,.22),0_18px_60px_rgba(0,0,0,.55)]",
         pad,
         className,
       ].join(" ")}
@@ -109,7 +110,7 @@ function MediaSlot({
   src?: string;
 }) {
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10">
+    <div className="relative overflow-hidden ">
       <div className="relative aspect-[16/11] w-full">
         {src ? (
           <Image src={src} alt={label} fill className="object-cover" />
@@ -123,7 +124,6 @@ function MediaSlot({
             </div>
           </div>
         )}
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/60" />
       </div>
     </div>
   );
@@ -152,317 +152,352 @@ export default function LogisticsServicePage() {
       title: "Distribution planning and delivery operations",
       desc: "Predictable routes, delivery discipline, and visible service levels.",
       lane: "Linehaul + last-mile",
+      img: "/stock/pic-29.jpg"
     },
     {
       icon: <Warehouse className="h-4 w-4" />,
       title: "Warehousing support and inventory movement",
       desc: "Receiving, storage movement, and dispatch readiness support.",
       lane: "Warehouse ops",
+      img: "/stock/pic-30.jpg"
+
     },
     {
       icon: <Snowflake className="h-4 w-4" />,
       title: "Cold-chain support (where applicable)",
       desc: "Temperature-aware movement for agriculture and perishables.",
       lane: "Cold-chain",
+      img: "/stock/pic-31.jpg"
+
     },
     {
       icon: <Globe2 className="h-4 w-4" />,
       title: "Cross-border import/export support",
       desc: "Documentation readiness for compliant cross-border movement.",
       lane: "Cross-border readiness",
+      img: "/stock/pic-32.jpg"
+
     },
   ];
 
   const ventures = [
-    {
-      icon: <Map className="h-4 w-4" />,
-      title: "National distribution hub model",
-      desc: "Warehouse + route optimisation to increase predictability and control costs.",
-      badge: "Hub + optimisation",
-    },
-    {
-      icon: <Snowflake className="h-4 w-4" />,
-      title: "Cold storage micro-hubs near production areas",
-      desc: "Shorten time-to-cold and improve quality for perishables.",
-      badge: "Cold-chain",
-    },
-  ];
+  {
+    icon: <Map className="h-4 w-4" />,
+    title: "National distribution hub model",
+    desc: "Warehouse + route optimisation to increase predictability and control costs.",
+    badge: "Hub + optimisation",
+    img: "/stock/pic-42.avif",
+  },
+  {
+    icon: <Snowflake className="h-4 w-4" />,
+    title: "Cold storage micro-hubs near production areas",
+    desc: "Shorten time-to-cold and improve quality for perishables.",
+    badge: "Cold-chain",
+    img: "/stock/pic-43.avif",
+  },
+];
+
 
   return (
     <main className="site-bg">
       {/* HERO (route + tracking layout) */}
-      <section className="relative overflow-hidden pt-14 sm:pt-18">
-        <div className="pointer-events-none absolute inset-0 opacity-[0.12] bg-[radial-gradient(circle_at_25%_20%,rgba(0,195,255,.35),transparent_55%),radial-gradient(circle_at_80%_30%,rgba(0,82,212,.35),transparent_55%)]" />
+      
+<section className="relative overflow-hidden pt-16 sm:pt-20">
+  {/* soft background atmosphere */}
+  <div className="pointer-events-none absolute inset-0">
+    <div className="absolute inset-0 bg-black" />
+    <div className="absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-white/[0.06] blur-3xl" />
+    <div className="absolute -bottom-40 right-[-240px] h-[520px] w-[520px] rounded-full bg-[#2563eb]/20 blur-3xl" />
+    <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/70 to-black" />
+  </div>
 
-        <div className="mx-auto max-w-6xl px-4">
-          <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
-            <Link href="/services" className="hover:text-white transition">
-              Services
-            </Link>
-            <ChevronRight className="h-4 w-4 text-white/35" />
-            <span className="text-white/80">Logistics</span>
-          </Reveal>
+  <div className="relative mx-auto max-w-6xl px-4">
+    {/* breadcrumb */}
+    <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
+      <Link href="/services" className="hover:text-white transition">
+        Services
+      </Link>
+      <ChevronRight className="h-4 w-4 text-white/35" />
+      <span className="text-white/80">Logistics</span>
+    </Reveal>
 
-          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
-            <div className="relative z-10">
-              <Reveal>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-white/70">
-                  <Truck className="h-4 w-4 text-white/80" />
-                  Logistics services
-                </div>
+    <div className="py-16 sm:py-20">
+      <Reveal>
+        {/* Small label (optional, keeps your style) */}
+        
 
-                <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                  Reliable movement with{" "}
-                  <span className="text-brand-gradient">visibility and control</span>
-                </h1>
+        {/* Big stacked headline */}
+        <div className="flex flex-col w-full items-center justify-center">
+          <div className="">
+                  <h1 className=" mt-8 max-w-5xl text-6xl font-bold leading-[0.92] tracking-tight text-white sm:text-7xl lg:text-8xl">
+                Reliable
+                <br />
+                movement
+                <br />
+                with control
+              </h1>
 
-                <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 sm:text-[15px]">
-                  We move goods reliably and safely with a focus on predictable service levels, cost
-                  control, and compliance-aware operations.
-                </p>
 
-                <div className="mt-6 flex flex-wrap gap-2">
-                  <StopPill label="Predictable SLAs" />
-                  <StopPill label="Proof of delivery" />
-                  <StopPill label="Compliance-ready" />
-                  <StopPill label="Cost control" />
-                </div>
+              <p className="mt-8 max-w-3xl text-sm leading-relaxed text-white/70 sm:text-base">
+          We move goods reliably and safely with a focus on predictable service levels, cost control,
+          and compliance-aware operations. Delivery stays visible from dispatch to proof of delivery.
+        </p>
 
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <Button asChild className="rounded-none">
-                    <Link href="/#contact">Plan a delivery scope</Link>
-                  </Button>
-                  
-                </div>
-              </Reveal>
+        {/* CTA */}
+        <div className="mt-8">
+          <Button
+            asChild
+            className="h-12 rounded-none bg-[#2563eb] px-8 text-white hover:opacity-90 transition"
+          >
+            <Link href="/#contact">Plan a delivery scope</Link>
+          </Button>
+        </div>
 
-              {/* snapshot cards (mobile-friendly, no overflow) */}
-              
-            </div>
 
-            <Reveal delayMs={160}>
-              <div className="grid gap-4">
-                <MediaSlot label="Logistics hero image" src="/illustrations/logistics-1.png" />
-
-                {/* “tracker panel” card */}
-                
-              </div>
-            </Reveal>
           </div>
-        </div>
+          
 
-        <div className="mt-14">
-          <Separator className="bg-white/10" />
+        {/* supporting paragraph */}
+        
         </div>
-      </section>
+        
+      </Reveal>
+    </div>
+  </div>
+
+  <Separator className="bg-white/10" />
+</section>
 
       {/* STICKY QUICK LINKS (wraps on mobile) */}
       
 
       {/* OVERVIEW */}
-      <Section
-        id="overview"
-        eyebrow="Overview"
-        title="Positioning and vision"
-        subtitle="High-trust logistics for time-sensitive and high-accountability deliveries."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <div className="grid gap-6">
-            <Reveal>
-              <LogisticsCard className="h-full">
-                <div id="positioning" className="scroll-mt-32" />
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Positioning
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  We move goods reliably, safely, and with visibility. Our focus is predictable service
-                  levels, cost control, and compliance-aware operations.
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {["Visibility", "Predictable SLAs", "Cost control", "Compliance-aware"].map((x) => (
-                    <Badge
-                      key={x}
-                      variant="outline"
-                      className="rounded-none border-white/15 text-white/80"
-                    >
-                      {x}
-                    </Badge>
-                  ))}
-                </div>
-              </LogisticsCard>
-            </Reveal>
+      
 
-            <Reveal delayMs={120}>
-              <LogisticsCard className="h-full">
-                <div id="vision" className="scroll-mt-32" />
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Vision
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  To become a high-trust logistics partner in Southern Africa for time-sensitive and
-                  high-accountability deliveries.
-                </p>
-              </LogisticsCard>
-            </Reveal>
+{/* POSITIONING (UI like image #1) */}
+<section id="overview" className="scroll-mt-32 py-14 sm:py-18">
+  <div className="mx-auto max-w-6xl px-4">
+
+    <div className="mt-10">
+      <Reveal>
+        <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
+          {/* Left: big statement */}
+          <div className="lg:col-span-7">
+            <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">
+              Turn reliability
+              <br />
+              into visibility
+              <br />
+              and control.
+            </h3>
           </div>
 
-          <Reveal delayMs={160}>
-            <MediaSlot label="Logistics overview image" src="/illustrations/logistics-2.png" />
-          </Reveal>
+          {/* Right: paragraph + badges (no cards) */}
+          <div className="lg:col-span-5">
+            <p className="text-sm leading-relaxed text-white/70 sm:text-base">
+              We move goods reliably, safely, and with visibility. Our focus is predictable service
+              levels, cost control, and compliance-aware operations.
+            </p>
+
+            
+
+            <div className="mt-10 h-px w-28 bg-white/10" />
+          </div>
         </div>
-      </Section>
+      </Reveal>
+    </div>
+  </div>
+</section>
+
+{/* VISION (UI like image #2: text left, image right) */}
+<section id="vision" className="scroll-mt-32 py-14 sm:py-18">
+  <div className="mx-auto max-w-6xl px-4">
+    
+
+    <div className="mt-10 grid gap-6 lg:grid-cols-12 lg:items-stretch">
+      {/* Left: vision text block */}
+      <Reveal className="lg:col-span-6">
+        <div className="h-full overflow-hidden ">
+          <div className="p-8 sm:p-10">
+            <div className="text-4xl font-bold leading-tight text-white sm:text-5xl">
+              Vision
+            </div>
+
+            <div className="mt-6 h-1 w-28 bg-white" />
+
+            <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+              To become a high-trust logistics partner in Southern Africa for time-sensitive and
+              high-accountability deliveries. We aim to be known for on-time performance, clear
+              communication, and dependable proof of delivery.
+            </p>
+          </div>
+        </div>
+      </Reveal>
+
+      {/* Right: image card */}
+      <Reveal delayMs={140} className="lg:col-span-6">
+        <div className="h-full overflow-hidden border border-white/10 bg-white/[0.02]">
+          <div className="relative h-full min-h-[320px] sm:min-h-[380px] lg:min-h-[420px]">
+            <Image
+              src="/stock/pic-28.jpg"
+              alt="Logistics vision illustration"
+              fill
+              className="object-cover"
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              priority
+            />
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/45" />
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </div>
+
+  {/* divider under the split sections */}
+  <div className="mx-auto max-w-6xl px-4 mt-14">
+    <Separator className="bg-white/10" />
+  </div>
+</section>
 
       {/* WHAT WE DO (unique layout: lane labels + action row) */}
       <Section
         id="what-we-do"
-        eyebrow="What we do"
-        title="Logistics services"
-        subtitle="Distribution, warehousing support, cold-chain readiness, and compliant cross-border support."
+        
       >
-        <div className="grid gap-4 sm:grid-cols-2">
-          {whatWeDo.map((x, i) => (
-            <Reveal key={x.title} delayMs={i * 70}>
-              <LogisticsCard className="h-full">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
-                    {x.icon}
-                  </span>
+        <div className="flex flex-col w-full items-center justify-center">
+          <div className=" flex flex-col gap-7 w-full justify-center">
+            <h1 className=" mt-4 mb-4 max-w-5xl text-6xl font-bold leading-[0.92] tracking-tight text-white sm:text-7xl lg:text-6xl">
+                Logistic Services
+ 
+              </h1>
 
-                  <div className="min-w-0">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <div className="text-sm font-semibold text-white">{x.title}</div>
-                      <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-2 py-1 text-[11px] text-white/75">
-                        {x.lane}
-                      </span>
-                    </div>
+            <LogisticsHoverCards items={whatWeDo} />
 
-                    <div className="mt-1 text-xs leading-relaxed text-white/70">{x.desc}</div>
-
-                    <div className="mt-4 flex items-center justify-between border-t border-white/10 pt-4">
-                      <div className="flex items-center gap-2 text-xs text-white/70">
-                        <FileText className="h-4 w-4 text-white/50" />
-                        Documentation-ready delivery flow
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </LogisticsCard>
-            </Reveal>
-          ))}
+              
+        </div>
         </div>
       </Section>
 
       {/* COMPLIANCE (unique: checklist board) */}
       <Section
         id="compliance"
-        eyebrow="Compliance and readiness"
-        title="Roadworthy operations and documentation discipline"
-        subtitle="We treat compliance as operational readiness: vehicles, processes, and paperwork that stand up to scrutiny."
       >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <Reveal>
-            <LogisticsCard className="h-full">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
-                  <ClipboardCheck className="h-4 w-4" />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-sm font-semibold text-white">Operational readiness</div>
+  {/* Centered header (no eyebrow) */}
+  <div className="text-center">
+    <h2 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+      Roadworthy operations and documentation discipline
+    </h2>
+    <p className="mx-auto mt-4 max-w-3xl text-sm leading-relaxed text-white/70 sm:text-base">
+      We treat compliance as operational readiness: vehicles, processes, and paperwork that stand up
+      to scrutiny.
+    </p>
+  </div>
 
-                  <div className="mt-4 grid gap-3">
-                    {[
-                      {
-                        icon: <ShieldCheck className="h-4 w-4" />,
-                        title: "Roadworthiness expectations",
-                        desc: "Vehicle readiness aligned to relevant categories and testing requirements where applicable.",
-                      },
-                      {
-                        icon: <FileText className="h-4 w-4" />,
-                        title: "Customs documentation preparedness",
-                        desc: "Processes aligned to SARS import/export frameworks for compliant cross-border movement.",
-                      },
-                    ].map((c) => (
-                      <div
-                        key={c.title}
-                        className="rounded-xl border border-white/10 bg-white/[0.02] p-4"
-                      >
-                        <div className="flex items-start gap-3">
-                          <span className="grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
-                            {c.icon}
-                          </span>
-                          <div>
-                            <div className="text-sm font-semibold text-white">{c.title}</div>
-                            <div className="mt-1 text-xs leading-relaxed text-white/70">{c.desc}</div>
-                          </div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
+  {(() => {
+    const complianceItems = [
+      {
+        icon: <ShieldCheck className="h-4 w-4" />,
+        title: "Roadworthiness expectations",
+        desc: "Vehicle readiness aligned to relevant categories and testing requirements where applicable.",
+      },
+      {
+        icon: <FileText className="h-4 w-4" />,
+        title: "Customs documentation preparedness",
+        desc: "Processes aligned to SARS import/export frameworks for compliant cross-border movement.",
+      },
+    ];
 
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {["Vehicle checks", "Documentation", "Traceability", "Delivery proofs"].map((x) => (
-                      <Badge
-                        key={x}
-                        variant="outline"
-                        className="rounded-none border-white/15 text-white/80"
-                      >
-                        {x}
-                      </Badge>
-                    ))}
-                  </div>
+    return (
+      <div className="mt-12 grid gap-10 lg:grid-cols-12 lg:items-start">
+        {/* LEFT: illustration */}
+        <Reveal className="lg:col-span-5">
+          <MediaSlot label="Compliance image" src="/illustrations/logistics-3.png" />
+        </Reveal>
+
+        {/* RIGHT: explanations stacked in a column (no cards) */}
+        <Reveal delayMs={120} className="lg:col-span-7">
+          <div className="grid gap-10">
+            {complianceItems.map((c) => (
+              <div key={c.title} className="max-w-2xl">
+                {/* Icon in outlined circle */}
+                <div className="mb-5 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
+                  {/* normalize icon size inside circle */}
+                  <span className="[&_*]:h-6 [&_*]:w-6">{c.icon}</span>
                 </div>
-              </div>
-            </LogisticsCard>
-          </Reveal>
 
-          <Reveal delayMs={120}>
-            <MediaSlot label="Compliance image" src="/illustrations/logistics-3.png" />
-          </Reveal>
-        </div>
-      </Section>
+                <div className="text-2xl font-semibold text-white">{c.title}</div>
+
+                <p className="mt-3 text-sm leading-relaxed text-white/70">{c.desc}</p>
+              </div>
+            ))}
+          </div>
+
+          {/* Optional tags row (not bullet points) */}
+          
+        </Reveal>
+      </div>
+    );
+  })()}
+</Section>
 
       {/* VENTURES */}
-      <Section
-        id="ventures"
-        eyebrow="Ventures we’re pursuing"
-        title="Growth models"
-        subtitle="Infrastructure and optimisation models aimed at higher predictability and better unit economics."
-      >
-        <div className="grid gap-4 md:grid-cols-2">
-          {ventures.map((v, i) => (
-            <Reveal key={v.title} delayMs={i * 90}>
-              <LogisticsCard className="h-full">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
-                    {v.icon}
-                  </span>
-                  <div className="min-w-0">
-                    <div className="text-sm font-semibold text-white">{v.title}</div>
-                    <p className="mt-2 text-xs leading-relaxed text-white/70">{v.desc}</p>
-                    <div className="mt-4">
-                      <Badge variant="outline" className="rounded-none border-white/15 text-white/80">
-                        {v.badge}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-              </LogisticsCard>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      <section id="ventures" className="scroll-mt-32 py-16 sm:py-20">
+  <div className="mx-auto max-w-6xl px-4">
+    <Reveal>
+      {/* Header (no eyebrow) */}
+      <div>
+        <h2 className="text-5xl font-bold tracking-tight text-white sm:text-6xl">
+          Growth models
+        </h2>
+        <p className="mt-4 max-w-3xl text-sm leading-relaxed text-white/70 sm:text-base">
+          Infrastructure and optimisation models aimed at higher predictability and better unit economics.
+        </p>
+      </div>
+
+      {/* Cards row: image on top, explanation directly underneath */}
+      <div className="mt-10 grid gap-10 lg:grid-cols-3">
+        {ventures.map((v, i) => (
+          <div key={v.title}>
+            {/* Image */}
+            <div className="overflow-hidden ">
+              <div className="relative aspect-[9/16] w-full">
+                <Image
+                  src={(v as any).img ?? `/illustrations/gradient-${(i % 4) + 1}.avif`}
+                  alt={v.title}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                  priority={i === 0}
+                />
+              </div>
+            </div>
+
+            {/* Explanation (directly under image) */}
+            <div className="mt-6">
+              <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
+                <span className="[&_*]:h-6 [&_*]:w-6">{v.icon}</span>
+              </div>
+
+              <div className="text-xl font-semibold text-white">{v.title}</div>
+
+              <p className="mt-3 text-sm leading-relaxed text-white/90">{v.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </Reveal>
+  </div>
+</section>
 
       {/* CTA */}
       <section className="py-16">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>
             <LogisticsCard size="lg">
-              <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                Next step
-              </div>
+              
 
               <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                Need time-sensitive delivery with accountability and visibility?
+                Ready?
               </h3>
 
               <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
@@ -474,13 +509,7 @@ export default function LogisticsServicePage() {
                 <Button asChild className="rounded-none">
                   <Link href="/#contact">Contact Thaboliz</Link>
                 </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  className="rounded-none border-white/15 bg-transparent text-white hover:bg-white/5"
-                >
-                  <Link href="/services">Browse services</Link>
-                </Button>
+                
               </div>
             </LogisticsCard>
           </Reveal>

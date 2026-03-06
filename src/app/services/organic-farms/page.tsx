@@ -1,3 +1,6 @@
+"use client";
+
+
 import type { ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -21,7 +24,16 @@ import {
   Warehouse,
   CheckCircle2,
   MapPinned,
+  Gauge,
+  FileCheck2,
 } from "lucide-react";
+import FieldPathCarousel from "@/components/organic-farms/VenturesCarousel";
+
+import * as React from "react";
+import useEmblaCarousel from "embla-carousel-react";
+import { ChevronLeft } from "lucide-react";
+import VenturesCarousel from "@/components/organic-farms/VenturesCarousel";
+
 
 function Section({
   id,
@@ -173,84 +185,7 @@ function ChipRow({ items }: { items: string[] }) {
   );
 }
 
-function FieldPath() {
-  const steps = [
-    {
-      icon: <Sprout className="h-4 w-4" />,
-      title: "Production",
-      desc: "Organic-aligned growing practices and inputs control.",
-    },
-    {
-      icon: <ClipboardList className="h-4 w-4" />,
-      title: "Records",
-      desc: "Farm logs, traceability, and audit-friendly documentation.",
-    },
-    {
-      icon: <Package className="h-4 w-4" />,
-      title: "Processing",
-      desc: "Grading, packaging, and basic value-add readiness.",
-    },
-    {
-      icon: <Store className="h-4 w-4" />,
-      title: "Market",
-      desc: "Retail, food service, and community supply pathways.",
-    },
-    {
-      icon: <Network className="h-4 w-4" />,
-      title: "Distribution",
-      desc: "Farm-to-market pilots with Logistics + Tech.",
-    },
-  ];
 
-  return (
-    <div className="grid gap-4">
-      {/* Desktop: 5 columns. Mobile: horizontal snap row */}
-      <div className="hidden lg:grid lg:grid-cols-5 lg:gap-4">
-        {steps.map((s) => (
-          <FarmCard key={s.title} className="p-5">
-            <div className="flex items-start gap-3">
-              <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                {s.icon}
-              </span>
-              <div>
-                <div className="text-sm font-semibold text-white">{s.title}</div>
-                <div className="mt-1 text-xs leading-relaxed text-white/70">
-                  {s.desc}
-                </div>
-              </div>
-            </div>
-          </FarmCard>
-        ))}
-      </div>
-
-      <div className="lg:hidden -mx-4 px-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none]">
-        <div className="flex gap-3 snap-x snap-mandatory">
-          {steps.map((s) => (
-            <div key={s.title} className="min-w-[78%] snap-start sm:min-w-[58%]">
-              <FarmCard className="p-5">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                    {s.icon}
-                  </span>
-                  <div>
-                    <div className="text-sm font-semibold text-white">{s.title}</div>
-                    <div className="mt-1 text-xs leading-relaxed text-white/70">
-                      {s.desc}
-                    </div>
-                  </div>
-                </div>
-              </FarmCard>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <p className="text-xs text-white/55">
-        Tip: On mobile, swipe the cards sideways to follow the pathway.
-      </p>
-    </div>
-  );
-}
 
 export default function OrganicFarmsServicePage() {
   const quickLinks: Array<[string, string]> = [
@@ -264,59 +199,64 @@ export default function OrganicFarmsServicePage() {
 
   const whatWeDo = [
     {
-      icon: <Sprout className="h-4 w-4" />,
+      icon: <Sprout className="h-10 w-10" />,
       title: "Organic-aligned crop production",
       desc: "Traceability and integrity when certification/verification is pursued.",
     },
     {
-      icon: <Recycle className="h-4 w-4" />,
+      icon: <Recycle className="h-10 w-10" />,
       title: "Regenerative practices",
       desc: "Soil rehabilitation, composting, crop rotation, and resilience building.",
     },
     {
-      icon: <Package className="h-4 w-4" />,
+      icon: <Package className="h-10 w-10" />,
       title: "Agro-processing pathways",
       desc: "Packaging, grading, and basic value-add to improve market readiness.",
     },
     {
-      icon: <Store className="h-4 w-4" />,
+      icon: <Store className="h-10 w-10" />,
       title: "Market linkages",
       desc: "Retail, food service, and community supply partnerships for stable demand.",
     },
   ];
 
   const ventures = [
-    {
-      icon: <Network className="h-4 w-4" />,
-      title: "Traceable farm-to-market pilots",
-      desc: "Integrated pilots with Logistics + Tech for visibility and quality control.",
-      badge: "Traceability",
-    },
-    {
-      icon: <Users className="h-4 w-4" />,
-      title: "Community grower networks",
-      desc: "Shared compliance support and market access to strengthen small growers.",
-      badge: "Community",
-    },
-    {
-      icon: <Leaf className="h-4 w-4" />,
-      title: "High-value crops per region",
-      desc: "Crop selection by climate, buyer demand, and feasibility.",
-      badge: "Crop strategy",
-    },
-    {
-      icon: <Warehouse className="h-4 w-4" />,
-      title: "Greenhouse development",
-      desc: "Controlled environments for consistency, season extension, and quality.",
-      badge: "Greenhouses",
-    },
-    {
-      icon: <Globe2 className="h-4 w-4" />,
-      title: "Non-indigenous crops (where feasible)",
-      desc: "Strategic selection to improve supply availability (region-by-region).",
-      badge: "Supply expansion",
-    },
-  ];
+  {
+    icon: <Sprout className="h-5 w-5" />,
+    title: "Traceability pilots",
+    desc: "Pilot systems that improve product visibility, documentation discipline, and confidence in quality assurance across the value chain.",
+    badge: "TRACEABILITY",
+    image: "/stock/pic-44.avif",
+  },
+  {
+    icon: <Network className="h-5 w-5" />,
+    title: "Community networks",
+    desc: "Local grower and buyer relationships that strengthen supply participation, regional coordination, and practical market linkage.",
+    badge: "COMMUNITY",
+    image: "/stock/pic-45.jpg",
+  },
+  {
+    icon: <ClipboardList className="h-5 w-5" />,
+    title: "Region-specific crop strategy",
+    desc: "Crop planning shaped around local conditions, demand patterns, and infrastructure realities to improve long-term viability.",
+    badge: "STRATEGY",
+    image: "/stock/pic-46.avif",
+  },
+  {
+    icon: <Package className="h-5 w-5" />,
+    title: "Processing readiness",
+    desc: "Early preparation for grading, packaging, and quality presentation so supply can move with better structure and consistency.",
+    badge: "READINESS",
+    image: "/stock/pic-47.avif",
+  },
+  {
+    icon: <Store className="h-5 w-5" />,
+    title: "Market pathways",
+    desc: "Commercial routes into retail, community, and food service channels supported by disciplined operational planning.",
+    badge: "MARKET",
+    image: "/stock/pic-48.jpg",
+  },
+];
 
   return (
     <main className="site-bg">
@@ -378,83 +318,142 @@ export default function OrganicFarmsServicePage() {
       {/* STICKY QUICK LINKS */}
 
       {/* POSITIONING + VISION (two clean cards + image) */}
-      <Section
-        eyebrow="Overview"
-        title="Positioning and vision"
-        subtitle="Resilient, organic-aligned, climate-smart farming that restores land while producing quality food."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <div className="grid gap-6">
-            <Reveal>
-              <FarmCard className="h-full">
-                <div id="positioning" className="scroll-mt-32" />
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Positioning
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  We pursue sustainable food production with traceability, soil health, and responsible
-                  water stewardship.
-                </p>
-                <ChipRow items={["Traceability", "Soil health", "Regenerative", "Water stewardship"]} />
-              </FarmCard>
-            </Reveal>
-
-            <Reveal delayMs={120}>
-              <FarmCard className="h-full">
-                <div id="vision" className="scroll-mt-32" />
-                <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/60">
-                  Vision
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-white/80">
-                  To develop resilient, organic, climate-smart farming operations that produce
-                  high-quality food while restoring land.
-                </p>
-              </FarmCard>
-            </Reveal>
-          </div>
-
-          <Reveal delayMs={160}>
-            <MediaSlot label="Farms overview image" src="/illustrations/farm-1.jpg" />
-          </Reveal>
+<section
+  id="positioning"
+  className="scroll-mt-32 border-y border-white/10 bg-black"
+>
+  <div className="mx-auto max-w-[1440px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <div className="grid gap-8 lg:grid-cols-[minmax(320px,1.05fr)_minmax(320px,0.8fr)] lg:gap-16">
+      <Reveal>
+        <div>
+          <h2 className="max-w-[7ch] text-5xl font-semibold  text-white sm:text-6xl lg:text-7xl">
+            What We Pursue
+          </h2>
         </div>
-      </Section>
+      </Reveal>
+
+      <Reveal delayMs={100}>
+        <div className="max-w-xl lg:pt-2">
+          <p className="text-lg leading-relaxed text-white/90 sm:text-[22px] sm:leading-[1.45]">
+            We pursue sustainable food production with traceability, soil
+            health, and responsible water stewardship. Our approach is built to
+            support resilient operations, better land outcomes, and
+            higher-confidence supply readiness over time.
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </div>
+</section>
+
+<section
+  id="vision"
+  className=" relative overflow-hidden"
+>
+  {/* section background image */}
+  <div className="absolute inset-0">
+    <Image
+      src="/stock/pic-50.jpg"
+      alt=""
+      fill
+      className="object-cover"
+      sizes="100vw"
+    />
+    
+  </div>
+
+  <div className="relative mx-auto max-w-[1440px] px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+    <div className="grid gap-10 lg:grid-cols-[minmax(300px,0.95fr)_minmax(420px,1.15fr)] lg:items-center lg:gap-16">
+      <div className="flex min-h-[420px] flex-col justify-between">
+        <Reveal>
+          <div>
+            <h2 className="max-w-[6ch] text-5xl font-semibold leading-[0.92] tracking-tight sm:text-black sm:text-6xl lg:text-7xl">
+              Vision
+            </h2>
+          </div>
+        </Reveal>
+
+        <Reveal delayMs={120}>
+          <div className="max-w-md">
+            <div className="h-2 w-full bg-black/70" />
+            <p className="mt-7 text-xl font-semibold leading-relaxed sm:text-black sm:text-[21px] sm:leading-[1.5]">
+              To develop resilient, organic, climate-smart farming operations
+              that produce high-quality food while restoring land and supporting
+              long-term agricultural value.
+            </p>
+          </div>
+        </Reveal>
+      </div>
+
+      <Reveal delayMs={180}>
+        <div className="relative ml-auto w-full max-w-[700px]">
+          <div className="  p-3 ">
+            <div className="relative aspect-[16/10] overflow-hidden rounded-xl bg-white/90">
+              <Image
+                src="/stock/pic-27.jpg"
+                alt="Farm vision"
+                fill
+                className="object-cover"
+                sizes="(max-width: 1024px) 100vw, 700px"
+              />
+            </div>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </div>
+</section>
 
       {/* PATHWAY (unique UI) */}
-      <Section
-        eyebrow="Field-to-market"
-        title="A practical pathway from production to buyers"
-        subtitle="We structure operations so quality, traceability, and market readiness stay visible."
-      >
-        <Reveal>
-          <FieldPath />
-        </Reveal>
-      </Section>
+      
+            {/* <Reveal>
+              <FieldPathCarousel />
+            </Reveal> */}
 
       {/* WHAT WE DO (bento-ish but calm) */}
-      <Section
-        id="what-we-do"
-        eyebrow="What we do"
-        title="Farm operations and pathways"
-        subtitle="Production, regenerative practices, processing readiness, and market linkage."
-      >
-        <div className="grid gap-4 sm:grid-cols-2">
-          {whatWeDo.map((x, i) => (
-            <Reveal key={x.title} delayMs={i * 70}>
-              <FarmCard className="h-full p-5">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                    {x.icon}
-                  </span>
-                  <div className="min-w-0">
-                    <div className="text-sm font-semibold text-white">{x.title}</div>
-                    <div className="mt-1 text-xs leading-relaxed text-white/70">{x.desc}</div>
-                  </div>
-                </div>
-              </FarmCard>
-            </Reveal>
-          ))}
+      <section id="what-we-do" className="relative  bg-green-500">
+  <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
+    <div className="grid gap-16 lg:grid-cols-[minmax(280px,0.9fr)_minmax(0,1.35fr)] lg:gap-24">
+      {/* Left title */}
+      <Reveal>
+        <div className="self-start lg:sticky lg:top-28">
+          <h2 className="max-w-sm text-5xl font-semibold leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Farm operations
+            <br />
+            and pathways
+          </h2>
         </div>
-      </Section>
+      </Reveal>
+
+      {/* Right items */}
+      <div className="space-y-14">
+        {whatWeDo.map((x, i) => (
+          <Reveal key={x.title} delayMs={i * 70}>
+            <article className="grid gap-5 border-t border-white/10 pt-8 sm:grid-cols-[72px_minmax(0,1fr)] sm:gap-6">
+              {/* Icon */}
+              <div className="inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#ffffffff] text-[#ffffff]">
+                {x.icon}
+              </div>
+
+              {/* Text */}
+              <div className="min-w-0">
+                <h3 className="text-2xl font-semibold tracking-tight text-white sm:text-3xl">
+                  {x.title}
+                </h3>
+
+                <p className="mt-3 max-w-2xl text-base leading-relaxed text-white/80 sm:text-lg">
+                  {"bullets" in x && Array.isArray(x.bullets)
+                    ? x.bullets.join(" ")
+                    : x.desc}
+                </p>
+              </div>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* STANDARDS */}
       <Section
@@ -509,123 +508,99 @@ export default function OrganicFarmsServicePage() {
       </Section>
 
       {/* WATER */}
-      <Section
-        id="water"
-        eyebrow="Water stewardship"
-        title="Responsible water planning"
-        subtitle="Where authorisation is required, planning aligns with DWS processes and the applicable legal framework."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <Reveal>
-            <FarmCard className="h-full">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                  <Droplets className="h-5 w-5" />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-sm font-semibold text-white">
-                    DWS-aligned authorisation awareness
-                  </div>
-                  <p className="mt-2 text-xs leading-relaxed text-white/70">
-                    Where farming operations require authorisation, we align planning with the DWS
-                    water use authorisation process and the applicable legal framework. The goal is
-                    practical stewardship: efficient irrigation, risk reduction, and compliance readiness.
-                  </p>
+      <section id="water" 
+      className="border-y border-black/10 bg-white [background:linear-gradient(180deg,#bcdcff_10%,#eaf3ff_80%,#ffffff_100%)]">
+      <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    {/* Heading */}
+    <div className="max-w-4xl">
+      <Reveal>
+        <h2 className="text-4xl font-semibold leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          Responsible water planning
+        </h2>
+      </Reveal>
 
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {["Water use planning", "Efficient irrigation", "Records", "Risk controls"].map((x) => (
-                      <Badge
-                        key={x}
-                        variant="outline"
-                        className="rounded-full border-white/15 text-white/80"
-                      >
-                        {x}
-                      </Badge>
-                    ))}
-                  </div>
+      <Reveal delayMs={80}>
+        <p className="mt-5 max-w-3xl text-base leading-relaxed text-black sm:text-lg">
+          Where farming operations require authorisation, we align planning with
+          the DWS water use authorisation process and the applicable legal
+          framework. The goal is practical stewardship: efficient irrigation,
+          risk reduction, and compliance readiness.
+        </p>
+      </Reveal>
+    </div>
 
-                  <div className="mt-6 rounded-2xl border border-white/10 bg-white/[0.02] p-4">
-                    <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] text-white/55">
-                      <MapPinned className="h-4 w-4 text-white/60" />
-                      Stewardship focus
-                    </div>
-                    <ul className="mt-3 space-y-2 text-xs leading-relaxed text-white/70">
-                      <li>• Reduce irrigation waste through scheduling and monitoring</li>
-                      <li>• Keep records ready for operations and compliance</li>
-                      <li>• Design water practices for resilience and predictability</li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </FarmCard>
-          </Reveal>
-
-          <Reveal delayMs={120}>
-            <MediaSlot label="Water stewardship image" src="/illustrations/farm-4.png" />
-          </Reveal>
+    {/* Large image */}
+    <Reveal delayMs={120}>
+      <div className="mt-12 overflow-hidden rounded-2xl border border-black/10 bg-[#f4f4f2]">
+        <div className="relative aspect-[16/7] w-full">
+          <Image
+            src="/stock/pic-52.jpg"
+            alt="Water stewardship"
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
         </div>
-      </Section>
+      </div>
+    </Reveal>
+
+    {/* Bottom row */}
+    <div className="mt-10 grid gap-8 md:grid-cols-3 md:gap-10">
+      <Reveal delayMs={160}>
+        <article>
+          <div className="h-px w-full bg-black/12" />
+          <div className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
+            <Gauge className="h-5 w-5" />
+          </div>
+          <h3 className="mt-5 text-2xl font-semibold leading-tight text-black">
+            Efficient irrigation
+          </h3>
+          <p className="mt-3 text-base leading-relaxed text-black/72">
+            Reduce irrigation waste through better scheduling, monitoring, and
+            more deliberate water-use planning.
+          </p>
+        </article>
+      </Reveal>
+
+      <Reveal delayMs={220}>
+        <article>
+          <div className="h-px w-full bg-black/12" />
+          <div className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
+            <FileCheck2 className="h-5 w-5" />
+          </div>
+          <h3 className="mt-5 text-2xl font-semibold leading-tight text-black">
+            Record readiness
+          </h3>
+          <p className="mt-3 text-base leading-relaxed text-black/72">
+            Keep operational and compliance records clear, current, and ready
+            for planning, oversight, and formal processes where needed.
+          </p>
+        </article>
+      </Reveal>
+
+      <Reveal delayMs={280}>
+        <article>
+          <div className="h-px w-full bg-black/12" />
+          <div className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
+            <ShieldCheck className="h-5 w-5" />
+          </div>
+          <h3 className="mt-5 text-2xl font-semibold leading-tight text-black">
+            Resilient practices
+          </h3>
+          <p className="mt-3 text-base leading-relaxed text-black/72">
+            Design water practices for resilience, predictability, and lower
+            operational risk across changing conditions.
+          </p>
+        </article>
+      </Reveal>
+    </div>
+  </div>
+</section>
 
       {/* VENTURES (unique: scroll-snap on mobile, grid on desktop) */}
-      <Section
-        id="ventures"
-        eyebrow="Ventures we’re pursuing"
-        title="Growth pathways"
-        subtitle="Traceability pilots, community networks, and region-specific crop strategy, supported by infrastructure."
-      >
-        <div className="hidden lg:grid gap-4 lg:grid-cols-3">
-          {ventures.map((v, i) => (
-            <Reveal key={v.title} delayMs={i * 60}>
-              <FarmCard className="h-full">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                    {v.icon}
-                  </span>
-                  <div className="min-w-0">
-                    <div className="text-sm font-semibold text-white">{v.title}</div>
-                    <p className="mt-2 text-xs leading-relaxed text-white/70">{v.desc}</p>
-                    <div className="mt-4">
-                      <Badge variant="outline" className="rounded-full border-white/15 text-white/80">
-                        {v.badge}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-              </FarmCard>
-            </Reveal>
-          ))}
-        </div>
-
-        <div className="lg:hidden -mx-4 px-4 overflow-x-auto [scrollbar-width:none] [-ms-overflow-style:none]">
-          <div className="flex gap-3 snap-x snap-mandatory">
-            {ventures.map((v, i) => (
-              <div key={v.title} className="min-w-[86%] snap-start sm:min-w-[62%]">
-                <Reveal delayMs={i * 60}>
-                  <FarmCard className="h-full">
-                    <div className="flex items-start gap-3">
-                      <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                        {v.icon}
-                      </span>
-                      <div className="min-w-0">
-                        <div className="text-sm font-semibold text-white">{v.title}</div>
-                        <p className="mt-2 text-xs leading-relaxed text-white/70">{v.desc}</p>
-                        <div className="mt-4">
-                          <Badge
-                            variant="outline"
-                            className="rounded-full border-white/15 text-white/80"
-                          >
-                            {v.badge}
-                          </Badge>
-                        </div>
-                      </div>
-                    </div>
-                  </FarmCard>
-                </Reveal>
-              </div>
-            ))}
-          </div>
-        </div>
-      </Section>
+      <Reveal>
+        <VenturesCarousel ventures={ventures} />
+      </Reveal>
 
       {/* CTA */}
       <section className="py-16">
@@ -658,3 +633,7 @@ export default function OrganicFarmsServicePage() {
     </main>
   );
 }
+
+
+
+

@@ -8,16 +8,16 @@ import SiteFooter from "@/components/sections/SiteFooter";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
-      <body className="min-h-screen bg-background text-foreground">
+      <body className="min-h-screen w-full bg-background text-foreground">
         <Suspense >
                   <TopLoader />
         </Suspense>
               <SiteHeader />
 
         {/* Site-wide gradient backdrop */}
-        <div className="fixed inset-0 -z-10 site-bg" />
+        <div className="fixed -z-10 site-bg" />
         {/* Optional vignette for depth */}
-        <div className="fixed inset-0 -z-10 pointer-events-none bg-gradient-to-b from-black/0 via-black/35 to-black/85" />
+        <div className="fixed -z-10 pointer-events-none bg-gradient-to-b from-black/0 via-black/35 to-black/85" />
         {children}
               <SiteFooter />
 

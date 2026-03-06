@@ -932,7 +932,6 @@ export default function ConstructionServicePage() {
 <Section
   id="delivery"
   title="How we deliver"
-  subtitle="From feasibility to handover, we keep delivery visible through planning, governance, and safety practices."
 >
   <div className="grid gap-8 lg:grid-cols-3">
     {delivery.map((d: any, i: number) => (
@@ -1021,33 +1020,32 @@ export default function ConstructionServicePage() {
       </Section>
 
       {/* VENTURES */}
-      <Section
-        id="ventures"
-        title="Ventures we’re pursuing"
-      >
-        <div className="grid gap-4 md:grid-cols-3">
-          {ventures.map((v, i) => (
-            <Reveal key={v.title} delayMs={i * 80}>
-              <ConstructionCard className="h-full p-6">
-                <div className="flex items-start gap-3">
-                  <span className="mt-0.5 grid h-9 w-9 place-items-center rounded-lg border border-white/10 bg-white/5 text-white/90">
-                    {v.icon}
-                  </span>
-                  <div>
-                    <div className="text-sm font-semibold text-white">{v.title}</div>
-                    <p className="mt-2 text-xs leading-relaxed text-white/70">{v.desc}</p>
-                    <div className="mt-4">
-                      <Badge variant="outline" className="rounded-none border-white/15 text-white/80">
-                        {v.badge}
-                      </Badge>
-                    </div>
-                  </div>
-                </div>
-              </ConstructionCard>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      <Section id="ventures" 
+      title="Ventures we’re pursuing">
+  <div className="grid gap-6 md:grid-cols-3">
+    {ventures.map((v, i) => (
+      <Reveal key={v.title} delayMs={i * 80}>
+        <ConstructionCard className="h-full p-6">
+          <div className="flex items-start gap-4">
+            {/* ✅ Blue icon ring (like before) */}
+            <span className="mt-0.5 inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
+              <span className="grid place-items-center [&_*]:h-6 [&_*]:w-6">
+                {v.icon}
+              </span>
+            </span>
+
+            <div className="min-w-0">
+              <div className="text-lg font-semibold text-white">{v.title}</div>
+              <p className="mt-2 text-sm leading-relaxed text-white/70">{v.desc}</p>
+
+              
+            </div>
+          </div>
+        </ConstructionCard>
+      </Reveal>
+    ))}
+  </div>
+</Section>
 
       {/* CTA */}
       
