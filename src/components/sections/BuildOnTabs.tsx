@@ -46,15 +46,15 @@ const items: Item[] = [
     size: "mid",
     image: "/companies/organic farming.avif"
   },
-  {
-    label: "Mining",
-    title: "Responsible resource development",
-    description: "Operations guided by safety, compliance, and long-term value.",
-    href: "/services/mining",
-    icon: <Mountain className="h-5 w-5" />,
-    size: "tall",
-    image: "/companies/mining.avif"
-  },
+  // {
+  //   label: "Mining",
+  //   title: "Responsible resource development",
+  //   description: "Operations guided by safety, compliance, and long-term value.",
+  //   href: "/services/mining",
+  //   icon: <Mountain className="h-5 w-5" />,
+  //   size: "tall",
+  //   image: "/companies/mining.avif"
+  // },
   {
     label: "Logistics",
     title: "Movement that keeps supply chains alive",
@@ -64,15 +64,15 @@ const items: Item[] = [
     size: "short",
     image: "/companies/logistics.jpg"
   },
-  {
-    label: "Oil & Gas",
-    title: "Energy projects delivered with discipline",
-    description: "Structured execution, clear reporting, and operational accountability.",
-    href: "/services/oil-and-gas",
-    icon: <Flame className="h-5 w-5" />,
-    size: "mid",
-    image: "/companies/oil.avif"
-  },
+  // {
+  //   label: "Oil & Gas",
+  //   title: "Energy projects delivered with discipline",
+  //   description: "Structured execution, clear reporting, and operational accountability.",
+  //   href: "/services/oil-and-gas",
+  //   icon: <Flame className="h-5 w-5" />,
+  //   size: "mid",
+  //   image: "/companies/oil.avif"
+  // },
   // {
   //   label: "Green Energy",
   //   title: "Clean energy for a stronger future",

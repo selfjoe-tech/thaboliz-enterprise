@@ -79,16 +79,16 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
     image: { src: "/stock/pic-22.jpg", alt: "Technologies" },
     chips: ["Web platforms", "Automation", "Systems", "Digital ops", "Cyber Security"],
   },
-  {
-    id: "mining",
-    title: "Mining",
-    description:
-      "Responsible extraction operations with a focus on process discipline and compliance readiness.",
-    href: "/services/mining",
-    icon: <Pickaxe className="h-4 w-4" />,
-    image: { src: "/stock/pic-23.jpg", alt: "Mining" },
-    chips: ["Operations support", "Compliance readiness", "Project logistics"],
-  },
+  // {
+  //   id: "mining",
+  //   title: "Mining",
+  //   description:
+  //     "Responsible extraction operations with a focus on process discipline and compliance readiness.",
+  //   href: "/services/mining",
+  //   icon: <Pickaxe className="h-4 w-4" />,
+  //   image: { src: "/stock/pic-23.jpg", alt: "Mining" },
+  //   chips: ["Operations support", "Compliance readiness", "Project logistics"],
+  // },
   {
     id: "logistics",
     title: "Logistics",
@@ -109,16 +109,16 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
     image: { src: "/stock/pic-25.jpg", alt: "Organic farms" },
     chips: ["Sustainable production", "Operations", "Scaling"],
   },
-  {
-    id: "oil-gas",
-    title: "Oil & Gas",
-    description:
-      "Support services and operational capability for fuel and gas related infrastructure.",
-    href: "/services/oil-and-gas",
-    icon: <Flame className="h-4 w-4" />,
-    image: { src: "/stock/pic-26.jpg", alt: "Oil & Gas" },
-    chips: ["Infrastructure support", "Safety docs", "Partner-led execution"],
-  },
+  // {
+  //   id: "oil-gas",
+  //   title: "Oil & Gas",
+  //   description:
+  //     "Support services and operational capability for fuel and gas related infrastructure.",
+  //   href: "/services/oil-and-gas",
+  //   icon: <Flame className="h-4 w-4" />,
+  //   image: { src: "/stock/pic-26.jpg", alt: "Oil & Gas" },
+  //   chips: ["Infrastructure support", "Safety docs", "Partner-led execution"],
+  // },
   
  
   
