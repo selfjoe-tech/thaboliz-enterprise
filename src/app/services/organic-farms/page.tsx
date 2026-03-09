@@ -261,59 +261,57 @@ export default function OrganicFarmsServicePage() {
   return (
     <main className="site-bg">
       {/* HERO (unique “field page” feel) */}
-      <section className="relative overflow-hidden pt-14 sm:pt-18">
-        {/* soft background texture */}
-        <div className="pointer-events-none absolute inset-0 opacity-[0.14] bg-[radial-gradient(circle_at_10%_20%,rgba(156,236,251,.35),transparent_55%),radial-gradient(circle_at_85%_10%,rgba(0,82,212,.35),transparent_55%)]" />
+      <section className="relative overflow-hidden border-b border-black/10 bg-white pt-16 sm:pt-20 lg:pt-24">
+  {/* soft texture */}
+  <div className="pointer-events-none absolute inset-0 opacity-[0.1]">
+    <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(74,222,128,0.18),transparent_34%),radial-gradient(circle_at_78%_14%,rgba(120,53,15,0.12),transparent_32%),radial-gradient(circle_at_65%_70%,rgba(163,230,53,0.08),transparent_28%)]" />
+  </div>
 
-        <div className="mx-auto max-w-6xl px-4">
-          <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
-            <Link href="/services" className="hover:text-white transition">
-              Services
+  <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+    <div className="grid min-h-[72vh] gap-10 lg:grid-cols-[1fr_minmax(520px,760px)] lg:items-center">
+      {/* empty left side to preserve the same spacious composition */}
+      <div className="hidden lg:block" />
+
+      {/* right content */}
+      <div className="relative z-10 py-8 lg:py-16">
+        <Reveal>
+          <h1 className="max-w-[12ch] text-5xl font-semibold leading-[0.92] tracking-tight text-black sm:text-6xl lg:text-7xl xl:text-[6.25rem]">
+            Climate-smart
+            <br />
+            farming with{" "}
+            <span className="bg-gradient-to-r from-[#3f7c47] via-[#6f8f45] to-[#7c4a21] bg-clip-text text-transparent">
+              Resilient outcomes.
+            </span>
+           
+          </h1>
+
+          <p className="mt-8 max-w-2xl text-base leading-relaxed text-black/72 sm:text-lg">
+            We pursue sustainable food production built on soil health, responsible water
+            planning, and practical market pathways, structured for resilient operations and
+            high-quality outcomes.
+          </p>
+
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <Button
+              asChild
+              className="h-12 rounded-md border-0 bg-[#3f7c47] px-7 text-white hover:bg-[#36683c]"
+            >
+              <Link href="/#contact">Contact us</Link>
+            </Button>
+
+            <Link
+              href="#what-we-do"
+              className="inline-flex items-center gap-2 text-base font-medium text-black underline decoration-black/25 underline-offset-4 transition hover:decoration-black"
+            >
+              Explore operations
+              <span aria-hidden="true">→</span>
             </Link>
-            <ChevronRight className="h-4 w-4 text-white/35" />
-            <span className="text-white/80">Organic Farms</span>
-          </Reveal>
-
-          <div className="mt-6 grid gap-8 lg:grid-cols-2 lg:items-center">
-            <div className="relative z-10">
-              <Reveal>
-                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] px-4 py-2 text-xs text-white/70">
-                  <Leaf className="h-4 w-4 text-white/80" />
-                  Organic Farms
-                </div>
-
-                <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                  Climate-smart farming with{" "}
-                  <span className="text-brand-gradient">traceability and stewardship</span>
-                </h1>
-
-                <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 sm:text-[15px]">
-                  We pursue sustainable food production built on soil health, responsible water
-                  planning, and practical market pathways, structured for resilient operations and
-                  high-quality outcomes.
-                </p>
-
-                <div className="mt-7 flex flex-wrap gap-3">
-                  <Button asChild className="rounded-none">
-                    <Link href="/#contact">Contact Us</Link>
-                  </Button>
-                  
-                </div>
-
-                
-              </Reveal>
-            </div>
-
-            <Reveal delayMs={160}>
-              <MediaSlot label="Organic farms hero image" src="/illustrations/farm-2.jpg" />
-            </Reveal>
           </div>
-        </div>
-
-        <div className="mt-14">
-          <Separator className="bg-white/10" />
-        </div>
-      </section>
+        </Reveal>
+      </div>
+    </div>
+  </div>
+</section>
 
       {/* STICKY QUICK LINKS */}
 
@@ -456,56 +454,49 @@ export default function OrganicFarmsServicePage() {
 </section>
 
       {/* STANDARDS */}
-      <Section
-        id="standards"
-        eyebrow="Standards and certification approach"
-        title="Standards-aware operations"
-        subtitle="Designed for traceability and compliance where certification/verification is pursued."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <Reveal>
-            <FarmCard className="h-full">
-              <div className="flex items-start gap-3">
-                <span className="mt-0.5 grid h-10 w-10 place-items-center rounded-xl border border-white/10 bg-white/5 text-white/90">
-                  <ShieldCheck className="h-5 w-5" />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-sm font-semibold text-white">
-                    Certification-ready mindset
-                  </div>
-                  <p className="mt-2 text-xs leading-relaxed text-white/70">
-                    South Africa’s organic space often uses sector standards and certification schemes,
-                    such as SAOSO’s standard for organic production and processing (where certification
-                    is pursued). We structure operations around traceability, documented practices, and
-                    audit-friendly record keeping.
-                  </p>
-
-                  <div className="mt-5 grid gap-2 sm:grid-cols-2">
-                    {[
-                      "Inputs control and supplier discipline",
-                      "Farm logs and batch traceability",
-                      "Processing hygiene and handling",
-                      "Audit-friendly records and SOPs",
-                    ].map((t) => (
-                      <div
-                        key={t}
-                        className="flex items-start gap-2 rounded-xl border border-white/10 bg-white/[0.02] p-3"
-                      >
-                        <CheckCircle2 className="mt-0.5 h-4 w-4 text-white/70" />
-                        <div className="text-xs leading-relaxed text-white/75">{t}</div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </FarmCard>
-          </Reveal>
-
-          <Reveal delayMs={120}>
-            <MediaSlot label="Standards image" src="/illustrations/farm-3.jpg" />
-          </Reveal>
+      <section
+  id="standards"
+  className="border-y border-white/10 bg-black"
+>
+  <div className="mx-auto max-w-[1440px] px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <div className="grid gap-10 lg:grid-cols-[minmax(420px,1.15fr)_minmax(320px,0.95fr)] lg:items-center lg:gap-16">
+      {/* Left: image */}
+      <Reveal delayMs={120}>
+        <div className="relative w-full overflow-hidden rounded-2xl border border-white/10 bg-white/5">
+          <div className="relative aspect-[16/9] w-full">
+            <Image
+              src="/illustrations/farm-3.jpg"
+              alt="Standards and certification operations"
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 760px"
+            />
+            <div className="absolute inset-0 bg-black/20" />
+          </div>
         </div>
-      </Section>
+      </Reveal>
+
+      {/* Right: text */}
+      <Reveal>
+        <div className="max-w-xl lg:ml-auto">
+          <h2 className="text-4xl font-semibold leading-[0.95] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Standards-aware
+            <br />
+            operations
+          </h2>
+
+          <p className="mt-6 text-base leading-relaxed text-white/80 sm:text-lg">
+            South Africa’s organic space often uses sector standards and
+            certification schemes, such as SAOSO’s standard for organic
+            production and processing (where certification is pursued). We
+            structure operations around traceability, documented practices, and
+            audit-friendly record keeping.
+          </p>
+        </div>
+      </Reveal>
+    </div>
+  </div>
+</section>
 
       {/* WATER */}
       <section id="water" 
