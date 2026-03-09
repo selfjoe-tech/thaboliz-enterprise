@@ -25,9 +25,16 @@ import {
   Link2,
   LinkIcon,
 } from "lucide-react";
+import HowWeWorkMasonry from "./HowWeWorkMasonry";
 
 type Stat = { value: string; label: string };
-type ValueCard = { title: string; desc: string; icon: React.ReactNode };
+
+type ValueCard = {
+  title: string;
+  desc: string;
+  icon?: React.ReactNode;
+  img?: string;
+};
 
 function Section({
   id,
@@ -281,117 +288,78 @@ export default function AboutPage() {
       </Section>
 
       {/* VISION / MISSION */}
-      <Section
-  eyebrow="Direction"
-  title="A clear vision and mission"
-  subtitle="The kind that guides day-to-day decisions, not just the slide deck."
->
-  <div className="flex flex-col w-full gap-15">
+      <>
+  {/* Vision: text left, image right */}
+  <section id="vision" className="scroll-mt-24">
+    <div className="grid min-h-[100vh] lg:grid-cols-2">
+      <Reveal>
+        <div className="flex h-full items-center bg-[#625d69] px-6 py-16 sm:px-10 lg:px-14 xl:px-20">
+          <div className="max-w-2xl">
+            <h2 className="text-5xl font-semibold leading-[0.9] tracking-tight text-white sm:text-6xl lg:text-7xl">
+              Vision
+            </h2>
 
-    <div className="flex w-full gap-3">
-<Reveal>
-      <SoftCard className="h-full" bgSrc={"/illustrations/gradient-1.avif"}>
-        <div id="vision" className="scroll-mt-24" />
-        <div className="text-xl font-semibold uppercase tracking-[0.22em] text-white/500">
-          Vision
+            <p className="mt-8 text-base leading-relaxed text-white/90 sm:text-lg lg:text-[1.35rem] lg:leading-[1.45]">
+              To become a trusted delivery partner for projects that strengthen
+              everyday life: reliable infrastructure, efficient supply chains,
+              secure systems, and resilient energy.
+            </p>
+          </div>
         </div>
-        <p className="mt-3 text-md leading-relaxed text-white/75">
-          To become a trusted delivery partner for projects that strengthen everyday life:
-          reliable infrastructure, efficient supply chains, secure systems, and resilient
-          energy.
-        </p>
-      </SoftCard>
-    </Reveal>
+      </Reveal>
 
-    <Reveal delayMs={120}>
-      <SoftCard className="h-full" bgSrc={"/illustrations/gradient-2.avif"}>
-        <div id="mission" className="scroll-mt-24" />
-        <div className="text-xl font-semibold uppercase tracking-[0.22em] text-white/500">
-          Mission
+      <Reveal delayMs={120}>
+        <div className="relative min-h-[42vh] lg:min-h-[100vh]">
+          <Image
+            src="/stock/about/pic-2.avif"
+            alt="Vision"
+            fill
+            className="object-cover"
+            sizes="100vw"
+            priority
+          />
         </div>
-        <p className="mt-3 text-md leading-relaxed text-white/75">
-          To plan, build, and operate practical solutions across high-impact sectors by
-          combining skilled teams, disciplined project controls, and modern technology.
-        </p>
-      </SoftCard>
-    </Reveal>
-
+      </Reveal>
     </div>
-    
+  </section>
 
-    
-  </div>
-</Section>
+  {/* Mission: image left, text right */}
+  <section id="mission" className="scroll-mt-24">
+    <div className="grid min-h-[72vh] lg:grid-cols-2">
+      <Reveal>
+        <div className="relative min-h-[42vh] lg:min-h-[100vh]">
+          <Image
+            src="/stock/about/pic-3.jpg"
+            alt="Mission"
+            fill
+            className="object-cover"
+            sizes="100vw"
+          />
+        </div>
+      </Reveal>
+
+      <Reveal delayMs={120}>
+        <div className="flex h-full items-center bg-[#e9e6e1] px-6 py-16 sm:px-10 lg:px-14 xl:px-20">
+          <div className="max-w-2xl">
+            <h2 className="text-5xl font-semibold leading-[0.9] tracking-tight text-black sm:text-6xl lg:text-7xl">
+              Mission
+            </h2>
+
+            <p className="mt-8 text-base leading-relaxed text-black/75 sm:text-lg lg:text-[1.35rem] lg:leading-[1.45]">
+              To plan, build, and operate practical solutions across
+              high-impact sectors by combining skilled teams, disciplined
+              project controls, and modern technology.
+            </p>
+          </div>
+        </div>
+      </Reveal>
+    </div>
+  </section>
+</>
 
 
       {/* HOW WE WORK */}
-      <Section
-        id="how-we-work"
-        eyebrow="How we work"
-        title="Disciplined delivery, from discovery to operations"
-        subtitle="We keep execution visible through governance, HSE planning, and quality checks throughout."
-      >
-        <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
-          <Reveal>
-            <MediaSlot label="Process illustration slot" src={"/illustrations/working.png"} />
-          </Reveal>
-
-          <div className="grid gap-4">
-            {[
-              {
-                title: "Discovery to delivery",
-                icon: <ClipboardList className="h-4 w-4" />,
-                bullets: [
-                  "Requirements, feasibility, cost, schedule, risk",
-                  "Clear scope and measurable outcomes",
-                ],
-              },
-              {
-                title: "Governance",
-                icon: <BarChart3 className="h-4 w-4" />,
-                bullets: [
-                  "Transparent reporting and milestone-based progress",
-                  "Auditable documentation and decisions",
-                ],
-              },
-              {
-                title: "Safety and quality first",
-                icon: <HardHat className="h-4 w-4" />,
-                bullets: [
-                  "Structured HSE planning and regulatory compliance",
-                  "Quality checks throughout, especially construction/mining",
-                ],
-              },
-              {
-                title: "Local impact",
-                icon: <Handshake className="h-4 w-4" />,
-                bullets: [
-                  "Training, subcontractor development, and procurement",
-                  "Sustainable local participation where we operate",
-                ],
-              },
-            ].map((s, idx) => (
-              <Reveal key={s.title} delayMs={idx * 60}>
-                <SoftCard className="p-5">
-                  <div className="flex items-start gap-3">
-                    <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/185">
-                      {s.icon}
-                    </span>
-                    <div>
-                      <div className="text-md font-semibold text-white">{s.title}</div>
-                      <ul className="mt-2 space-y-1 text-xs leading-relaxed text-white/165">
-                        {s.bullets.map((b) => (
-                          <li key={b}>• {b}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </SoftCard>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </Section>
+      <HowWeWorkMasonry />
 
       {/* DIFFERENTIATORS */}
       <Section
@@ -431,14 +399,7 @@ export default function AboutPage() {
       </Section>
 
       {/* VALUES */}
-      <Section
-        id="values"
-        eyebrow="Values"
-        title="How we show up"
-        subtitle="Integrity, safety, craftsmanship, continuous improvement, and respect for communities and the environment."
-      >
-        <ValuesCarousel values={values} />
-      </Section>
+      <ValuesEditorial values={values} />
 
 
       {/* PARTNERSHIPS */}
@@ -579,3 +540,62 @@ function ValuesCarousel({ values }: { values: ValueCard[] }) {
     </div>
   );
 }
+
+
+
+
+
+function ValuesEditorial({ values }: { values: ValueCard[] }) {
+  return (
+    <section
+      id="values"
+      className="border-y border-white/10 bg-black py-16 sm:py-20 lg:py-24"
+    >
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[minmax(280px,0.9fr)_minmax(0,1.15fr)] lg:gap-24">
+          {/* Left side */}
+          <Reveal>
+            <div className="lg:sticky lg:top-24 lg:self-start">
+              <h2 className="max-w-[8ch] text-5xl font-semibold leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-[4.75rem]">
+                Core values
+                
+              </h2>
+
+              <p className="mt-8 max-w-md text-base leading-relaxed text-white/72 sm:text-lg">
+                We turn values into action through disciplined execution,
+                accountability, safety, craftsmanship, continuous improvement,
+                and respect for people, communities, and the environment.
+              </p>
+            </div>
+          </Reveal>
+
+          {/* Right side */}
+          <div className="space-y-5 sm:space-y-6 lg:space-y-7">
+            {values.map((value, index) => (
+              <Reveal key={value.title} delayMs={index * 70}>
+                <article className="border-b border-white/10 pb-5 sm:pb-6 lg:pb-7">
+                  <div className="flex items-start gap-4">
+                    <div className="w-10 shrink-0 text-3xl font-semibold leading-none tracking-tight text-white sm:w-12 sm:text-4xl lg:text-5xl">
+                      {String(index + 1).padStart(2, "0")}
+                    </div>
+
+                    <div className="min-w-0">
+                      <h3 className="text-3xl font-semibold leading-[1.02] tracking-tight text-white sm:text-4xl lg:text-[3.25rem]">
+                        {value.title}
+                      </h3>
+
+                      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/65 sm:text-base">
+                        {value.desc}
+                      </p>
+                    </div>
+                  </div>
+                </article>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+

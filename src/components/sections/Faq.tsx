@@ -30,36 +30,49 @@ const faqs = [
 
 export default function Faq() {
   return (
-    <section className="py-16">
-      <div className="text-center">
-        <Reveal>
-          <h2 className="text-3xl font-semibold text-white">FAQ</h2>
-          <p className="mt-2 text-sm text-white/60">
-            The quick answers. The longer story is in the work.
-          </p>
-        </Reveal>
-      </div>
+    <section className="bg-black py-16 sm:py-20 lg:py-24">
+      <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-12 lg:grid-cols-[minmax(260px,0.9fr)_minmax(0,1.35fr)] lg:gap-20">
+          {/* Left title */}
+          <Reveal>
+            <div className="lg:sticky lg:top-24 lg:self-start">
+              <h2 className="max-w-[5ch] text-5xl font-semibold leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl">
+                Frequently asked questions
+              </h2>
+            </div>
+          </Reveal>
 
-      <div className="mt-10 max-w-3xl mx-auto">
-        <Accordion type="single" collapsible className="space-y-4">
-          {faqs.map((f, i) => (
-            <AccordionItem
-              key={i}
-              value={`item-${i}`}
-              className="border border-white/10 rounded-none px-4 bg-black"
-            >
-              <AccordionTrigger className="hover:no-underline py-4">
-                <div className="flex w-full items-start justify-between gap-4">
-                  <div className="text-left text-sm font-semibold text-white">{f.q}</div>
-                </div>
-              </AccordionTrigger>
+          {/* Right accordion */}
+          <Reveal delayMs={80}>
+            <div>
+              <Accordion type="single" collapsible className="border-t border-white/10">
+                {faqs.map((f, i) => (
+                  <AccordionItem
+                    key={i}
+                    value={`item-${i}`}
+                    className="border-b border-white/10"
+                  >
+                    <AccordionTrigger className="group py-7 text-left hover:no-underline [&>svg]:hidden sm:py-8">
+                      <div className="flex w-full items-start justify-between gap-6">
+                        <span className="max-w-4xl pr-4 text-xl font-semibold leading-snug text-white sm:text-2xl lg:text-[2rem] lg:leading-[1.15]">
+                          {f.q}
+                        </span>
 
-              <AccordionContent className="pb-4 text-sm text-white/70 leading-relaxed">
-                {f.a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+                        <span className="mt-1 shrink-0 text-[#2563eb] transition-transform duration-300 group-data-[state=open]:rotate-45">
+                          <Plus className="h-6 w-6 sm:h-7 sm:w-7" strokeWidth={1.8} />
+                        </span>
+                      </div>
+                    </AccordionTrigger>
+
+                    <AccordionContent className="pb-7 pr-12 text-base leading-relaxed text-white/70 sm:pb-8 sm:text-lg">
+                      {f.a}
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
   );

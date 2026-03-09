@@ -76,18 +76,18 @@ export default function SiteFooter() {
   const divisions = [
     { label: "Construction", href: "/services/construction" },
     { label: "Technologies", href: "/services/technologies" },
-    { label: "Mining", href: "/services/mining" },
+    // { label: "Mining", href: "/services/mining" },
     { label: "Logistics", href: "/services/logistics" },
     { label: "Organic farms", href: "/services/organic-farms" },
-    { label: "Oil & gas", href: "/services/oil-and-gas" },
-    { label: "Green energy", href: "/services/green-energy" },
-    { label: "Research & innovation", href: "/services/research" },
-    { label: "Tenders", href: "/services/tenders" },
+    // { label: "Oil & gas", href: "/services/oil-and-gas" },
+    // { label: "Green energy", href: "/services/green-energy" },
+    // { label: "Research & innovation", href: "/services/research" },
+    // { label: "Tenders", href: "/services/tenders" },
   ];
 
   const companyLinks = [
     { label: "About us", href: "/about" },
-    { label: "Services", href: "/services" },
+    // { label: "Services", href: "/services" },
     { label: "Contact", href: "/#contact" },
   ];
 
@@ -179,7 +179,7 @@ export default function SiteFooter() {
           </p>
           
 
-          <div className="flex flex-wrap items-center gap-4 text-xs text-white/60">
+          {/* <div className="flex flex-wrap items-center gap-4 text-xs text-white/60">
             <Link href="/privacy" className="hover:text-white transition">
               Privacy Policy
             </Link>
@@ -189,9 +189,9 @@ export default function SiteFooter() {
             </Link>
             <span className="text-white/20">•</span>
             
-          </div>
+          </div> */}
 
-          <div className="flex items-center gap-2">
+          {/* <div className="flex items-center gap-2">
             <SocialIcon href="#" label="Facebook">
               <Facebook className="h-4 w-4" />
             </SocialIcon>
@@ -207,7 +207,7 @@ export default function SiteFooter() {
             <SocialIcon href="#" label="YouTube">
               <Youtube className="h-4 w-4" />
             </SocialIcon>
-          </div>
+          </div> */}
         </div>
       </div>
     </footer>

@@ -11,17 +11,15 @@ export default function HomePage() {
     <main className="min-h-screen text-foreground">
 
       <HeroGlobe />
-      <div className="mx-auto max-w-6xl px-4">
         
 
         <BuildOnTabs />
         {/* <Testimonials /> */}
         {/* <Numbers /> */}
-        {/* <Faq /> */}
+        <Faq />
         {/* <ReadyCta /> */}
                 <ContactDetails />
 
-      </div>
 
     </main>
   );
