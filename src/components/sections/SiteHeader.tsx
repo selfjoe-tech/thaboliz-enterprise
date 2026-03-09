@@ -170,9 +170,16 @@ export default function SiteHeader() {
           <div className="hidden md:flex items-center gap-10">
             <NavigationMenu delayDuration={0}>
               <NavigationMenuList className="gap-8">
+
+                  <NavigationMenuItem>
+                  <NavLink href="/">Home</NavLink>
+                </NavigationMenuItem>
+
                 <NavigationMenuItem>
                   <NavLink href="/about">About us</NavLink>
                 </NavigationMenuItem>
+
+                
 
                 {/* ✅ Squarespace-style mega menu */}
                 <NavigationMenuItem>
