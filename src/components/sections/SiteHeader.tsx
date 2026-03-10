@@ -3,14 +3,12 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, Search, ChevronRight } from "lucide-react";
+import { Menu, ChevronRight, ChevronDown, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuList,
-  NavigationMenuTrigger,
   NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
 import {
@@ -25,18 +23,50 @@ import {
 import {
   Building2,
   Cpu,
-  Pickaxe,
   Truck,
   Sprout,
-  Flame,
-  Wind,
-  Microscope,
-  FileText,
-  Info,
+  
 } from "lucide-react";
-import HeaderBrand from "./HeaderBrand";
 import ScrollLink from "../ScrollLink";
 import RouteLogo from "@/components/brand/RouteLogo";
+
+import { AnimatePresence, motion } from "framer-motion";
+
+const megaPanel = {
+  hidden: { opacity: 0, y: 10, scale: 0.985 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.22,
+      ease: [0.22, 1, 0.36, 1],
+      when: "beforeChildren",
+      staggerChildren: 0.055,
+    },
+  },
+  exit: {
+    opacity: 0,
+    y: 8,
+    scale: 0.985,
+    transition: {
+      duration: 0.16,
+      ease: [0.4, 0, 1, 1],
+    },
+  },
+};
+
+const megaChild = {
+  hidden: { opacity: 0, y: 12 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.28,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 function NavLink({ href, children }: { href: string; children: React.ReactNode }) {
   return (
@@ -157,6 +187,24 @@ export default function SiteHeader() {
     [activeId]
   );
 
+  const [megaOpen, setMegaOpen] = React.useState(false);
+const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+
+const openMega = React.useCallback(() => {
+  if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  setMegaOpen(true);
+}, []);
+
+const closeMega = React.useCallback(() => {
+  closeTimerRef.current = setTimeout(() => {
+    setMegaOpen(false);
+  }, 120);
+}, []);
+
+
+
+
+
   return (
     <header className="sticky top-0 z-50 border-b border-white/10 bg-black/80 backdrop-blur">
       <div className="mx-auto max-w-6xl px-4">
@@ -182,117 +230,157 @@ export default function SiteHeader() {
                 
 
                 {/* ✅ Squarespace-style mega menu */}
-                <NavigationMenuItem>
-                  <NavigationMenuTrigger className="h-auto bg-transparent px-0 py-0 text-sm font-normal text-white/70 hover:text-white data-[state=open]:text-white">
-                    <span className="inline-flex items-center gap-1">What we do</span>
-                  </NavigationMenuTrigger>
+                <NavigationMenuItem
+                    onMouseEnter={openMega}
+                    onMouseLeave={closeMega}
+                    onFocus={openMega}
+                    className="relative"
+                  >
+                    <button
+                      type="button"
+                      className={[
+                        "flex gap-2 h-auto bg-transparent px-0 py-0 text-sm font-normal transition",
+                        megaOpen ? "text-white" : "text-white/70 hover:text-white",
+                      ].join(" ")}
+                    >
+                      <span className="inline-flex items-center gap-1">What we do</span>
+                      <ChevronDown className="h-5 w-5" />
+                    </button>
 
-                  <NavigationMenuContent className="p-0 bg-transparent border-0 shadow-none">
-                    {/* fixed panel aligned under header */}
-                    <div className="fixed left-1/2 top-16 z-50 w-[min(1120px,calc(100vw-2rem))] -translate-x-1/2">
-                      <div className="relative border border-white/10 bg-black/95 backdrop-blur shadow-[0_22px_70px_rgba(0,0,0,0.65)]">
-                        {/* little notch */}
-                        <div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-white/10 bg-black/95" />
+                    <AnimatePresence>
+                      {megaOpen && (
+                        <motion.div
+                          variants={megaPanel}
+                          initial="hidden"
+                          animate="show"
+                          exit="exit"
+                          className="fixed left-1/2 top-16 z-50 w-[min(1120px,calc(100vw-2rem))] -translate-x-1/2"
+                          onMouseEnter={openMega}
+                          onMouseLeave={closeMega}
+                        >
+                          <div className="relative border border-white/10 bg-black/95 backdrop-blur shadow-[0_22px_70px_rgba(0,0,0,0.65)]">
+                            <div className="absolute -top-2 left-1/2 h-4 w-4 -translate-x-1/2 rotate-45 border-l border-t border-white/10 bg-black/95" />
 
-                        <div className="grid gap-0 lg:grid-cols-12">
-                          {/* Left list */}
-                          <div className="lg:col-span-3 border-r border-white/10 p-6">
-                            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/45">
-                              Solutions for
-                            </div>
+                            <div className="grid gap-0 lg:grid-cols-12">
+                              {/* Left list */}
+                              <motion.div variants={megaChild} className="lg:col-span-3 border-r border-white/10 p-6">
+                                <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/45">
+                                  Services
+                                </div>
 
-                            <div className="mt-4 space-y-1">
-                              {WHAT_WE_DO.map((it, i) => (
-                                <Link 
-                                  href={active.href}
-                                  key={i}
-                                >
-                                  <MegaRow
-                                    key={it.id}
-                                    item={it}
-                                    active={it.id === activeId}
-                                    onHover={() => setActiveId(it.id)}
-                                  />
-                                </Link>
+                                <div className="mt-4 space-y-1">
+                                  {WHAT_WE_DO.map((it, i) => (
+                                    <motion.div
+                                      key={it.id}
+                                      variants={megaChild}
+                                      transition={{ delay: i * 0.03 }}
+                                    >
+                                      <Link
+                                        href={it.href}
+                                        onMouseEnter={() => setActiveId(it.id)}
+                                        onFocus={() => setActiveId(it.id)}
+                                        className={[
+                                          "flex items-center gap-1 block w-full px-3 py-2 text-sm transition",
+                                          it.id === activeId
+                                            ? "text-white"
+                                            : "text-white/55 hover:text-white/80",
+                                        ].join(" ")}
+                                      >
+                                        {it.title}
+                                        {it.id === activeId && <ArrowUpRight />}
+                                      </Link>
+                                    </motion.div>
+                                  ))}
+                                </div>
+                              </motion.div>
+
+                              {/* Middle content */}
+                              <motion.div variants={megaChild} className="lg:col-span-5 border-r border-white/10 p-6">
                                 
-                              ))}
-                            </div>
-                          </div>
 
-                          {/* Middle content */}
-                          <div className="lg:col-span-5 border-r border-white/10 p-6">
-                            <div className="text-[11px] font-semibold uppercase tracking-[0.22em] text-white/45">
-                              Explore
-                            </div>
-
-                            <Link
-                              href={active.href}
-                              className="mt-5 inline-flex items-center gap-2 text-base font-semibold text-white hover:text-white/90 transition"
-                            >
-                              {active.title}
-                              <ChevronRight className="h-4 w-4" />
-                            </Link>
-
-                            <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60">
-                              {active.description}
-                            </p>
-
-                            <div className="mt-6 flex flex-wrap gap-2">
-                              {active.chips.map((chip) => (
-                                <span
-                                  key={chip}
-                                  className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-white/70"
+                                <motion.div
+                                  key={active.id}
+                                  initial={{ opacity: 0, y: 10 }}
+                                  animate={{ opacity: 1, y: 0 }}
+                                  transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
                                 >
-                                  {chip}
-                                </span>
-                              ))}
+                                  <Link
+                                    href={active.href}
+                                    className="mt-5 inline-flex items-center gap-2 text-base font-semibold text-white hover:text-white/90 transition"
+                                  >
+                                    {active.title}
+                                    <ChevronRight className="h-4 w-4" />
+                                  </Link>
+
+                                  <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60">
+                                    {active.description}
+                                  </p>
+
+                                  <div className="mt-6 flex flex-wrap gap-2">
+                                    {active.chips.map((chip, i) => (
+                                      <motion.span
+                                        key={chip}
+                                        initial={{ opacity: 0, y: 8 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.04 * i, duration: 0.2 }}
+                                        className="rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-white/70"
+                                      >
+                                        {chip}
+                                      </motion.span>
+                                    ))}
+                                  </div>
+                                </motion.div>
+                              </motion.div>
+
+                              {/* Right image */}
+                              <motion.div variants={megaChild} className="lg:col-span-4">
+                                <motion.div
+                                  key={active.image.src}
+                                  initial={{ opacity: 0, scale: 0.98 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
+                                  className="relative overflow-hidden bg-white/[0.02]"
+                                >
+                                  <div className="relative aspect-[4/5] w-full">
+                                    <Image
+                                      src={active.image.src}
+                                      alt={active.image.alt}
+                                      fill
+                                      className="object-cover"
+                                      sizes="(min-width: 1024px) 360px, 80vw"
+                                      priority
+                                    />
+                                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/40" />
+                                  </div>
+                                </motion.div>
+                              </motion.div>
                             </div>
 
-                            
-                          </div>
-
-                          {/* Right image */}
-                          <div className="lg:col-span-4">
-                            <div className="relative overflow-hidden bg-white/[0.02]">
-                              <div className="relative aspect-[4/5] w-full">
-                                <Image
-                                  src={active.image.src}
-                                  alt={active.image.alt}
-                                  fill
-                                  className="object-cover"
-                                  sizes="(min-width: 1024px) 360px, 80vw"
-                                  priority
-                                />
-                                <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/40" />
-                              </div>
-                            </div>
-
-                            
-                          </div>
-                        </div>
-
-                        {/* footer strip */}
-                        <div className="flex flex-col gap-4 border-t border-white/10 px-6 py-4 md:flex-row md:items-center md:justify-between">
-                          <div className="text-sm text-white/60">
-                            Ready to work with us?{" "}
-                            <ScrollLink
-                              href="/#contact"
-                              className="text-white underline underline-offset-4 hover:text-white/90 transition"
+                            <motion.div
+                              variants={megaChild}
+                              className="flex flex-col gap-4 border-t border-white/10 px-6 py-4 md:flex-row md:items-center md:justify-between"
                             >
-                              Get in touch
-                            </ScrollLink>
-                            .
+                              <div className="text-sm text-white/60">
+                                Ready to work with us?{" "}
+                                <ScrollLink
+                                  href="/#contact"
+                                  className="text-white underline underline-offset-4 hover:text-white/90 transition"
+                                >
+                                  Get in touch
+                                </ScrollLink>
+                                .
+                              </div>
+                            </motion.div>
                           </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </NavigationMenuItem>
 
-                          <div className="flex items-center gap-3">
-                            
-                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </NavigationMenuContent>
-                </NavigationMenuItem>
+
+
+
+
               </NavigationMenuList>
             </NavigationMenu>
           </div>
