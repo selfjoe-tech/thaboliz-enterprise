@@ -658,7 +658,7 @@ export default function ConstructionServicePage() {
 </section>
 
 {/* VISION (uses 2nd image vibe: bold headline + image card next to text) */}
-<section id="vision" className="scroll-mt-32 py-14 sm:py-18">
+<section id="vision" className="scroll-mt-32 py-14 sm:py-18 bg-white">
   <div className="mx-auto max-w-6xl px-4">
     
 
@@ -666,12 +666,12 @@ export default function ConstructionServicePage() {
       {/* Left: text block like the screenshot */}
       <Reveal className="lg:col-span-6">
         <ConstructionCard className="h-full p-7 sm:p-9">
-          <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">
+          <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-black sm:text-6xl">
             Vision
             
           </h3>
 
-          <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+          <p className="mt-5 max-w-xl text-sm leading-relaxed text-black sm:text-base">
             To build infrastructure that lasts, is safe to operate, and is cost-effective to maintain.
             We keep delivery visible through planning, governance, and quality checks from start to handover.
           </p>
@@ -692,7 +692,6 @@ export default function ConstructionServicePage() {
                 className="object-cover"
                 sizes="(min-width: 1024px) 50vw, 100vw"
               />
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/70" />
             </div>
           </div>
         </ConstructionCard>

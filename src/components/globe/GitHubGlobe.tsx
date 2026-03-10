@@ -168,7 +168,7 @@ export function GitHubGlobe({
       controls.dampingFactor = 0;
 
       // If you don’t need zoom, disable it (less input work)
-      // controls.enableZoom = false;
+      controls.enableZoom = false;
 
       controls.minDistance = 220;
       controls.maxDistance = 520;
