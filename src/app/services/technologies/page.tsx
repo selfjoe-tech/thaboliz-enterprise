@@ -377,7 +377,7 @@ export default function TechnologiesServicePage() {
 </section>
 
 {/* VISION (left text block + right image card) */}
-<section id="vision" className="scroll-mt-32 py-14 sm:py-18">
+<section id="vision" className="scroll-mt-32 py-14 sm:py-18 bg-white">
   <div className="mx-auto max-w-6xl px-4">
     
 
@@ -386,12 +386,12 @@ export default function TechnologiesServicePage() {
       <Reveal className="lg:col-span-6">
         <div className="h-full overflow-hidden">
           <div className="p-8 sm:p-10">
-            <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">
+            <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-black sm:text-6xl">
               Vision
             </h3>
             
 
-            <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+            <p className="mt-6 max-w-xl text-sm leading-relaxed text-black sm:text-base">
               To make operations measurable, secure, and scalable. We help teams build reliable
               foundations with automation, data discipline, and security-first engineering so growth
               doesn’t break execution.
@@ -414,7 +414,6 @@ export default function TechnologiesServicePage() {
               sizes="(min-width: 1024px) 50vw, 100vw"
               priority
             />
-            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/10 via-transparent to-black/45" />
           </div>
         </div>
       </Reveal>

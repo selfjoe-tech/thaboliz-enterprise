@@ -19,6 +19,8 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { usePathname } from "next/navigation";
+
 
 import {
   Building2,
@@ -181,6 +183,10 @@ function MegaRow({
 }
 
 export default function SiteHeader() {
+
+  
+
+
   const [activeId, setActiveId] = React.useState<string>(WHAT_WE_DO[0]?.id ?? "construction");
   const active = React.useMemo(
     () => WHAT_WE_DO.find((x) => x.id === activeId) ?? WHAT_WE_DO[0],
@@ -188,6 +194,18 @@ export default function SiteHeader() {
   );
 
   const [megaOpen, setMegaOpen] = React.useState(false);
+  const pathname = usePathname();
+
+const closeMegaNow = React.useCallback(() => {
+  if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+  setMegaOpen(false);
+}, []);
+
+React.useEffect(() => {
+  closeMegaNow();
+}, [pathname, closeMegaNow]);
+
+
 const closeTimerRef = React.useRef<ReturnType<typeof setTimeout> | null>(null);
 
 const openMega = React.useCallback(() => {
@@ -279,6 +297,7 @@ const closeMega = React.useCallback(() => {
                                         href={it.href}
                                         onMouseEnter={() => setActiveId(it.id)}
                                         onFocus={() => setActiveId(it.id)}
+                                        onClick={closeMegaNow}
                                         className={[
                                           "flex items-center gap-1 block w-full px-3 py-2 text-sm transition",
                                           it.id === activeId
@@ -287,7 +306,7 @@ const closeMega = React.useCallback(() => {
                                         ].join(" ")}
                                       >
                                         {it.title}
-                                        {it.id === activeId && <ArrowUpRight />}
+                                         {it.id === activeId && <ArrowUpRight />}
                                       </Link>
                                     </motion.div>
                                   ))}
@@ -306,6 +325,7 @@ const closeMega = React.useCallback(() => {
                                 >
                                   <Link
                                     href={active.href}
+                                    onClick={closeMegaNow}
                                     className="mt-5 inline-flex items-center gap-2 text-base font-semibold text-white hover:text-white/90 transition"
                                   >
                                     {active.title}
@@ -364,6 +384,7 @@ const closeMega = React.useCallback(() => {
                                 Ready to work with us?{" "}
                                 <ScrollLink
                                   href="/#contact"
+                                  onClick={closeMegaNow}
                                   className="text-white underline underline-offset-4 hover:text-white/90 transition"
                                 >
                                   Get in touch
