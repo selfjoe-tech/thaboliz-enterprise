@@ -574,9 +574,9 @@ export default function ConstructionServicePage() {
 
         {/* BIG headline */}
         <h1 className="mt-6 max-w-5xl text-5xl font-bold leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl">
-          Build it properly
+          Quality. 
           <br />
-          <span className="text-white/90">— and keep it durable.</span>
+          — Built to last.
         </h1>
 
         {/* supporting copy */}
