@@ -26,6 +26,8 @@ import {
   LinkIcon,
 } from "lucide-react";
 import HowWeWorkMasonry from "./HowWeWorkMasonry";
+import WhatMakesUsDifferentCarousel from "./WhatMakesUsDifferentCarousel";
+import ServicesShowcaseCarousel from "./ServicesShowcaseCarousel ";
 
 type Stat = { value: string; label: string };
 
@@ -205,14 +207,13 @@ export default function AboutPage() {
               <Reveal>
                 
 
-                <h1 className="mt-4 text-4xl font-semibold leading-[1.05] tracking-tight text-white sm:text-5xl">
-                  A diversified group built for{" "}
-                  <span className="text-brand-gradient">visible delivery</span>
+                <h1 className="mt-4 text-7xl font-semibold leading-[1.05] tracking-tight text-white sm:text-9xl">
+                  About Us
                 </h1>
 
                 <p className="mt-5 max-w-xl text-md leading-relaxed text-white/170 sm:text-[15px]">
-                  Thaboliz Enterprise operates across infrastructure, logistics, technology, energy,
-                  mining, and sustainable development, delivering integrated solutions with
+                  Thaboliz Enterprise operates across infrastructure
+                  and sustainable development, delivering integrated solutions with
                   disciplined execution and measurable outcomes.
                 </p>
 
@@ -245,47 +246,7 @@ export default function AboutPage() {
 
 
       {/* OVERVIEW */}
-      <Section
-        id="overview"
-        eyebrow="Overview"
-        title="End-to-end services across high-impact sectors"
-        subtitle="We combine expertise in each sector to deliver integrated solutions tailored to client needs, with disciplined governance and clear accountability."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-start">
-          <Reveal>
-            <SoftCard>
-              <p className="text-md leading-relaxed text-white/500">
-                Thaboliz focuses on high-accountability execution: clear scope, measurable outcomes,
-                and systems that make performance visible.
-              </p>
-
-              <div className="mt-5 flex flex-wrap gap-2">
-                {[
-                  { label: "Construction", icon: <HardHat className="h-3.5 w-3.5" /> },
-                  { label: "Technology", icon: <Cpu className="h-3.5 w-3.5" /> },
-                  { label: "Logistics", icon: <Truck className="h-3.5 w-3.5" /> },
-                  { label: "Mining", icon: <Pickaxe className="h-3.5 w-3.5" /> },
-                  { label: "Oil & gas", icon: <Flame className="h-3.5 w-3.5" /> },
-                  { label: "Green energy", icon: <Wind className="h-3.5 w-3.5" /> },
-                  { label: "Research", icon: <Microscope className="h-3.5 w-3.5" /> },
-                ].map((x) => (
-                  <span
-                    key={x.label}
-                    className="inline-flex items-center gap-2 rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 text-xs text-white/200"
-                  >
-                    <span className="text-white/80">{x.icon}</span>
-                    {x.label}
-                  </span>
-                ))}
-              </div>
-            </SoftCard>
-          </Reveal>
-
-          <Reveal delayMs={120}>
-            <MediaSlot label="Overview image slot" src={"/illustrations/industry.png"} />
-          </Reveal>
-        </div>
-      </Section>
+      <ServicesShowcaseCarousel />
 
       {/* VISION / MISSION */}
       <>
@@ -309,7 +270,7 @@ export default function AboutPage() {
       </Reveal>
 
       <Reveal delayMs={120}>
-        <div className="relative min-h-[42vh] lg:min-h-[100vh]">
+        <div className="relative min-h-[60vh] lg:min-h-[100vh]">
           <Image
             src="/stock/about/pic-2.avif"
             alt="Vision"
@@ -362,81 +323,67 @@ export default function AboutPage() {
       <HowWeWorkMasonry />
 
       {/* DIFFERENTIATORS */}
-      <Section
-        id="different"
-        eyebrow="What makes us different"
-        title="One group, many capabilities"
-        subtitle="Fewer handovers, faster decisions, and clearer accountability, with technology embedded into operations."
-      >
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              title: "Integrated capabilities",
-              desc: "Deliver more under one umbrella, with fewer handovers and tighter coordination.",
-              img: "/illustrations/gradinet-6.avif"
-            },
-            {
-              title: "Technology embedded",
-              desc: "Tracking, reporting, monitoring, and analytics designed into delivery.",
-              img: "/illustrations/gradinet-7.avif"
-
-            },
-            {
-              title: "Risk-managed execution",
-              desc: "Controls and compliance appropriate to each sector, without slowing delivery.",
-              img: "/illustrations/gradinet-8.avif"
-
-            },
-          ].map((c, i) => (
-            <Reveal key={c.title} delayMs={i * 80}>
-              <SoftCard className="h-full" bgSrc={"/illustrations/gradient-3.avif"}> 
-                <div className="text-md font-semibold text-white">{c.title}</div>
-                <p className="mt-2 text-xs leading-relaxed text-white/165">{c.desc}</p>
-              </SoftCard>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
+      <WhatMakesUsDifferentCarousel />
 
       {/* VALUES */}
       <ValuesEditorial values={values} />
 
 
+
+
+
+
       {/* PARTNERSHIPS */}
-      <Section
-        id="partnerships"
-        eyebrow="Partnerships"
-        title="Specialists, OEMs, and research institutions"
-        subtitle="We pursue partnerships to deliver complex outcomes and accelerate innovation aligned with South Africa’s innovation-led development."
-      >
-        <div className="grid gap-6 lg:grid-cols-2 lg:items-center">
-          <Reveal>
-            <SoftCard>
-              <p className="text-md leading-relaxed text-white/175">
-                We collaborate with specialist contractors, OEMs, and research institutions to
-                expand delivery capacity and bring the best tools and expertise to each project.
-              </p>
 
-              <div className="mt-5 flex flex-wrap gap-2">
-                {["Specialist contractors", "OEM partners", "Research institutions", "Local suppliers"].map(
-                  (x) => (
-                    <span
-                      key={x}
-                      className="rounded-none border border-white/10 bg-white/[0.02] px-3 py-2 text-xs text-white/170"
-                    >
-                      {x}
-                    </span>
-                  )
-                )}
-              </div>
-            </SoftCard>
-          </Reveal>
-
-          <Reveal delayMs={120}>
-            <MediaSlot label="Partnerships image slot" src={"/illustrations/partner.png"}/>
-          </Reveal>
+<section id="partnerships" className="bg-[#f2f2f0]">
+  <div className="grid min-h-[72vh] lg:grid-cols-2">
+    {/* Left: image */}
+    <Reveal>
+      <div className="flex h-full items-center justify-center bg-[#e8e8e5] px-6 py-10 sm:px-10 lg:px-12">
+        <div className="w-full max-w-[780px]">
+          <Image
+            src="/illustrations/partner.png"
+            alt="Partnerships"
+            width={1400}
+            height={1000}
+            className="block h-auto w-full"
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            priority
+          />
         </div>
-      </Section>
+      </div>
+    </Reveal>
+
+    {/* Right: text */}
+    <Reveal delayMs={120}>
+      <div className="flex h-full items-center bg-[#f7f7f5] px-6 py-16 sm:px-10 lg:px-14 xl:px-20">
+        <div className="max-w-2xl">
+          <h2 className="text-5xl font-semibold leading-[0.9] tracking-tight text-black sm:text-6xl lg:text-7xl">
+            Ecosystem
+            <br />
+            Of
+            <br />
+            Specialists
+            </h2>
+
+          <p className="mt-8 text-base leading-relaxed text-black/90 sm:text-lg lg:text-[1.35rem] lg:leading-[1.45]">
+            We pursue partnerships to deliver complex outcomes and accelerate
+            innovation aligned with South Africa’s innovation-led development.
+            We collaborate with specialist contractors, OEMs, and research
+            institutions to expand delivery capacity and bring the best tools
+            and expertise to each project.
+          </p>
+        </div>
+      </div>
+    </Reveal>
+  </div>
+</section>
+
+
+
+
+
+
 
       {/* CTA */}
       <section className="py-16">
@@ -444,10 +391,11 @@ export default function AboutPage() {
           <Reveal>
             <div className="rounded-none border border-white/10 bg-white/[0.02] p-8 sm:p-10">
               
-              <h3 className="mt-3 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-                If you have a project, operational challenge, or tender opportunity,{" "}
-                <span className="text-brand-gradient">let’s scope it properly</span>.
-              </h3>
+              <h2 className="text-6xl font-semibold   text-white sm:text-7xl lg:text-[6.5rem] xl:text-6xl mb-5">
+              Need assistance? We&apos;re here to help
+              <br />
+             
+            </h2>
 
               <p className="mt-3 max-w-2xl text-lg leading-relaxed text-white/170">
                 Contact us for a scoped proposal and delivery plan with clear milestones,
@@ -549,7 +497,7 @@ function ValuesEditorial({ values }: { values: ValueCard[] }) {
   return (
     <section
       id="values"
-      className="border-y border-white/10 bg-black py-16 sm:py-20 lg:py-24"
+      className=" bg-black py-16 sm:py-20 lg:py-24"
     >
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[minmax(280px,0.9fr)_minmax(0,1.15fr)] lg:gap-24">

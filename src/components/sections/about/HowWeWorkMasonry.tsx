@@ -92,7 +92,7 @@ export default function HowWeWorkMasonry() {
                   {card.title}
                 </h3>
 
-                <p className="mt-4 text-sm leading-relaxed text-white/85 sm:text-base">
+                <p className="mt-4 text-sm leading-relaxed text-white sm:text-base">
                   {card.desc}
                 </p>
               </div>
