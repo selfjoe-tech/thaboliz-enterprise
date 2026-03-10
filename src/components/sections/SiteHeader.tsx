@@ -133,12 +133,12 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
   },
   {
     id: "organic-farms",
-    title: "Organic Farms",
+    title: "Integrated Farms",
     description:
       "Sustainable food production initiatives with practical, scalable execution and operations support.",
-    href: "/services/organic-farms",
+    href: "/services/integrated-farms",
     icon: <Sprout className="h-4 w-4" />,
-    image: { src: "/stock/pic-25.jpg", alt: "Organic farms" },
+    image: { src: "/stock/pic-25.jpg", alt: "Integrated farms" },
     chips: ["Sustainable production", "Operations", "Scaling"],
   },
   // {

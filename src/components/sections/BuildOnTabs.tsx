@@ -38,10 +38,10 @@ const items: Item[] = [
     image: "/companies/tech.jpg"
   },
   {
-    label: "Organic Farms",
-    title: "Organic farming with real standards",
+    label: "Integrated Farms",
+    title: "Integrated farming with real standards",
     description: "No GMOs, no chemical fertilisers. Clean farming practices that respect the land.",
-    href: "/services/organic-farms",
+    href: "/services/integrated-farms",
     icon: <Sprout className="h-5 w-5" />,
     size: "mid",
     image: "/companies/organic farming.avif"
@@ -196,14 +196,12 @@ export default function BuildOnGrid() {
     <section className="py-16">
       <div className="mx-auto max-w-6xl px-6">
         <div className="text-center">
-          <div className="text-xs text-muted-foreground uppercase tracking-widest">
-            Capability
-          </div>
-          <h2 className="mt-2 text-3xl font-semibold tracking-tight">
-            What we bring to the table
+          
+          <h2 className="mt-2 text-6xl font-semibold tracking-tight">
+            Our Services
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
-            The core fields Thaboliz Enterprise focuses on across the group
+            The core fields Thaboliz focuses on across the group
           </p>
         </div>
 

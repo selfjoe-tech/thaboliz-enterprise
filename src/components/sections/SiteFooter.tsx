@@ -78,7 +78,7 @@ export default function SiteFooter() {
     { label: "Technologies", href: "/services/technologies" },
     // { label: "Mining", href: "/services/mining" },
     { label: "Logistics", href: "/services/logistics" },
-    { label: "Organic farms", href: "/services/organic-farms" },
+    { label: "Integrated Farms", href: "/services/integrated-farms" },
     // { label: "Oil & gas", href: "/services/oil-and-gas" },
     // { label: "Green energy", href: "/services/green-energy" },
     // { label: "Research & innovation", href: "/services/research" },
@@ -163,7 +163,7 @@ export default function SiteFooter() {
         {/* Bottom bar */}
         <div className="mt-6 flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
           <div className="text-xs text-white/55">
-            © {year} Thaboliz Enterprise. All rights reserved.
+            © {year} Thaboliz. All rights reserved.
           </div>
           
           <p className="flex gap-1 text-nowrap text-white/55">

@@ -24,8 +24,8 @@ const serviceSlides = [
     image: "/companies/tech.jpg",
   },
   {
-    title: "Organic Farms",
-    href: "/services/organic-farms",
+    title: "Integrated Farms",
+    href: "/services/integrated-farms",
     image: "/illustrations/farm-2.jpg",
   },
 ];

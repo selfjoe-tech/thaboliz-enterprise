@@ -17,7 +17,7 @@ export default function Hero() {
 
             <Reveal delayMs={90}>
               <p className="mt-4 text-sm text-white/70 leading-relaxed">
-                Thaboliz Enterprise combines engineering, technology, logistics, and impact.
+                Thaboliz combines engineering, technology, logistics, and impact.
                 We build, move, power and grow with discipline and purpose.
               </p>
             </Reveal>

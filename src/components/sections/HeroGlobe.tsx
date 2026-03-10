@@ -31,7 +31,7 @@ export function HeroGlobe() {
             </h1>
 
             <p className="text-base leading-relaxed text-white/70 sm:text-lg">
-              Thaboliz Enterprise unites construction, technology, logistics, energy, mining,
+              Thaboliz unites construction, technology, logistics, energy, mining,
               and sustainable development under one group to solve real problems with
               precision and accountability.
             </p>

@@ -12,7 +12,7 @@ import {
 const faqs = [
   {
     q: "What does Thaboliz do?",
-    a: "Thaboliz Enterprise is a holding company with specialized divisions across construction, technology, farming, mining, logistics, energy, research, tenders, and community empowerment.",
+    a: "Thaboliz is a holding company with specialized divisions across construction, technology, farming, mining, logistics, energy, research, tenders, and community empowerment.",
   },
   {
     q: "Do you work with public sector?",

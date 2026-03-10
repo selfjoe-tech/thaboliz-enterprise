@@ -18,7 +18,7 @@ function pickLogo(pathname: string) {
     ["/services/technologies", "/logo/t-technologies-logo.png", "Thaboliz Technologies"],
     ["/services/mining", "/logo/t-mining-logo.png", "Thaboliz Mining"],
     ["/services/logistics", "/logo/t-logistics-logo.png", "Thaboliz Logistics"],
-    ["/services/organic-farms", "/logo/t-intfarms-logo.png", "Thaboliz Organic Farms"],
+    ["/services/integrated-farms", "/logo/t-intfarms-logo.png", "Thaboliz Integrated Farms"],
     ["/services/oil-and-gas", "/logo/t-oilgas-logo.png", "Thaboliz Oil & Gas"],
     // If you later add more service pages, add them here
   ];

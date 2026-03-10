@@ -212,7 +212,7 @@ export default function AboutPage() {
                 </h1>
 
                 <p className="mt-5 max-w-xl text-md leading-relaxed text-white/170 sm:text-[15px]">
-                  Thaboliz Enterprise operates across infrastructure
+                  Thaboliz operates across infrastructure
                   and sustainable development, delivering integrated solutions with
                   disciplined execution and measurable outcomes.
                 </p>
