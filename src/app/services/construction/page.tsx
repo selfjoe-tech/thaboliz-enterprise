@@ -549,16 +549,24 @@ export default function ConstructionServicePage() {
       {/* HERO */}
       {/* HERO (Webflow-style: big type, no illustration slot) */}
 <section className="relative overflow-hidden pt-16 sm:pt-20 h-[100vh]">
-  {/* background atmosphere */}
-  <div className="pointer-events-none absolute inset-0">
-    <div className="absolute inset-0 bg-black" />
-    <div className="absolute -top-32 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-white/[0.06] blur-3xl" />
-    <div className="absolute -bottom-40 right-[-220px] h-[520px] w-[520px] rounded-full bg-[#2563eb]/20 blur-3xl" />
-    <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/65 to-black" />
+  {/* video background */}
+  <div className="absolute inset-0 -z-20">
+    <video
+      className="h-full w-full object-cover"
+      autoPlay
+      muted
+      loop
+      playsInline
+      preload="metadata"
+    >
+      <source src="/videos/hero-bg-video.mp4" type="video/mp4" />
+    </video>
   </div>
 
+  {/* background atmosphere / overlays */}
+  
+
   <div className="relative mx-auto max-w-6xl px-4">
-    {/* breadcrumb (optional but kept) */}
     <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
       <Link href="/services" className="hover:text-white transition">
         Services
@@ -569,23 +577,17 @@ export default function ConstructionServicePage() {
 
     <div className="pb-16 pt-10 sm:pb-20 sm:pt-12">
       <Reveal>
-        {/* small label like Webflow section */}
-        
-
-        {/* BIG headline */}
         <h1 className="mt-6 max-w-5xl text-5xl font-bold leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl">
-          Quality. 
+          Quality.
           <br />
           — Built to last.
         </h1>
 
-        {/* supporting copy */}
         <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
           We deliver construction with scope clarity, schedule integrity, quality assurance, and
           safety-led execution, built for long-term performance and cost-effective operation.
         </p>
 
-        {/* CTA row */}
         <div className="mt-8 flex flex-wrap items-center gap-3">
           <Button asChild className="h-11 rounded-none px-6">
             <Link href="/#contact">Request a scope call</Link>
