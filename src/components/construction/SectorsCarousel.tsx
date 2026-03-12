@@ -175,13 +175,9 @@ export default function SectorsCarousel({
                 <div className="relative flex h-full items-center px-5 sm:px-6">
                   <div className="w-full max-w-[460px] bg-white p-20 sm:p-20 lg:shadow-[0_18px_70px_rgba(0,0,0,0.35)]">
                     <div className="inline-flex items-center gap-2">
-                      <span className="grid h-9 w-9 place-items-center border border-black/10 bg-black/[0.03] text-black">
-                        <Icon className="h-4 w-4" />
-                      </span>
+                      
 
-                      <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-black/55">
-                        {s.tag ?? "SECTORS"}
-                      </span>
+                      
                     </div>
 
                     <div className="mt-3 text-lg sm:text-xl font-semibold leading-snug text-black">

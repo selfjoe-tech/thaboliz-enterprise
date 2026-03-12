@@ -24,6 +24,10 @@ import {
   ChevronRight,
   BrickWall,
   PaintRoller,
+  LandPlot,
+  Home,
+  SquareDashedBottom,
+  Ruler,
 } from "lucide-react";
 
 import AluminumCategoryCarousel, {
@@ -473,23 +477,54 @@ export default function ConstructionServicePage() {
   ];
 
   const otherServices = [
-    {
-      title: "Tiling",
-      desc: "Floor and wall tiling with clean alignment and consistent finish.",
-      icon: <BrickWall className="h-4 w-4" />,
-    },
-    { title: "Paving", desc: "Driveways, walkways, and external paving works.", icon: <Hammer className="h-4 w-4" /> },
-    {
-      title: "Electrical wiring",
-      desc: "Electrical wiring and fitment support (project dependent).",
-      icon: <Wrench className="h-4 w-4" />,
-    },
-    {
-      title: "Painting",
-      desc: "Interior and exterior painting with proper surface prep practices.",
-      icon: <PaintRoller className="h-4 w-4" />,
-    },
-  ];
+  {
+    title: "Tiling",
+    desc: "Floor and wall tiling with clean alignment and consistent finish.",
+    icon: <BrickWall className="h-4 w-4" />,
+  },
+  {
+    title: "Paving",
+    desc: "Driveways, walkways, and external paving works.",
+    icon: <Hammer className="h-4 w-4" />,
+  },
+  {
+    title: "Electrical wiring",
+    desc: "Electrical wiring and fitment support (project dependent).",
+    icon: <Wrench className="h-4 w-4" />,
+  },
+  {
+    title: "Painting",
+    desc: "Interior and exterior painting with proper surface prep practices.",
+    icon: <PaintRoller className="h-4 w-4" />,
+  },
+
+  // ✅ Added services
+  {
+    title: "Foundation",
+    desc: "Foundation setting-out, formwork, reinforcement placement, and concrete preparation (scope dependent).",
+    icon: <LandPlot className="h-4 w-4" />,
+  },
+  {
+    title: "General Roofing",
+    desc: "Roof installation and repairs including sheeting, flashing, waterproofing checks, and roof detailing.",
+    icon: <Home className="h-4 w-4" />,
+  },
+  {
+    title: "Wood Works",
+    desc: "Carpentry and timber works including doors, frames, skirting, and custom wood finishes.",
+    icon: <SquareDashedBottom className="h-4 w-4" />,
+  },
+  {
+    title: "Brick laying",
+    desc: "Brickwork for walls, partitions, and structural elements with clean lines and consistent bonding.",
+    icon: <BrickWall className="h-4 w-4" />,
+  },
+  {
+    title: "Leveling",
+    desc: "Surface leveling and screeding for floors and bases to ensure proper finishes and drainage fall.",
+    icon: <Ruler className="h-4 w-4" />,
+  },
+];
 
   const sectors = [
     { icon: <Building2 className="h-4 w-4" />, label: "Public infrastructure" },
@@ -857,7 +892,7 @@ export default function ConstructionServicePage() {
 
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <a
-              href="/catalogs/thaboliz-construction-catalog.pdf"
+              href="/catalogs/Thaboliz Construction Catalog.pdf"
               download
               className="inline-flex h-11 items-center justify-center rounded-none bg-white px-6 text-sm font-semibold text-black hover:bg-white/90 transition"
             >
@@ -865,7 +900,7 @@ export default function ConstructionServicePage() {
             </a>
 
             <a
-              href="/catalogs/thaboliz-construction-catalog.pdf"
+              href="/catalogs/Thaboliz Construction Catalog.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-11 items-center justify-center rounded-none border border-white/15 bg-transparent px-6 text-sm font-semibold text-white hover:bg-white/5 transition"
