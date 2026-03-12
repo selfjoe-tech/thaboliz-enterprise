@@ -3,25 +3,27 @@ import "./globals.css";
 import TopLoader from "@/components/TopLoader";
 import { Suspense } from "react";
 import SiteFooter from "@/components/sections/SiteFooter";
-
+import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className="min-h-screen w-full bg-background text-foreground">
-        <Suspense >
-                  <TopLoader />
+        <Suspense>
+          <TopLoader />
         </Suspense>
-              <SiteHeader />
+
+        <SiteHeader />
 
         {/* Site-wide gradient backdrop */}
         <div className="fixed -z-10 site-bg" />
         {/* Optional vignette for depth */}
         <div className="fixed -z-10 pointer-events-none bg-gradient-to-b from-black/0 via-black/35 to-black/85" />
+
         {children}
-              <SiteFooter />
 
-
+        <SiteFooter />
+        <FloatingWhatsAppButton />
       </body>
     </html>
   );

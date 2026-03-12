@@ -1,0 +1,22 @@
+<mj-section padding="16px 0 0 0">
+  <mj-column>
+    <mj-text
+      align="center"
+      color="#9ca3af"
+      font-size="12px"
+      line-height="18px"
+      padding="0"
+    >
+      Thaboliz • Sandton, Johannesburg
+    </mj-text>
+    <mj-text
+      align="center"
+      color="#9ca3af"
+      font-size="12px"
+      line-height="18px"
+      padding="6px 0 0 0"
+    >
+      <a href="{{websiteUrl}}" style="color:#9ca3af;">Visit website</a>
+    </mj-text>
+  </mj-column>
+</mj-section>

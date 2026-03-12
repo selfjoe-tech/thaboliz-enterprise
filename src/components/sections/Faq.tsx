@@ -37,7 +37,7 @@ export default function Faq() {
           <Reveal>
             <div className="lg:sticky lg:top-24 lg:self-start">
               <h2 className="max-w-[5ch] text-5xl font-semibold leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl">
-                Frequently asked questions
+                Frequently Asked Questions
               </h2>
             </div>
           </Reveal>

@@ -1,0 +1,104 @@
+<mjml>
+  <mj-head>
+    <mj-preview>We received your enquiry</mj-preview>
+    <mj-attributes>
+      <mj-all font-family="Arial, Helvetica, sans-serif" />
+      <mj-text color="#111827" font-size="15px" line-height="24px" />
+      <mj-section padding="0" />
+      <mj-column padding="0" />
+      <mj-button
+        background-color="#111111"
+        color="#ffffff"
+        border-radius="999px"
+        font-size="14px"
+        inner-padding="12px 20px"
+      />
+    </mj-attributes>
+  </mj-head>
+
+  <mj-body width="640px" background-color="#0a0a0a">
+    <mj-wrapper padding="32px 16px">
+      <mj-include path="./partials/header.mjml" />
+
+      <mj-section
+        background-color="#ffffff"
+        border="1px solid #e5e7eb"
+        border-radius="20px"
+        padding="32px 28px"
+      >
+        <mj-column>
+          <mj-text
+            color="#9ca3af"
+            font-size="12px"
+            font-weight="700"
+            letter-spacing="2px"
+            padding="0 0 10px 0"
+          >
+            THABOLIZ
+          </mj-text>
+
+          <mj-text
+            font-size="28px"
+            line-height="34px"
+            font-weight="700"
+            padding="0"
+          >
+            We received your enquiry
+          </mj-text>
+
+          <mj-text color="#4b5563" padding="12px 0 0 0">
+            Thank you for reaching out. A member of our team will review your
+            message and respond as soon as possible.
+          </mj-text>
+
+          <mj-section
+            background-color="#f9fafb"
+            border="1px solid #e5e7eb"
+            border-radius="14px"
+            padding="18px"
+          >
+            <mj-column>
+              <mj-text padding="0 0 10px 0">Hello {{name}},</mj-text>
+              <mj-text padding="0">
+                Thank you for contacting Thaboliz. Below is a copy of the
+                details you submitted.
+              </mj-text>
+            </mj-column>
+          </mj-section>
+
+          <mj-divider border-color="#e5e7eb" padding="24px 0" />
+
+          <mj-text padding="0"><strong>Full name:</strong> {{name}}</mj-text>
+          <mj-text padding="6px 0 0 0"><strong>Email address:</strong> {{email}}</mj-text>
+          <mj-text padding="6px 0 0 0"><strong>Phone number:</strong> {{phone}}</mj-text>
+          <mj-text padding="6px 0 0 0"><strong>Company:</strong> {{company}}</mj-text>
+
+          <mj-section
+            background-color="#f9fafb"
+            border="1px solid #e5e7eb"
+            border-radius="14px"
+            padding="18px"
+          >
+            <mj-column>
+              <mj-text
+                color="#6b7280"
+                font-size="13px"
+                font-weight="700"
+                padding="0 0 8px 0"
+              >
+                Your message
+              </mj-text>
+              <mj-text padding="0">{{message}}</mj-text>
+            </mj-column>
+          </mj-section>
+
+          <mj-button href="{{websiteUrl}}" padding="24px 0 0 0">
+            Visit our website
+          </mj-button>
+        </mj-column>
+      </mj-section>
+
+      <mj-include path="./partials/footer.mjml" />
+    </mj-wrapper>
+  </mj-body>
+</mjml>

@@ -1,26 +1,41 @@
 import Link from "next/link";
 import { Mail, Phone } from "lucide-react";
+import ContactForm from "@/components/contact/ContactForm";
+import Image from "next/image";
 
 export default function ContactDetails() {
   return (
-    <section id="contact" className=" bg-black py-16 sm:py-20 lg:py-24">
+    <section id="contact" className="bg-black py-16 sm:py-20 lg:py-24">
       <div className="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(320px,0.7fr)] lg:gap-20">
-          {/* Left: giant statement */}
-          <div>
-            <h2 className="max-w-[8ch] text-6xl font-semibold leading-[0.88] tracking-tight text-white sm:text-7xl lg:text-[6.5rem] lg:leading-[0.9] xl:text-[7.5rem]">
-              Talk to us
-              <br />
-             
-            </h2>
+          {/* Left: giant statement t*/}
 
-            <p className="mt-8 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">
-              Whether you’re planning infrastructure, upgrading systems, moving goods, or launching
-              an energy initiative, we respond fast and execute with accountability.
-            </p>
-          </div>
+<div>
+  <h2 className="max-w-[8ch] text-6xl font-semibold leading-[0.88] tracking-tight text-white sm:text-7xl lg:text-[6.5rem] lg:leading-[0.9] xl:text-[7.5rem]">
+    Talk to us
+  </h2>
 
-          {/* Right: contact details */}
+  <p className="mt-8 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">
+    Whether you’re planning infrastructure, upgrading systems, moving goods, or launching
+    an energy initiative, we respond fast and execute with accountability.
+  </p>
+
+  <div className="mt-10 max-w-xl overflow-hidden bg-white/[0.03]">
+    <div className="relative aspect-[16/10] w-full">
+      <Image
+        src="/stock/home/pic-1.jpg"
+        alt="Thaboliz team discussing a project"
+        fill
+        className="object-cover"
+        sizes="(max-width: 1024px) 100vw, 40vw"
+      />
+    </div>
+
+    
+  </div>
+</div>
+
+          {/* Right: contact details + form */}
           <div className="lg:pt-4">
             <div className="border-t border-white/10">
               <div className="border-b border-white/10 py-7">
@@ -66,9 +81,7 @@ export default function ContactDetails() {
               </div>
             </div>
 
-            <p className="mt-5 text-sm text-white/45">
-              Typical response time: within 24 hours on business days.
-            </p>
+            <ContactForm />
           </div>
         </div>
       </div>
