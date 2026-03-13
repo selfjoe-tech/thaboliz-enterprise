@@ -9,7 +9,7 @@ import ContactDetails from "@/components/sections/ContactDetails";
 
 export async function generateMetadata(): Promise<Metadata> {
   const title =
-    "Construction, Technology, Logistics and Integrated Farming in South Africa";
+    "Thaboliz | Construction, Technology, Logistics and Integrated Farming in South Africa";
   const description =
     "Thaboliz Group delivers construction, technology, logistics and integrated farming services in South Africa. Explore our divisions and contact the team for projects, partnerships, and enquiries.";
 
