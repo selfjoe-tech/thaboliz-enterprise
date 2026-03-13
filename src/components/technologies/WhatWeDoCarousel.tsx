@@ -161,7 +161,7 @@ export default function WhatWeDoCarousel({
                     {s.image ? (
                       <Image
                         src={s.image}
-                        alt={s.title}
+                        alt={s.title + "by Thaboliz technologies"}
                         fill
                         priority={i === 0}
                         loading={i === 0 ? "eager" : "lazy"}
