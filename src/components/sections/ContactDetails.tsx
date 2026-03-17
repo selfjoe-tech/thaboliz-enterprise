@@ -17,7 +17,7 @@ export default function ContactDetails() {
 
   <p className="mt-8 max-w-xl text-base leading-relaxed text-white/65 sm:text-lg">
     Whether you’re planning infrastructure, upgrading systems, moving goods, or launching
-    an energy initiative, we respond fast and execute with accountability.
+    an energy initiative, we respond fast and execute with precision.
   </p>
 
   <div className="mt-10 max-w-xl overflow-hidden bg-white/[0.03]">

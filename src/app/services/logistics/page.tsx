@@ -98,7 +98,7 @@ export default function Page() {
         }}
       />
   
-        <LogisticsServicePage />;
+        <LogisticsServicePage />
       </>
 
   ) 

@@ -99,7 +99,7 @@ export default function Page() {
           __html: JSON.stringify(breadcrumbJsonLd).replace(/</g, "\\u003c"),
         }}
       />
-    <ConstructionServicePage />;
+    <ConstructionServicePage />
 
   </>
   

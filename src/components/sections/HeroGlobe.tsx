@@ -3,6 +3,8 @@
 import { Button } from "@/components/ui/button";
 import Reveal from "@/components/motion/Reveal";
 import { GitHubGlobe } from "@/components/globe/GitHubGlobe";
+import Link from "next/link";
+import ScrollLink from "../ScrollLink";
 
 export function HeroGlobe() {
   return (
@@ -30,20 +32,29 @@ export function HeroGlobe() {
               <span className="text-primary">essential industries</span>
             </h1>
 
-            <p className="text-base leading-relaxed text-white/70 sm:text-lg">
+            <p className="text-base leading-relaxed text-white/90 sm:text-lg">
               Thaboliz unites construction, technology, logistics, energy, mining,
               and sustainable development under one group to solve real problems with
-              precision and accountability.
+              precision, integrity and accountability.
             </p>
 
             <div className="flex flex-wrap gap-3 pt-2">
               
               <Button
-                variant="outline"
-                className="border-white/15 bg-white/5 hover:bg-white/10"
+              className="hidden md:inline-flex h-10 rounded-none bg-blue-500 px-6 text-white hover:bg-white/90"
+              asChild
+            >
+              <ScrollLink href="/about">Learn More</ScrollLink>
+            </Button>
+
+              <Button
+                className="hidden md:inline-flex h-10 rounded-none bg-white px-6 text-black hover:bg-white/90"
+                asChild
               >
-                Learn more
+                <ScrollLink href="/#contact">Contact Us</ScrollLink>
               </Button>
+
+
             </div>
 
             {/* Stats row like GitHub */}

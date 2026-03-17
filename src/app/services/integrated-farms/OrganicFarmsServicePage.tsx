@@ -154,8 +154,19 @@ export default function OrganicFarmsServicePage() {
   return (
     <main className="site-bg">
       {/* HERO (unique “field page” feel) */}
-      <section className="relative overflow-hidden border-b border-black/10 bg-white pt-16 sm:pt-20 lg:pt-24">
+      <section className="relative overflow-hidden   pt-16 sm:pt-20 lg:pt-24">
   {/* soft texture */}
+
+  <div className="absolute inset-0">
+      <Image
+        src="/int/pic-1.jpg"
+        alt=""
+        fill
+        className="object-cover object-center"
+        sizes="100vw"
+        priority
+      />
+    </div>
   <div className="pointer-events-none absolute inset-0 opacity-[0.1]">
     <div className="absolute inset-0 bg-[radial-gradient(circle_at_12%_18%,rgba(74,222,128,0.18),transparent_34%),radial-gradient(circle_at_78%_14%,rgba(120,53,15,0.12),transparent_32%),radial-gradient(circle_at_65%_70%,rgba(163,230,53,0.08),transparent_28%)]" />
   </div>
@@ -168,17 +179,17 @@ export default function OrganicFarmsServicePage() {
       {/* right content */}
       <div className="relative z-10 py-8 lg:py-16">
         <Reveal>
-          <h1 className="max-w-[12ch] text-5xl font-semibold leading-[0.92] tracking-tight text-black sm:text-6xl lg:text-7xl xl:text-[6.25rem]">
+          <h1 className="max-w-[12ch] text-5xl font-semibold leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-7xl xl:text-[6.25rem]">
             Climate-smart
             <br />
             farming with{" "}
-            <span className="bg-gradient-to-r from-[#3f7c47] via-[#6f8f45] to-[#7c4a21] bg-clip-text text-transparent">
-              Resilient outcomes.
-            </span>
+            <span className="bg-gradient-to-r from-[#6fcf7a] via-[#c8e97a] to-[#f0a24a] bg-clip-text text-transparent [filter:drop-shadow(0_0_14px_rgba(180,220,120,0.22))]">
+  Resilient outcomes.
+</span>
            
           </h1>
 
-          <p className="mt-8 max-w-2xl text-base leading-relaxed text-black/72 sm:text-lg">
+          <p className="mt-8 max-w-2xl text-base leading-relaxed text-white sm:text-lg">
             We pursue sustainable food production built on soil health, responsible water
             planning, and practical market pathways, structured for resilient operations and
             high-quality outcomes.
@@ -194,7 +205,7 @@ export default function OrganicFarmsServicePage() {
 
             <Link
               href="#what-we-do"
-              className="inline-flex items-center gap-2 text-base font-medium text-black underline decoration-black/25 underline-offset-4 transition hover:decoration-black"
+              className="inline-flex items-center gap-2 text-base font-medium text-white underline decoration-black/25 underline-offset-4 transition hover:decoration-black"
             >
               Explore Farm Operations
             </Link>
@@ -430,7 +441,7 @@ export default function OrganicFarmsServicePage() {
     {/* Bottom row */}
     <div className="mt-10 grid gap-8 md:grid-cols-3 md:gap-10">
       <Reveal delayMs={160}>
-        <article>
+        <div className="flex justify-center flex-col items-center">
           <div className="h-px w-full bg-black/12" />
           <div className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
             <Gauge className="h-5 w-5" />
@@ -438,15 +449,17 @@ export default function OrganicFarmsServicePage() {
           <h3 className="mt-5 text-2xl font-semibold leading-tight text-black">
             Efficient irrigation
           </h3>
-          <p className="mt-3 text-base leading-relaxed text-black/72">
+
+          <p className="mt-3 text-black text-center">
             Reduce irrigation waste through better scheduling, monitoring, and
             more deliberate water-use planning.
           </p>
-        </article>
+          
+        </div>
       </Reveal>
 
       <Reveal delayMs={220}>
-        <article>
+        <div className="flex justify-center flex-col items-center">
           <div className="h-px w-full bg-black/12" />
           <div className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
             <FileCheck2 className="h-5 w-5" />
@@ -454,15 +467,15 @@ export default function OrganicFarmsServicePage() {
           <h3 className="mt-5 text-2xl font-semibold leading-tight text-black">
             Record readiness
           </h3>
-          <p className="mt-3 text-base leading-relaxed text-black/72">
+          <p className="mt-3 text-base leading-relaxed text-black/90 text-center">
             Keep operational and compliance records clear, current, and ready
             for planning, oversight, and formal processes where needed.
           </p>
-        </article>
+        </div>
       </Reveal>
 
       <Reveal delayMs={280}>
-        <article>
+        <div className="flex justify-center flex-col items-center">
           <div className="h-px w-full bg-black/12" />
           <div className="mt-6 inline-flex h-14 w-14 items-center justify-center rounded-full border border-[#2563eb] text-[#2563eb]">
             <ShieldCheck className="h-5 w-5" />
@@ -470,11 +483,11 @@ export default function OrganicFarmsServicePage() {
           <h3 className="mt-5 text-2xl font-semibold leading-tight text-black">
             Resilient practices
           </h3>
-          <p className="mt-3 text-base leading-relaxed text-black/72">
+          <p className="mt-3 text-base leading-relaxed text-black/90 text-center">
             Design water practices for resilience, predictability, and lower
             operational risk across changing conditions.
           </p>
-        </article>
+        </div>
       </Reveal>
     </div>
   </div>

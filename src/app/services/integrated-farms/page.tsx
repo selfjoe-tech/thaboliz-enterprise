@@ -99,6 +99,6 @@ export default function Page() {
         }}
       />
   
-  <OrganicFarmsServicePage />;
+  <OrganicFarmsServicePage />
   </>)
 }

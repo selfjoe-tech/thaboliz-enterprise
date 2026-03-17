@@ -1,0 +1,10 @@
+<mj-section padding="0 0 16px 0">
+  <mj-column>
+    <mj-image
+      src="{{logoUrl}}"
+      alt="Thaboliz"
+      width="160px"
+      padding="0"
+    />
+  </mj-column>
+</mj-section>

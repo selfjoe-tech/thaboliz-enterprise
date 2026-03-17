@@ -63,7 +63,7 @@ function Section({
             {title}
           </h2>
           {subtitle ? (
-            <p className="mt-3 text-sm leading-relaxed text-white/70 sm:text-[15px]">
+            <p className="mt-3 text-lg leading-relaxed font-semibold text-white sm:text-[15px]">
               {subtitle}
             </p>
           ) : null}
@@ -187,11 +187,11 @@ function AluminumSplitFeature({
             </h3>
 
             {lead ? (
-              <p className="mt-4 text-base font-semibold text-white/85">{lead}</p>
+              <p className="mt-4 text-base font-semibold text-lg text-white">{lead}</p>
             ) : null}
 
             {body ? (
-              <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/70 sm:text-base">
+              <p className="mt-3 max-w-xl text-lg font-semibold text-white sm:text-base">
                 {body}
               </p>
             ) : null}
@@ -602,13 +602,7 @@ export default function ConstructionServicePage() {
   
 
   <div className="relative mx-auto max-w-6xl px-4">
-    <Reveal className="flex flex-wrap items-center gap-2 text-xs text-white/60">
-      <Link href="/services" className="hover:text-white transition">
-        Construction Services
-      </Link>
-      <ChevronRight className="h-4 w-4 text-white/35" />
-      <span className="text-white/80">Construction</span>
-    </Reveal>
+    
 
     <div className="pb-16 pt-10 sm:pb-20 sm:pt-12">
       <Reveal>
@@ -845,10 +839,8 @@ export default function ConstructionServicePage() {
                       <ConstructionCard className="p-6">
                         <div className="flex flex-wrap items-start justify-between gap-4">
                           <div>
-                            <div className="text-sm font-semibold text-white">{cat.title}</div>
-                            {cat.subtitle ? (
-                              <div className="mt-1 text-xs text-white/60">{cat.subtitle}</div>
-                            ) : null}
+                            <div className="text-3xl font-semibold text-white">{cat.title}</div>
+                            
                           </div>
 
                         </div>
@@ -874,9 +866,7 @@ export default function ConstructionServicePage() {
 
 <Section
   id="catalog"
-  eyebrow="Catalogue"
   title="Download the catalog"
-  subtitle="Get the full Aluminum Products & Services catalogue as a PDF."
 >
   <Reveal>
     <ConstructionCard className="p-8 sm:p-10">
@@ -885,7 +875,7 @@ export default function ConstructionServicePage() {
         <div className="lg:col-span-7">
           
           
-          <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
+          <p className="mt-3 max-w-2xl font-semibold text-lg leading-relaxed text-white sm:text-base">
             Download a shareable PDF version of our catalogue. Ideal for WhatsApp, email, printing,
             and client presentations.
           </p>
@@ -909,7 +899,7 @@ export default function ConstructionServicePage() {
             </a>
           </div>
 
-          <div className="mt-4 text-xs text-white/50">
+          <div className="mt-4 text-md text-white font-semibold">
             If the download doesn’t start, use “View in browser” and save from your PDF viewer.
           </div>
         </div>
@@ -935,8 +925,8 @@ export default function ConstructionServicePage() {
                     {s.icon}
                   </span>
                   <div>
-                    <div className="text-sm font-semibold text-white">{s.title}</div>
-                    <div className="mt-1 text-xs leading-relaxed text-white/70">{s.desc}</div>
+                    <div className="text-lg font-semibold text-white">{s.title}</div>
+                    <div className="mt-1 text-lg leading-relaxed text-white">{s.desc}</div>
                   </div>
                 </div>
               </ConstructionCard>
@@ -953,7 +943,6 @@ export default function ConstructionServicePage() {
     <Reveal>
       <SectorsCarousel
         title="Sectors we serve"
-        subtitle="Public infrastructure, industrial facilities, commercial builds, and community developments, delivered with disciplined controls."
         slides={sectorSlides}
       />
     </Reveal>
@@ -1003,7 +992,7 @@ export default function ConstructionServicePage() {
             </h3>
 
             {/* ✅ No bullet points, single paragraph summary */}
-            <p className="mt-3 text-sm leading-relaxed text-white/70">
+            <p className="mt-3 text-sm leading-relaxed text-white">
               {d.summary ??
                 (Array.isArray(d.bullets)
                   ? d.bullets.join(" ")

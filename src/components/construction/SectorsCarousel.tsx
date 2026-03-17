@@ -41,7 +41,7 @@ export type SectorSlide = {
 export default function SectorsCarousel({
   eyebrow = "",
   title = "Where we deliver",
-  subtitle = "Public infrastructure, industrial facilities, commercial builds, and community developments.",
+  subtitle = "",
   slides,
 }: {
   eyebrow?: string;
@@ -159,7 +159,7 @@ export default function SectorsCarousel({
                 <div className="absolute inset-0">
                   <Image
                     src={s.bgSrc}
-                    alt=""
+                    alt={s.label}
                     fill
                     className="object-cover"
                     sizes="(min-width: 1024px) 36vw, (min-width: 640px) 52vw, 86vw"

@@ -189,65 +189,6 @@ export default function LogisticsServicePage() {
     <main className="site-bg">
       {/* HERO (route + tracking layout) */}
       
-<section className="relative overflow-hidden pt-16 sm:pt-20">
-  {/* soft background atmosphere */}
-  <div className="pointer-events-none absolute inset-0">
-    <div className="absolute inset-0 bg-black" />
-    <div className="absolute -top-40 left-1/2 h-[520px] w-[900px] -translate-x-1/2 rounded-full bg-white/[0.06] blur-3xl" />
-    <div className="absolute -bottom-40 right-[-240px] h-[520px] w-[520px] rounded-full bg-[#2563eb]/20 blur-3xl" />
-    <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/70 to-black" />
-  </div>
-
-  <div className="relative mx-auto max-w-6xl px-4">
-    {/* breadcrumb */}
-    
-
-    <div className="py-16 sm:py-20">
-      <Reveal>
-        {/* Small label (optional, keeps your style) */}
-        
-
-        {/* Big stacked headline */}
-        <div className="flex flex-col w-full items-center justify-center">
-          <div className="">
-                  <h1 className=" mt-8 max-w-5xl text-6xl font-bold leading-[0.92] tracking-tight text-white sm:text-7xl lg:text-8xl">
-                Reliable
-                <br />
-                movement
-                <br />
-                with control
-              </h1>
-
-
-              <p className="mt-8 max-w-3xl text-sm leading-relaxed text-white/70 sm:text-base">
-          We move goods reliably and safely with a focus on predictable service levels, cost control,
-          and compliance-aware operations. Delivery stays visible from dispatch to proof of delivery.
-        </p>
-
-        {/* CTA */}
-        <div className="mt-8">
-          <Button
-            asChild
-            className="h-12 rounded-none bg-[#2563eb] px-8 text-white hover:opacity-90 transition"
-          >
-            <Link href="/#contact">Contact Us</Link>
-          </Button>
-        </div>
-
-
-          </div>
-          
-
-        {/* supporting paragraph */}
-        
-        </div>
-        
-      </Reveal>
-    </div>
-  </div>
-
-  <Separator className="bg-white/10" />
-</section>
 
       {/* STICKY QUICK LINKS (wraps on mobile) */}
       
@@ -256,38 +197,54 @@ export default function LogisticsServicePage() {
       
 
 {/* POSITIONING (UI like image #1) */}
-<section id="overview" className="scroll-mt-32 py-14 sm:py-18">
-  <div className="mx-auto max-w-6xl px-4">
+<section className="relative overflow-hidden pt-16 sm:pt-20">
+  {/* background image */}
+  <div className="absolute inset-0">
+    <Image
+      src="/log/pic-1.jpg"
+      alt=""
+      fill
+      className="object-cover object-center"
+      sizes="100vw"
+      priority
+    />
+  </div>
 
-    <div className="mt-10">
+  {/* soft background atmosphere */}
+  
+  <div className="relative mx-auto max-w-6xl px-4">
+    <div className="py-16 sm:py-20">
       <Reveal>
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-start">
-          {/* Left: big statement */}
-          <div className="lg:col-span-7">
-            <h3 className="text-5xl font-bold leading-[0.95] tracking-tight text-white sm:text-6xl">
-              Turn reliability
+        <div className="flex w-full flex-col items-center justify-center">
+          <div>
+            <h1 className="mt-8 max-w-5xl text-6xl font-bold leading-[0.92] tracking-tight text-white sm:text-7xl lg:text-8xl">
+              Reliable
               <br />
-              into visibility
+              movement
               <br />
-              and control.
-            </h3>
-          </div>
+              with control
+            </h1>
 
-          {/* Right: paragraph + badges (no cards) */}
-          <div className="lg:col-span-5">
-            <p className="text-sm leading-relaxed text-white/70 sm:text-base">
-              We move goods reliably, safely, and with visibility. Our focus is predictable service
-              levels, cost control, and compliance-aware operations.
+            <p className="mt-8 max-w-3xl text-md leading-relaxed text-white sm:text-base">
+              We move goods reliably and safely with a focus on predictable service levels, cost control,
+              and compliance-aware operations. Delivery stays visible from dispatch to proof of delivery.
             </p>
 
-            
-
-            <div className="mt-10 h-px w-28 bg-white/10" />
+            <div className="mt-8">
+              <Button
+                asChild
+                className="h-12 rounded-none bg-[#2563eb] px-8 text-white transition hover:opacity-90"
+              >
+                <Link href="/#contact">Contact Us</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </Reveal>
     </div>
   </div>
+
+  <Separator className="bg-white/10" />
 </section>
 
 {/* VISION (UI like image #2: text left, image right) */}
@@ -417,7 +374,7 @@ export default function LogisticsServicePage() {
           
         </Reveal>
       </div>
-    );
+    )
   })()}
 </Section>
 
@@ -497,5 +454,5 @@ export default function LogisticsServicePage() {
         </div>
       </section>
     </main>
-  );
+  )
 }

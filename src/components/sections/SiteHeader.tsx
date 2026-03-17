@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, ChevronRight, ChevronDown, ArrowUpRight } from "lucide-react";
+import { Menu, ChevronRight, ChevronDown, ArrowUpRight, ChevronUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -91,6 +91,7 @@ type WhatWeDoItem = {
 };
 
 const WHAT_WE_DO: WhatWeDoItem[] = [
+  
   {
     id: "construction",
     title: "Construction",
@@ -237,13 +238,20 @@ const closeMega = React.useCallback(() => {
             <NavigationMenu delayDuration={0}>
               <NavigationMenuList className="gap-8">
 
-                  <NavigationMenuItem>
-                  <NavLink href="/">Home</NavLink>
-                </NavigationMenuItem>
+                  <Link
+                    href={"/"}
+                  >
+Home
 
-                <NavigationMenuItem>
-                  <NavLink href="/about">About us</NavLink>
-                </NavigationMenuItem>
+                  </Link>
+
+                <Link
+
+                  href={"/about"}
+                
+                >
+                  About Us
+                </Link>
 
                 
 
@@ -258,11 +266,11 @@ const closeMega = React.useCallback(() => {
                       type="button"
                       className={[
                         "flex gap-2 h-auto bg-transparent px-0 py-0 text-sm font-normal transition",
-                        megaOpen ? "text-white" : "text-white/70 hover:text-white",
+                        megaOpen ? "text-white" : "hover:text-white",
                       ].join(" ")}
                     >
-                      <span className="inline-flex items-center gap-1">What we do</span>
-                      <ChevronDown className="h-5 w-5" />
+                      <span className="inline-flex items-center gap-1 text-md">What we do</span>
+                      {megaOpen ? <ChevronUp className="h-5 w-5" /> : <ChevronDown className="h-5 w-5" />}
                     </button>
 
                     <AnimatePresence>
@@ -414,7 +422,7 @@ const closeMega = React.useCallback(() => {
               className="hidden md:inline-flex h-10 rounded-none bg-white px-6 text-black hover:bg-white/90"
               asChild
             >
-              <ScrollLink href="/#contact">Get started</ScrollLink>
+              <ScrollLink href="/#contact">Contact Us</ScrollLink>
             </Button>
 
             {/* Mobile menu */}
@@ -442,29 +450,68 @@ const closeMega = React.useCallback(() => {
 
                 <div className="flex-1 overflow-y-auto px-4 pb-4">
                   <div className="space-y-3">
-                    <div className="text-[11px] font-semibold uppercase tracking-widest text-white/45">
-                      What we do
+                    <div className="text-[40px] font-semibold uppercase tracking-widest text-white">
+                      Pages
                     </div>
 
                     <div className="grid gap-2">
+
+                      <Link
+                            href={"/"}
+                            className="group flex gap-3 rounded-none border border-white/10 bg-white/[0.02] px-3 py-3 hover:bg-white/5 transition-colors"
+                          >
+                            
+
+                            <div className="flex items-center gap-11">
+                            <span className="min-w-0">
+                              <span className="block text-lg font-semibold leading-none text-white">
+                                 Home
+                              </span>
+                              
+                            </span>
+
+                            <ArrowUpRight className="h-7 w-7" />
+
+                            </div>
+                          </Link>
+
+                      <Link
+                            href={"/about"}
+                            className="group flex gap-3 rounded-none border border-white/10 bg-white/[0.02] px-3 py-3 hover:bg-white/5 transition-colors"
+                          >
+                            
+                            <div className="flex items-center gap-11">
+                            <span className="min-w-0">
+                              <span className="block text-lg font-semibold leading-none text-white">
+                                About Us
+                              </span>
+                              
+                            </span>
+
+                            <ArrowUpRight className="h-7 w-7" />
+
+                            </div>
+                            
+                          </Link>
                       {WHAT_WE_DO.map((it) => (
                         <SheetClose key={it.href} asChild>
                           <Link
                             href={it.href}
                             className="group flex gap-3 rounded-none border border-white/10 bg-white/[0.02] px-3 py-3 hover:bg-white/5 transition-colors"
                           >
-                            <span className="mt-0.5 grid h-9 w-9 place-items-center border border-white/10 bg-white/5 text-white/80 group-hover:text-white">
-                              {it.icon}
-                            </span>
+                            
 
+                            <div className="flex items-center gap-11">
                             <span className="min-w-0">
-                              <span className="block text-sm font-semibold leading-none text-white">
+                              <span className="block text-lg font-semibold leading-none text-white">
                                 {it.title}
                               </span>
-                              <span className="mt-1 block text-xs leading-snug text-white/60">
-                                {it.description}
-                              </span>
+                              
                             </span>
+
+                            <ArrowUpRight className="h-7 w-7" />
+
+                            </div>
                           </Link>
                         </SheetClose>
                       ))}
