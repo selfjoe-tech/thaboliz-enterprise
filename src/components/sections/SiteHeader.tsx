@@ -152,6 +152,17 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
   //   image: { src: "/stock/pic-26.jpg", alt: "Oil & Gas" },
   //   chips: ["Infrastructure support", "Safety docs", "Partner-led execution"],
   // },
+
+  {
+    id: "enterprise",
+    title: "Enterprise",
+    description:
+      "Day-to-day operational supply of essential items that keep businesses running efficiently.",
+    href: "/services/enterprise",
+    icon: <Building2 className="h-4 w-4" />,
+    image: { src: "/enterprise/pic-20.jpg", alt: "Enterprise" },
+    chips: ["Infrastructure", "Safety", "PPE", "Electronics", "Supply"],
+  },
   
  
   

@@ -64,6 +64,15 @@ const items: Item[] = [
     size: "short",
     image: "/companies/logistics.jpg"
   },
+  {
+    label: "Enterprise",
+    title: "Supply that stands out",
+    description: "Day-to-day operational supply of essential items that keep businesses running efficiently.",
+    href: "/services/enterprise",
+    icon: <Building2 className="h-5 w-5" />,
+    size: "short",
+    image: "/enterprise/pic-20.jpg"
+  },
   // {
   //   label: "Oil & Gas",
   //   title: "Energy projects delivered with discipline",

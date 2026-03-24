@@ -44,5 +44,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.85,
     },
+    {
+      url: `${siteUrl}/services/enterprise`,
+      lastModified: toDate("2026-03-13"),
+      changeFrequency: "monthly",
+      priority: 0.85,
+    },
   ];
 }

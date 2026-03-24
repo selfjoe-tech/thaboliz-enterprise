@@ -38,43 +38,6 @@ type ValueCard = {
   img?: string;
 };
 
-function Section({
-  id,
-  eyebrow,
-  title,
-  subtitle,
-  children,
-}: {
-  id?: string;
-  eyebrow?: string;
-  title: string;
-  subtitle?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section id={id} className="scroll-mt-24 py-14 sm:py-18">
-      <div className="mx-auto max-w-6xl px-4">
-        <Reveal className="max-w-3xl">
-          {eyebrow ? (
-            <div className="text-xs font-semibold uppercase tracking-[0.22em] text-white/150">
-              {eyebrow}
-            </div>
-          ) : null}
-          <h2 className="mt-2 text-2xl font-semibold tracking-tight text-white sm:text-3xl">
-            {title}
-          </h2>
-          {subtitle ? (
-            <p className="mt-3 text-md leading-relaxed text-white/170 sm:text-[15px]">
-              {subtitle}
-            </p>
-          ) : null}
-        </Reveal>
-
-        <div className="mt-8">{children}</div>
-      </div>
-    </section>
-  );
-}
 
 function SoftCard({
   children,
