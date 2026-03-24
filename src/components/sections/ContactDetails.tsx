@@ -71,7 +71,7 @@ export default function ContactDetails() {
                       Speak to a team member for urgent requests.
                     </p>
                     <Link
-                      href="tel:+27100000000"
+                      href="tel:+27 73 811 1233"
                       className="mt-4 inline-block text-base text-white underline underline-offset-4 transition hover:text-white/80"
                     >
                       +27 10 000 0000
