@@ -74,7 +74,7 @@ export default function ContactDetails() {
                       href="tel:+27 73 811 1233"
                       className="mt-4 inline-block text-base text-white underline underline-offset-4 transition hover:text-white/80"
                     >
-                      +27 10 000 0000
+                      +27 73 811 1233
                     </Link>
                   </div>
                 </div>
