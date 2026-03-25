@@ -210,7 +210,7 @@ export default function RootLayout({
         {children}
 
         <SiteFooter />
-        <FloatingWhatsAppButton />
+        {/* <FloatingWhatsAppButton /> */}
       </body>
     </html>
   );
