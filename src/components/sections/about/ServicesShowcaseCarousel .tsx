@@ -8,6 +8,12 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from "lucide-react";
 import Reveal from "@/components/motion/Reveal";
 
 const serviceSlides = [
+
+  {
+    title: "Enterprise",
+    href: "/services/enterprise",
+    image: "/enterprise/pic-1.jpg",
+  },
   {
     title: "Construction",
     href: "/services/construction",
@@ -81,7 +87,7 @@ export default function ServicesShowcaseCarousel() {
 
               <div className="mt-8 max-w-md lg:mt-16">
                 <p className="text-base font-medium leading-relaxed text-white/85 sm:text-lg">
-                  We combine expertise across construction, logistics,
+                  We combine expertise across day-to-day supplies, construction, logistics,
                   technologies, and agriculture to deliver integrated solutions
                   with clearer accountability and disciplined execution.
                 </p>

@@ -160,6 +160,8 @@ export default function AboutPage() {
     },
   ];
 
+
+
   return (
     <main className="site-bg">
       {/* HERO */}
@@ -486,9 +488,7 @@ function ValuesEditorial({ values }: { values: ValueCard[] }) {
               <Reveal key={value.title} delayMs={index * 70}>
                 <article className="border-b border-white/10 pb-5 sm:pb-6 lg:pb-7">
                   <div className="flex items-start gap-4">
-                    <div className="w-10 shrink-0 text-3xl font-semibold leading-none tracking-tight text-white sm:w-12 sm:text-4xl lg:text-5xl">
-                      {String(index + 1).padStart(2, "0")}
-                    </div>
+                    
 
                     <div className="min-w-0">
                       <h3 className="text-3xl font-semibold leading-[1.02] tracking-tight text-white sm:text-4xl lg:text-[3.25rem]">
