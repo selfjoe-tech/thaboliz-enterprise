@@ -17,7 +17,7 @@ import RouteLogo from "@/components/brand/RouteLogo";
 
 function FooterHeading({ children }: { children: React.ReactNode }) {
   return (
-    <div className="text-xs font-semibold uppercase tracking-widest text-white/55">
+    <div className="text-3xl font-bold text-white">
       {children}
     </div>
   );
@@ -79,6 +79,8 @@ export default function SiteFooter() {
     // { label: "Mining", href: "/services/mining" },
     { label: "Logistics", href: "/services/logistics" },
     { label: "Integrated Farms", href: "/services/integrated-farms" },
+    { label: "Enterprise", href: "/services/enterprise" },
+
     // { label: "Oil & gas", href: "/services/oil-and-gas" },
     // { label: "Green energy", href: "/services/green-energy" },
     // { label: "Research & innovation", href: "/services/research" },
