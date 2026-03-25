@@ -167,9 +167,23 @@ export default function SiteFooter() {
           <div className="text-xs text-white/55">
             © {year} Thaboliz. All rights reserved.
           </div>
+
+          <p className="flex gap-1 text-nowrap text-white/55">
+            Developed by 
+            <Link
+            href={"https://thaboliz.co.za/services/technologies"}
+            className="text-blue-500 underline"
+          >
+            Thaboliz Technologies
+          </Link>
+          </p>
+
+          
+
+
           
           <p className="flex gap-1 text-nowrap text-white/55">
-          Images and illustrations by
+            Images and illustrations by
             <Link
             href={"https://www.freepik.com/"}
             className="text-blue-500 underline"
