@@ -144,11 +144,11 @@ export default function SiteFooter() {
               <div className="mt-4 space-y-3 text-sm text-white/70">
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-white/55" />
-                  <span>info@thabolizservices.co.za</span>
+                  <span>info@thaboliz.co.za</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-white/55" />
-                  <span>+27 00 000 0000</span>
+                  <span>+27 73 811 1233</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-white/55" />
