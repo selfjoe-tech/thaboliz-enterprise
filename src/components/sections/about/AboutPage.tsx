@@ -288,7 +288,7 @@ export default function AboutPage() {
       {/* HOW WE WORK */}
       <HowWeWorkMasonry />
 
-            <AboutProductsSection />
+            {/* <AboutProductsSection /> */}
 
 
 
