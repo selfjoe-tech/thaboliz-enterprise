@@ -75,7 +75,7 @@ function Section({
   );
 }
 
-function ConstructionCard({
+export function ConstructionCard({
   children,
   className = "",
   bgSrc,
@@ -146,7 +146,7 @@ function MediaSlot({
 }
 
 /** ✅ Vision/Mission-style block for single-item categories (alternates left/right) */
-function AluminumSplitFeature({
+export function AluminumSplitFeature({
   title,
   lead,
   body,
@@ -475,6 +475,8 @@ export default function ConstructionServicePage() {
       ],
     },
   ];
+
+
 
   const otherServices = [
   {

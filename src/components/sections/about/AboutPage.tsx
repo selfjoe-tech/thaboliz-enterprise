@@ -28,6 +28,7 @@ import {
 import HowWeWorkMasonry from "./HowWeWorkMasonry";
 import WhatMakesUsDifferentCarousel from "./WhatMakesUsDifferentCarousel";
 import ServicesShowcaseCarousel from "./ServicesShowcaseCarousel ";
+import AboutProductsSection from "./products";
 
 type Stat = { value: string; label: string };
 
@@ -286,6 +287,13 @@ export default function AboutPage() {
 
       {/* HOW WE WORK */}
       <HowWeWorkMasonry />
+
+            <AboutProductsSection />
+
+
+
+
+
 
       {/* DIFFERENTIATORS */}
       <WhatMakesUsDifferentCarousel />
