@@ -76,6 +76,7 @@ export default function SiteFooter() {
   const divisions = [
     { label: "Construction", href: "/services/construction" },
     { label: "Technologies", href: "/services/technologies" },
+    { label: "Ecommerce Products", href: "/services/enterprise/products" },
     // { label: "Mining", href: "/services/mining" },
     { label: "Logistics", href: "/services/logistics" },
     { label: "Integrated Farms", href: "/services/integrated-farms" },

@@ -290,11 +290,6 @@ export default function AboutPage() {
 
             {/* <AboutProductsSection /> */}
 
-
-
-
-
-
       {/* DIFFERENTIATORS */}
       <WhatMakesUsDifferentCarousel />
 

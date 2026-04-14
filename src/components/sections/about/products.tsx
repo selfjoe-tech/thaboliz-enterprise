@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Reveal from "@/components/motion/Reveal";
-import { AluminumSplitFeature, ConstructionCard } from "@/app/services/construction/ConstructionServicePage";
+import { AluminumSplitFeature, ConstructionCard } from "@/app/(site)/services/construction/ConstructionServicePage";
 import AluminumCategoryCarousel, {
   type AluminumSlide,
 } from "@/components/aluminum/AluminumCategoryCarousel";
