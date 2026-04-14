@@ -21,7 +21,7 @@ export default function PasswordField({
 
   return (
     <div>
-      <label htmlFor={id} className="mb-2 block text-sm text-white/70">
+      <label htmlFor={id} className="mb-2 block text-sm font-medium text-white/85">
         {label}
       </label>
 
@@ -33,13 +33,13 @@ export default function PasswordField({
           required
           minLength={minLength}
           placeholder={placeholder}
-          className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 pr-16 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+          className="h-11 w-full rounded-xl border border-white/10 bg-white/5 px-3 pr-16 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-white/25"
         />
 
         <button
           type="button"
           onClick={() => setShow((v) => !v)}
-          className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg px-2 py-1 text-xs text-white/70 transition hover:text-white"
+          className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-white/60 transition hover:text-white"
         >
           {show ? "Hide" : "Show"}
         </button>

@@ -7,7 +7,13 @@ import { createClient } from "@/lib/supabase/client";
 const OTP_MIN_LENGTH = 6;
 const OTP_MAX_LENGTH = 10;
 
-export default function VerifySignUpForm({ email }: { email: string }) {
+export default function VerifySignUpForm({
+  email,
+  inviteToken,
+}: {
+  email: string;
+  inviteToken?: string;
+}) {
   const router = useRouter();
   const supabase = createClient();
 
@@ -54,6 +60,23 @@ export default function VerifySignUpForm({ email }: { email: string }) {
         return;
       }
 
+      if (inviteToken) {
+        const acceptRes = await fetch("/api/auth/accept-invite", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ token: inviteToken }),
+        });
+
+        const acceptJson = await acceptRes.json();
+
+        if (!acceptRes.ok || !acceptJson?.success) {
+          setError(acceptJson.error ?? "Could not accept organization invite.");
+          return;
+        }
+      }
+
       router.replace("/admin/products");
       router.refresh();
     });
@@ -79,20 +102,20 @@ export default function VerifySignUpForm({ email }: { email: string }) {
   return (
     <div className="space-y-4">
       {error ? (
-        <div className="rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+        <div className="rounded-xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-200">
           {error}
         </div>
       ) : null}
 
       {notice ? (
-        <div className="rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
+        <div className="rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
           {notice}
         </div>
       ) : null}
 
       <form action={handleVerify} className="space-y-4">
         <div>
-          <label htmlFor="token" className="mb-2 block text-sm text-white/70">
+          <label htmlFor="token" className="mb-2 block text-sm font-medium text-white/85">
             Verification code
           </label>
           <input
@@ -106,17 +129,14 @@ export default function VerifySignUpForm({ email }: { email: string }) {
               setToken(e.target.value.replace(/\D/g, "").slice(0, OTP_MAX_LENGTH))
             }
             placeholder="Enter code from email"
-            className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-center text-2xl tracking-[0.2em] text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+            className="h-11 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-white/25"
           />
-          <p className="mt-2 text-xs text-white/45">
-            Enter the code exactly as it appears in the email.
-          </p>
         </div>
 
         <button
           type="submit"
           disabled={isPending}
-          className="inline-flex w-full items-center justify-center rounded-2xl bg-white px-4 py-3 font-medium text-black transition hover:opacity-90 disabled:opacity-60"
+          className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-white px-4 text-sm font-medium text-black transition disabled:opacity-60"
         >
           {isPending ? "Verifying..." : "Verify and continue"}
         </button>
@@ -125,7 +145,7 @@ export default function VerifySignUpForm({ email }: { email: string }) {
       <button
         type="button"
         onClick={handleResend}
-        className="inline-flex w-full items-center justify-center rounded-2xl border border-white/15 bg-black/30 px-4 py-3 text-sm font-medium text-white transition hover:border-white/25"
+        className="inline-flex h-11 w-full items-center justify-center rounded-xl border border-white/10 bg-white/5 px-4 text-sm font-medium text-white transition hover:bg-white/10"
       >
         Resend code
       </button>

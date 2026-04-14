@@ -1,5 +1,3 @@
-
-
 "use server";
 
 import { redirect } from "next/navigation";
@@ -20,13 +18,17 @@ function withError(path: string, message: string) {
   return `${path}?error=${encodeURIComponent(message)}`;
 }
 
+function withNotice(path: string, message: string) {
+  return `${path}?notice=${encodeURIComponent(message)}`;
+}
+
 export async function signUpAction(formData: FormData) {
   const fullName = String(formData.get("fullName") ?? "").trim();
   const companyName = String(formData.get("companyName") ?? "").trim();
-  const companySlugInput = String(formData.get("companySlug") ?? "").trim();
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
   const confirmPassword = String(formData.get("confirmPassword") ?? "");
+  const inviteToken = String(formData.get("inviteToken") ?? "").trim();
 
   if (!fullName || !companyName || !email || !password || !confirmPassword) {
     redirect(withError("/sign-up", "Please complete all required fields."));
@@ -40,10 +42,10 @@ export async function signUpAction(formData: FormData) {
     redirect(withError("/sign-up", "Passwords do not match."));
   }
 
-  const companySlug = slugify(companySlugInput || companyName);
+  const companySlug = slugify(companyName);
 
   if (!companySlug) {
-    redirect(withError("/sign-up", "Please provide a valid company slug."));
+    redirect(withError("/sign-up", "Please provide a valid company name."));
   }
 
   const supabase = await createClient();
@@ -55,7 +57,7 @@ export async function signUpAction(formData: FormData) {
     .maybeSingle();
 
   if (existingTenant) {
-    redirect(withError("/sign-up", "That company slug is already taken."));
+    redirect(withError("/sign-up", "That company name is already in use. Use a different one."));
   }
 
   const { data, error } = await supabase.auth.signUp({
@@ -76,6 +78,18 @@ export async function signUpAction(formData: FormData) {
     redirect(withError("/sign-up", "Could not create account."));
   }
 
+  const { data: realAuthUser, error: realAuthUserError } =
+    await adminSupabase.auth.admin.getUserById(data.user.id);
+
+  if (realAuthUserError || !realAuthUser?.user) {
+    redirect(
+      withNotice(
+        "/login",
+        "That email may already be registered. Try logging in instead, or use a different email address.",
+      ),
+    );
+  }
+
   const { error: pendingError } = await adminSupabase
     .from("pending_tenant_setups")
     .upsert({
@@ -90,14 +104,17 @@ export async function signUpAction(formData: FormData) {
     redirect(withError("/sign-up", pendingError.message));
   }
 
-  redirect(
-    `/verify-sign-up?email=${encodeURIComponent(email)}`
-  );
+  const verifyUrl = inviteToken
+    ? `/verify-sign-up?email=${encodeURIComponent(email)}&inviteToken=${encodeURIComponent(inviteToken)}`
+    : `/verify-sign-up?email=${encodeURIComponent(email)}`;
+
+  redirect(verifyUrl);
 }
 
 export async function loginAction(formData: FormData) {
   const email = String(formData.get("email") ?? "").trim().toLowerCase();
   const password = String(formData.get("password") ?? "");
+  const inviteToken = String(formData.get("inviteToken") ?? "").trim();
 
   if (!email || !password) {
     redirect(withError("/login", "Email and password are required."));
@@ -112,6 +129,10 @@ export async function loginAction(formData: FormData) {
 
   if (error) {
     redirect(withError("/login", error.message));
+  }
+
+  if (inviteToken) {
+    redirect(`/auth/finish-login?inviteToken=${encodeURIComponent(inviteToken)}`);
   }
 
   redirect("/admin/products");

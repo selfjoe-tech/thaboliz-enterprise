@@ -59,8 +59,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const baseUrl =
-      process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+    const baseUrl = "https://thaboliz.co.za";
 
     const acceptUrl = `${baseUrl}/accept-invite?token=${token}`;
 

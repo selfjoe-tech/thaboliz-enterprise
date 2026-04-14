@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { loginAction } from "@/app/(auth)/actions";
 import PasswordField from "@/components/auth/password-field";
+import SubmitButton from "@/components/auth/submit-button";
 
 type SearchParams = Promise<{
   error?: string;
   notice?: string;
+  inviteToken?: string;
 }>;
 
 export default async function LoginPage({
@@ -15,36 +17,36 @@ export default async function LoginPage({
   const params = await searchParams;
   const error = params?.error;
   const notice = params?.notice;
+  const inviteToken = params?.inviteToken ?? "";
 
   return (
     <main className="min-h-screen bg-neutral-950 text-white">
-      <div className="mx-auto flex min-h-screen max-w-5xl items-center justify-center px-4 py-10 sm:px-6 lg:px-8">
-        <div className="w-full max-w-md rounded-[2rem] border border-white/10 bg-white/[0.04] p-6 shadow-2xl backdrop-blur sm:p-8">
+      <div className="mx-auto flex min-h-screen max-w-md items-center px-4">
+        <div className="w-full">
           <div className="mb-8">
-            <p className="text-sm uppercase tracking-[0.24em] text-white/45">
-              Seller Admin
-            </p>
-            <h1 className="mt-3 text-3xl font-semibold">Log in</h1>
+            <h1 className="text-3xl font-semibold tracking-tight">Log in</h1>
             <p className="mt-2 text-sm text-white/55">
-              Sign in to access your company dashboard and products.
+              Access your company dashboard.
             </p>
           </div>
 
           {error ? (
-            <div className="mb-4 rounded-2xl border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-200">
+            <div className="mb-4 rounded-xl border border-red-500/25 bg-red-500/10 px-4 py-3 text-sm text-red-200">
               {error}
             </div>
           ) : null}
 
           {notice ? (
-            <div className="mb-4 rounded-2xl border border-emerald-500/30 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
+            <div className="mb-4 rounded-xl border border-emerald-500/25 bg-emerald-500/10 px-4 py-3 text-sm text-emerald-200">
               {notice}
             </div>
           ) : null}
 
           <form action={loginAction} className="space-y-4">
+            <input type="hidden" name="inviteToken" value={inviteToken} />
+
             <div>
-              <label htmlFor="email" className="mb-2 block text-sm text-white/70">
+              <label htmlFor="email" className="mb-2 block text-sm font-medium text-white/85">
                 Email
               </label>
               <input
@@ -53,30 +55,30 @@ export default async function LoginPage({
                 type="email"
                 required
                 placeholder="you@company.com"
-                className="w-full rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none transition placeholder:text-white/25 focus:border-white/25"
+                className="h-11 w-full rounded-xl border border-white/10 bg-white/5 px-3 text-sm text-white outline-none transition placeholder:text-white/30 focus:border-white/25"
               />
             </div>
 
-            <div>
             <PasswordField
-                id="password"
-                name="password"
-                label="Password"
-                placeholder="Your password"
-                />
-            </div>
+              id="password"
+              name="password"
+              label="Password"
+              placeholder="Your password"
+            />
 
-            <button
-              type="submit"
-              className="inline-flex w-full items-center justify-center rounded-2xl bg-white px-4 py-3 font-medium text-black transition hover:opacity-90"
-            >
-              Log in
-            </button>
+            <SubmitButton idleLabel="Log in" pendingLabel="Logging in..." />
           </form>
 
           <p className="mt-6 text-sm text-white/55">
             New here?{" "}
-            <Link href="/sign-up" className="text-white underline underline-offset-4">
+            <Link
+              href={
+                inviteToken
+                  ? `/sign-up?inviteToken=${encodeURIComponent(inviteToken)}`
+                  : "/sign-up"
+              }
+              className="text-white underline underline-offset-4"
+            >
               Create account
             </Link>
           </p>
