@@ -11,7 +11,7 @@ export const OIL_GAS = {
   location: "Sandton, Johannesburg, South Africa",
   heroTitle: "World changing impact",
   heroSubtitle:
-    "The world's dealmaking hub, we support fuel security today while positioning for gas-led growth tomorrow.",
+    "The world's dealmaking hub for oil and gas",
   ctaPrimary: "Request a partnership call",
   ctaSecondary: "Explore our services",
   executiveSummary:
