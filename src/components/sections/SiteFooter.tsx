@@ -81,8 +81,7 @@ export default function SiteFooter() {
     { label: "Logistics", href: "/services/logistics" },
     { label: "Integrated Farms", href: "/services/integrated-farms" },
     { label: "Enterprise", href: "/services/enterprise" },
-
-    // { label: "Oil & gas", href: "/services/oil-and-gas" },
+    { label: "Oil & gas", href: "/services/oil-and-gas" },
     // { label: "Green energy", href: "/services/green-energy" },
     // { label: "Research & innovation", href: "/services/research" },
     // { label: "Tenders", href: "/services/tenders" },

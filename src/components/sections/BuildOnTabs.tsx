@@ -73,15 +73,15 @@ const items: Item[] = [
     size: "short",
     image: "/enterprise/pic-20.jpg"
   },
-  // {
-  //   label: "Oil & Gas",
-  //   title: "Energy projects delivered with discipline",
-  //   description: "Structured execution, clear reporting, and operational accountability.",
-  //   href: "/services/oil-and-gas",
-  //   icon: <Flame className="h-5 w-5" />,
-  //   size: "mid",
-  //   image: "/companies/oil.avif"
-  // },
+  {
+    label: "Oil & Gas",
+    title: "Energy projects delivered with discipline",
+    description: "Structured execution, clear reporting, and operational accountability.",
+    href: "/services/oil-and-gas",
+    icon: <Flame className="h-5 w-5" />,
+    size: "mid",
+    image: "/companies/oil.avif"
+  },
   // {
   //   label: "Green Energy",
   //   title: "Clean energy for a stronger future",

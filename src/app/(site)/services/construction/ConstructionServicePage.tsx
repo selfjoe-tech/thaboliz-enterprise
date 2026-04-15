@@ -587,7 +587,7 @@ export default function ConstructionServicePage() {
       {/* HERO (Webflow-style: big type, no illustration slot) */}
 <section className="relative overflow-hidden pt-16 sm:pt-20 h-[100vh]">
   {/* video background */}
-  <div className="absolute inset-0 -z-20">
+  <div className="absolute inset-0 z-20">
     <video
       className="h-full w-full object-cover"
       autoPlay
@@ -603,7 +603,7 @@ export default function ConstructionServicePage() {
   {/* background atmosphere / overlays */}
   
 
-  <div className="relative mx-auto max-w-6xl px-4">
+  <div className="relative mx-auto max-w-6xl px-4 z-25">
     
 
     <div className="pb-16 pt-10 sm:pb-20 sm:pt-12">
@@ -614,7 +614,7 @@ export default function ConstructionServicePage() {
           — Built to last.
         </h1>
 
-        <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white/70 sm:text-base">
+        <p className="mt-6 max-w-2xl text-sm leading-relaxed text-white sm:text-base">
           We deliver construction with scope clarity, schedule integrity, quality assurance, and
           safety-led execution, built for long-term performance and cost-effective operation.
         </p>

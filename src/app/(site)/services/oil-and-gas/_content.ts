@@ -7,11 +7,11 @@ export type OilGasPage = {
 };
 
 export const OIL_GAS = {
-  brand: "Thabolize Oil & Gas",
+  brand: "Thaboliz Oil & Gas",
   location: "Sandton, Johannesburg, South Africa",
-  heroTitle: "Indigenous energy capability, built for a changing South Africa.",
+  heroTitle: "World changing impact",
   heroSubtitle:
-    "From Sandton, the continent’s dealmaking hub, we support fuel security today while positioning for gas-led growth tomorrow.",
+    "The world's dealmaking hub, we support fuel security today while positioning for gas-led growth tomorrow.",
   ctaPrimary: "Request a partnership call",
   ctaSecondary: "Explore our services",
   executiveSummary:
@@ -23,7 +23,7 @@ export const OIL_GAS = {
     { label: "Sustainability", text: "Operate with high environmental standards and support the transition to a lower-carbon economy." },
   ],
   vision:
-    "To be a leading indigenous energy partner in South Africa, recognized for excellence in operational integrity, sustainable resource management, and the empowerment of local communities.",
+    "To be a leading energy partner in the gloabl market, recognized for excellence in operational integrity, sustainable resource management, and the empowerment of communities.",
   sandtonAdvantages: [
     {
       title: "Proximity to Capital",
@@ -140,7 +140,7 @@ export const OIL_GAS_SUBPAGES: OilGasPage[] = [
   },
   {
     slug: "energy-services",
-    title: "Energy Services",
+    title: "Energy Consulting Services",
     kicker: "Systems, compliance, efficiency",
     summary:
       "Consulting on fuel management systems, regulatory compliance, and energy efficiency for industrial clients.",

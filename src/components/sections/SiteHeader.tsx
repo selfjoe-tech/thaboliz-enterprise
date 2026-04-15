@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, ChevronRight, ChevronDown, ArrowUpRight, ChevronUp } from "lucide-react";
+import { Menu, ChevronRight, ChevronDown, ArrowUpRight, ChevronUp, Flame } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -142,16 +142,16 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
     image: { src: "/stock/pic-25.jpg", alt: "Integrated farms" },
     chips: ["Sustainable production", "Operations", "Scaling"],
   },
-  // {
-  //   id: "oil-gas",
-  //   title: "Oil & Gas",
-  //   description:
-  //     "Support services and operational capability for fuel and gas related infrastructure.",
-  //   href: "/services/oil-and-gas",
-  //   icon: <Flame className="h-4 w-4" />,
-  //   image: { src: "/stock/pic-26.jpg", alt: "Oil & Gas" },
-  //   chips: ["Infrastructure support", "Safety docs", "Partner-led execution"],
-  // },
+  {
+    id: "oil-gas",
+    title: "Oil & Gas",
+    description:
+      "Support services and operational capability for fuel and gas related infrastructure.",
+    href: "/services/oil-and-gas",
+    icon: <Flame className="h-4 w-4" />,
+    image: { src: "/stock/pic-26.jpg", alt: "Oil & Gas" },
+    chips: ["Infrastructure support", "Safety docs", "Partner-led execution"],
+  },
 
   {
     id: "enterprise",
@@ -195,9 +195,6 @@ function MegaRow({
 }
 
 export default function SiteHeader() {
-
-  
-
 
   const [activeId, setActiveId] = React.useState<string>(WHAT_WE_DO[0]?.id ?? "construction");
   const active = React.useMemo(
@@ -252,7 +249,7 @@ const closeMega = React.useCallback(() => {
                   <Link
                     href={"/"}
                   >
-Home
+                    Home
 
                   </Link>
 
