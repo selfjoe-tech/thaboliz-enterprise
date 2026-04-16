@@ -102,17 +102,18 @@ const { data, error } = await supabase
     categories,
     sku: body.sku || null,
     status: normalizeStatus(body.status),
-    purchase_mode: purchaseMode,
+    purchase_mode: body.purchaseMode === "external" ? "external" : "internal",
     inventory_mode: inventoryMode,
     price: body.price != null ? Number(body.price) : null,
     compare_at_price: body.compareAtPrice != null ? Number(body.compareAtPrice) : null,
     currency_code: "ZAR",
     stock_quantity: stockQuantity,
     stock_status: stockStatus,
-    external_url: externalUrl,
+    external_url: body.purchaseMode === "external" ? body.externalUrl || null : null,
     cover_image_url: body.coverImageUrl || null,
     created_by_user_id: user.id,
     updated_by_user_id: user.id,
+    store_id: body.purchaseMode === "external" ? body.storeId || null : null,
   })
   .select()
   .single();

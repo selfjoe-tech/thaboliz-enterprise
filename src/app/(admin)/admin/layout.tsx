@@ -2,6 +2,8 @@ import { redirect } from "next/navigation";
 import AdminSidebar from "@/components/admin/AdminSidebar";
 import { requireTenantContext } from "@/app/lib/server/current-tenant";
 import TenantSwitcher from "@/components/admin/tenant-switcher";
+import { Suspense } from "react";
+import TopLoader from "@/components/TopLoader";
 
 
 export const dynamic = "force-dynamic";
@@ -47,6 +49,7 @@ export default async function AdminLayout({
 
     return (
       <div className="min-h-screen bg-neutral-900 text-white">
+        
         <div className="grid min-h-screen md:grid-cols-[260px_1fr]">
           <AdminSidebar userName={user.email ?? "Admin"} links={visibleLinks} />
 

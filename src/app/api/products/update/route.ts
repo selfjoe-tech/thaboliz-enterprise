@@ -103,15 +103,18 @@ export async function POST(request: Request) {
       categories,
       sku: body.sku || null,
       status: normalizeStatus(body.status),
-      purchase_mode: purchaseMode,
       inventory_mode: inventoryMode,
       price: body.price != null ? Number(body.price) : null,
       compare_at_price: body.compareAtPrice != null ? Number(body.compareAtPrice) : null,
       stock_quantity: stockQuantity,
       stock_status: stockStatus,
-      external_url: externalUrl,
       cover_image_url: body.coverImageUrl || null,
       updated_by_user_id: user.id,
+      purchase_mode: body.purchaseMode === "external" ? "external" : "internal",
+      external_url:
+        body.purchaseMode === "external" ? body.externalUrl || null : null,
+      store_id:
+        body.purchaseMode === "external" ? body.storeId || null : null,
     })
     .eq("tenant_id", tenantId)
     .eq("id", id)

@@ -19,6 +19,8 @@ export default async function EmployeesPage({
     requireTenantContext(),
   ]);
 
+  console.log(members, "<_______ members")
+
   const canInvite =
     tenantContext.role === "owner" || tenantContext.role === "admin";
 

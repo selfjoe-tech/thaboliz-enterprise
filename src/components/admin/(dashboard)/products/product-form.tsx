@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Upload, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -21,10 +21,20 @@ import {
   updateProductAction,
 } from "@/app/lib/actions/dashboard-info/product";
 import CategoryMultiSelect from "./category-multi-select";
+import StoreAutocomplete from "./store-autocomplete";
+import QuestionTooltip from "./question-tooltip";
+import StoreCombobox from "./store-combobox";
 
 type CategoryOption = {
   id: string;
   name: string;
+};
+
+type StoreItem = {
+  id: string;
+  name: string;
+  slug: string;
+  website_url: string | null;
 };
 
 type ProductFormProps = {
@@ -36,6 +46,10 @@ type ProductFormProps = {
     description: string | null;
     categories: string[] | null;
     external_url: string | null;
+    store_id: string | null;
+    store_name?: string | null;
+    store_slug?: string | null;
+    store_website_url?: string | null;
     price: number | null;
     compare_at_price: number | null;
     cover_image_url: string | null;
@@ -44,6 +58,7 @@ type ProductFormProps = {
     stock_quantity: number | null;
     stock_status: "in_stock" | "out_of_stock" | "preorder";
     sku: string | null;
+    purchase_mode: "internal" | "external";
   };
 };
 
@@ -55,8 +70,19 @@ function textareaClassName() {
   return "w-full rounded-xl border border-slate-300 bg-white px-3 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:ring-2 focus:ring-slate-900/10";
 }
 
-function labelClassName() {
-  return "mb-2 block text-sm font-medium text-slate-800";
+function Label({
+  children,
+  tip,
+}: {
+  children: React.ReactNode;
+  tip: string;
+}) {
+  return (
+    <div className="mb-2 flex items-center gap-2">
+      <label className="block text-sm font-medium text-slate-800">{children}</label>
+      <QuestionTooltip text={tip} />
+    </div>
+  );
 }
 
 export default function ProductForm({
@@ -66,13 +92,35 @@ export default function ProductForm({
 }: ProductFormProps) {
   const router = useRouter();
 
+const [store, setStore] = useState<{
+  id: string;
+  name: string;
+} | null>(null);
+
+
   const [title, setTitle] = useState(product?.title ?? "");
   const [description, setDescription] = useState(product?.description ?? "");
   const [selectedCategories, setSelectedCategories] = useState<string[]>(
     product?.categories ?? [],
   );
   const [categoryOptions, setCategoryOptions] = useState<CategoryOption[]>(categories);
+
+  const [purchaseMode, setPurchaseMode] = useState<"internal" | "external">(
+    product?.purchase_mode ?? "internal",
+  );
+
   const [externalUrl, setExternalUrl] = useState(product?.external_url ?? "");
+  const [selectedStore, setSelectedStore] = useState<StoreItem | null>(
+    product?.store_id && product?.store_name
+      ? {
+          id: product.store_id,
+          name: product.store_name,
+          slug: product.store_slug ?? "",
+          website_url: product.store_website_url ?? null,
+        }
+      : null,
+  );
+
   const [price, setPrice] = useState(
     product?.price != null ? String(product.price) : "",
   );
@@ -95,18 +143,29 @@ export default function ProductForm({
   const [fileValue, setFileValue] = useState<File[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  useEffect(() => {
+    if (purchaseMode === "internal") {
+      setExternalUrl("");
+      setSelectedStore(null);
+    }
+  }, [purchaseMode]);
+
   const previewUrl = useMemo(() => {
     if (fileValue[0]) return URL.createObjectURL(fileValue[0]);
     return product?.cover_image_url ?? null;
   }, [fileValue, product?.cover_image_url]);
-
-  const purchaseMode = externalUrl.trim() ? "external" : "internal";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     try {
+      if (purchaseMode === "external" && !store?.id) {
+        alert("Choose a store for external products.");
+        setIsSubmitting(false);
+        return;
+      }
+
       let coverImageUrl = product?.cover_image_url ?? null;
 
       if (fileValue.length > 0) {
@@ -121,23 +180,29 @@ export default function ProductForm({
         coverImageUrl = uploadRes.publicUrl;
       }
 
-      const payload = {
-        ...(mode === "edit" ? { id: product?.id } : {}),
-        title: title.trim(),
-        description: description.trim() || null,
-        categories: selectedCategories,
-        externalUrl: externalUrl.trim() || null,
-        price: price !== "" ? Number(price) : null,
-        compareAtPrice: compareAtPrice !== "" ? Number(compareAtPrice) : null,
-        inventoryMode,
-        stockQuantity:
-          inventoryMode === "tracked" ? Number(stockQuantity || 0) : null,
-        stockStatus: inventoryMode === "untracked" ? stockStatus : null,
-        status,
-        coverImageUrl,
-        sku: sku.trim() || null,
-        purchaseMode,
-      };
+          const payload = {
+            ...(mode === "edit" ? { id: product?.id } : {}),
+
+            title: title.trim(),
+            description: description.trim() || null,
+            categories: selectedCategories,
+
+            externalUrl: externalUrl.trim() || null,
+            storeId: purchaseMode === "external" ? store?.id ?? null : null, // 👈 REQUIRED FIX
+
+            price: price !== "" ? Number(price) : null,
+            compareAtPrice: compareAtPrice !== "" ? Number(compareAtPrice) : null,
+
+            inventoryMode,
+            stockQuantity:
+              inventoryMode === "tracked" ? Number(stockQuantity || 0) : null,
+            stockStatus: inventoryMode === "untracked" ? stockStatus : null,
+
+            status,
+            coverImageUrl,
+            sku: sku.trim() || null,
+            purchaseMode,
+          };
 
       const res =
         mode === "create"
@@ -173,7 +238,9 @@ export default function ProductForm({
     >
       <div className="grid gap-6 md:grid-cols-2">
         <div>
-          <label className={labelClassName()}>Product title</label>
+          <Label tip="The name customers and staff will see for this product.">
+            Product title
+          </Label>
           <input
             value={title}
             onChange={(e) => setTitle(e.target.value)}
@@ -184,7 +251,9 @@ export default function ProductForm({
         </div>
 
         <div>
-          <label className={labelClassName()}>SKU</label>
+          <Label tip="An internal tracking code for your own reference.">
+            SKU
+          </Label>
           <input
             value={sku}
             onChange={(e) => setSku(e.target.value)}
@@ -203,7 +272,9 @@ export default function ProductForm({
         </div>
 
         <div>
-          <label className={labelClassName()}>Price</label>
+          <Label tip="The selling price for this product.">
+            Price
+          </Label>
           <input
             type="number"
             step="0.01"
@@ -215,7 +286,9 @@ export default function ProductForm({
         </div>
 
         <div>
-          <label className={labelClassName()}>Compare at price</label>
+          <Label tip="An optional old price used to show a discount.">
+            Compare at price
+          </Label>
           <input
             type="number"
             step="0.01"
@@ -227,7 +300,25 @@ export default function ProductForm({
         </div>
 
         <div>
-          <label className={labelClassName()}>Product status</label>
+          <Label tip="Choose whether this product is sold inside your own store or redirected to another store.">
+            Product type
+          </Label>
+          <select
+            value={purchaseMode}
+            onChange={(e) =>
+              setPurchaseMode(e.target.value as "internal" | "external")
+            }
+            className={fieldClassName()}
+          >
+            <option value="internal">Internal</option>
+            <option value="external">External</option>
+          </select>
+        </div>
+
+        <div>
+          <Label tip="The current product status shown in the admin system.">
+            Product status
+          </Label>
           <select
             value={status}
             onChange={(e) =>
@@ -242,7 +333,9 @@ export default function ProductForm({
         </div>
 
         <div>
-          <label className={labelClassName()}>Inventory mode</label>
+          <Label tip="Choose whether stock is tracked by quantity or by a simple stock state.">
+            Inventory mode
+          </Label>
           <select
             value={inventoryMode}
             onChange={(e) =>
@@ -257,7 +350,9 @@ export default function ProductForm({
 
         {inventoryMode === "tracked" ? (
           <div>
-            <label className={labelClassName()}>Stock quantity</label>
+            <Label tip="How many units are currently available.">
+              Stock quantity
+            </Label>
             <input
               type="number"
               min="0"
@@ -269,7 +364,9 @@ export default function ProductForm({
           </div>
         ) : (
           <div>
-            <label className={labelClassName()}>Stock status</label>
+            <Label tip="Use this when you are not tracking exact quantity.">
+              Stock status
+            </Label>
             <select
               value={stockStatus}
               onChange={(e) =>
@@ -286,21 +383,43 @@ export default function ProductForm({
           </div>
         )}
 
-        <div className="md:col-span-2">
-          <label className={labelClassName()}>External buying link</label>
-          <input
-            value={externalUrl}
-            onChange={(e) => setExternalUrl(e.target.value)}
-            className={fieldClassName()}
-            placeholder="Leave blank if customers buy on this platform"
-          />
-          <p className="mt-2 text-xs text-slate-500">
-            If you paste a link here, this product will behave as an external redirect listing.
-          </p>
-        </div>
+        {purchaseMode === "external" ? (
+          <>
+            <div className="md:col-span-2">
+              <Label tip="Search and select the store this external product belongs to.">
+                Store
+              </Label>
+               <StoreCombobox
+                  value={store}
+                    onChange={(s) => setStore(s)}
+                />
+
+                <p className="mt-2 text-xs text-slate-500">
+                  Select or create the store where this product is sold.
+                </p>
+            </div>
+
+            <div className="md:col-span-2">
+              <Label tip="The exact page customers will be sent to when they click the product.">
+                External buying link
+              </Label>
+              <input
+                value={externalUrl}
+                onChange={(e) => setExternalUrl(e.target.value)}
+                className={fieldClassName()}
+                placeholder="https://..."
+              />
+              <p className="mt-2 text-xs text-slate-500">
+                This is the destination URL for the customer.
+              </p>
+            </div>
+          </>
+        ) : null}
 
         <div className="md:col-span-2">
-          <label className={labelClassName()}>Description</label>
+          <Label tip="A longer description of the product.">
+            Description
+          </Label>
           <textarea
             rows={6}
             value={description}
@@ -311,9 +430,9 @@ export default function ProductForm({
         </div>
 
         <div className="md:col-span-2">
-          <label className={labelClassName()}>Product image</label>
-
-          
+          <Label tip="Upload the main product image. One image is enough.">
+            Product image
+          </Label>
 
           <FileUpload
             value={fileValue}
@@ -378,13 +497,6 @@ export default function ProductForm({
               ))}
             </FileUploadList>
           </FileUpload>
-        </div>
-
-        <div className="rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600 md:col-span-2">
-          Buying mode:{" "}
-          <span className="font-medium text-slate-900">
-            {purchaseMode === "external" ? "External redirect" : "Internal"}
-          </span>
         </div>
       </div>
 

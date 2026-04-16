@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import "./globals.css";
 
 import type { Metadata, Viewport } from "next";
+import TopLoader from "@/components/TopLoader";
 
 
 const siteUrl = "https://thaboliz.co.za";
@@ -196,7 +198,14 @@ export default function RootLayout({
             />
           </head>
     
-      <body>{children}</body>
+      <body>
+        <Suspense>
+                  <TopLoader />
+                </Suspense>
+        
+        
+        
+        {children}</body>
     </html>
   );
 }

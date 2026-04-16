@@ -26,6 +26,8 @@ export async function listEmployees(search = "") {
 
   const userIds = [...new Set((memberships ?? []).map((m: any) => m.user_id).filter(Boolean))];
 
+  console.log(userIds, "<_______userIds")
+
   let profiles: any[] = [];
 
   if (userIds.length > 0) {
@@ -36,16 +38,21 @@ export async function listEmployees(search = "") {
 
     if (profilesError) throw profilesError;
     profiles = profileRows ?? [];
+    console.log(profiles, "<_______ profiles")
   }
 
   const profileMap = new Map(
     profiles.map((profile: any) => [profile.id, profile]),
   );
 
+  console.log(profileMap, "<______ profileMap")
+
   const members = (memberships ?? []).map((membership: any) => ({
     ...membership,
     profile: profileMap.get(membership.user_id) ?? null,
   }));
+
+  console.log(members, "<______members")
 
   const q = search.trim().toLowerCase();
 
@@ -56,11 +63,15 @@ export async function listEmployees(search = "") {
     return !q || name.includes(q) || email.includes(q) || role.includes(q);
   });
 
+  console.log(filteredMembers, "<________filteredMembers")
+
   const filteredInvites = (invites ?? []).filter((invite: any) => {
     const email = invite.email?.toLowerCase() ?? "";
     const role = invite.role?.toLowerCase() ?? "";
     return !q || email.includes(q) || role.includes(q);
   });
+
+  console.log(filteredInvites, "<_____filteredInvites")
 
   return {
     members: filteredMembers,

@@ -13,9 +13,7 @@ export default function RootLayout({
   return (
     
       <div className="min-h-screen w-full bg-background text-foreground">
-        <Suspense>
-          <TopLoader />
-        </Suspense>
+        
 
         <SiteHeader />
 
