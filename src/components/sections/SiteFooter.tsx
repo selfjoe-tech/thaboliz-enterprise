@@ -77,7 +77,7 @@ export default function SiteFooter() {
     { label: "Construction", href: "/services/construction" },
     { label: "Technologies", href: "/services/technologies" },
     { label: "Ecommerce Products", href: "/services/enterprise/products" },
-    // { label: "Mining", href: "/services/mining" },
+    { label: "Mining", href: "/services/mining" },
     { label: "Logistics", href: "/services/logistics" },
     { label: "Integrated Farms", href: "/services/integrated-farms" },
     { label: "Enterprise", href: "/services/enterprise" },
@@ -185,11 +185,11 @@ export default function SiteFooter() {
           <p className="flex gap-1 text-nowrap text-white/55">
             Images and illustrations by
             <Link
-            href={"https://www.freepik.com/"}
+            href={"https://www.magnific.com/"}
             className="text-blue-500 underline"
           
           >
-            Freepik
+            Magnific
 
           </Link>
           </p>

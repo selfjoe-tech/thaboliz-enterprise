@@ -94,3 +94,4 @@ export async function listCategoriesPaged(page = 1, pageSize = 10, search?: stri
     total: typeof count === "number" ? count : data?.length ?? 0,
   };
 }
+

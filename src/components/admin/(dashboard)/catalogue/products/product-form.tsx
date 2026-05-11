@@ -127,7 +127,7 @@ const [retailer, setRetailer] = useState<"Takealot" | "Makro">(
         title,
         slug,
         description: description || null,
-        category_id: categoryId || null,
+        category_names: categoryNames,
         retailer,
         external_url: externalUrl,
         price: Number(price || 0),

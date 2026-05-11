@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, ChevronRight, ChevronDown, ArrowUpRight, ChevronUp, Flame } from "lucide-react";
+import { Menu, ChevronRight, ChevronDown, ArrowUpRight, ChevronUp, Flame, Pickaxe } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   NavigationMenu,
@@ -112,16 +112,16 @@ const WHAT_WE_DO: WhatWeDoItem[] = [
     image: { src: "/stock/pic-22.jpg", alt: "Technologies" },
     chips: ["Web platforms", "Automation", "Systems", "Digital ops", "Cyber Security"],
   },
-  // {
-  //   id: "mining",
-  //   title: "Mining",
-  //   description:
-  //     "Responsible extraction operations with a focus on process discipline and compliance readiness.",
-  //   href: "/services/mining",
-  //   icon: <Pickaxe className="h-4 w-4" />,
-  //   image: { src: "/stock/pic-23.jpg", alt: "Mining" },
-  //   chips: ["Operations support", "Compliance readiness", "Project logistics"],
-  // },
+  {
+    id: "mining",
+    title: "Mining",
+    description:
+      "Responsible extraction operations with a focus on process discipline and compliance readiness.",
+    href: "/services/mining",
+    icon: <Pickaxe className="h-4 w-4" />,
+    image: { src: "/stock/pic-23.jpg", alt: "Mining" },
+    chips: ["Operations support", "Compliance readiness", "Project logistics"],
+  },
   {
     id: "logistics",
     title: "Logistics",
