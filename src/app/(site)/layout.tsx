@@ -3,6 +3,7 @@ import "../globals.css";
 import TopLoader from "@/components/TopLoader";
 import { Suspense } from "react";
 import SiteFooter from "@/components/sections/SiteFooter";
+import FloatingWhatsAppButton from "@/components/FloatingWhatsAppButton";
 
 // ─── Root Layout ─────────────────────────────────────────────────────────────
 export default function RootLayout({
@@ -23,7 +24,7 @@ export default function RootLayout({
         {children}
 
         <SiteFooter />
-        {/* <FloatingWhatsAppButton /> */}
+        <FloatingWhatsAppButton />
       </div>
   
   );

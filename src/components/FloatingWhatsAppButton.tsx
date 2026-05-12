@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-const WHATSAPP_NUMBER = "27712345678"; // replace with your real number
+const WHATSAPP_NUMBER = "27615040460"; // replace with your real number
 const WHATSAPP_MESSAGE =
-  "Hello Thaboliz, I would like to make an enquiry.";
+  "Hello, I would like to make an enquiry.";
 
 const whatsappHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   WHATSAPP_MESSAGE
